@@ -1,10 +1,5 @@
-remote_theme: chesterhow/tale
-
-permalink:    /:year-:month-:day/:title
-paginate:     5
-
+remote_theme: pages-themes/minimal@v0.2.0
 plugins:
-  - jekyll-paginate
-  - jekyll-remote-theme
+- jekyll-remote-theme # add this line to the plugins list if you already have one
   
 title: TAKE IT EASY
