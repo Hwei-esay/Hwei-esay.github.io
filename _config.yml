@@ -1,8 +1,0 @@
-title: Take it easy
-logo: /assets/img/Hwei-logo.png
-description: A place to aggregate my resources and post my thoughts.
-show_downloads: False
-google_analytics:
-theme: jekyll-theme-minimal
-plugins:
-  - jemoji #Uncomment this to allow emoji in your post
