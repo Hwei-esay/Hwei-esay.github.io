@@ -7,7 +7,7 @@
 #
 layout: page
 ---
-Hello, I'm an undergraduate in Chongqing Univercity.
+Hello, I'm an undergraduate in Chongqing University.
 
 Next steps:
 - Create my online resume using another jekyell theme or via a new layout(maybe a css)
