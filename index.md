@@ -11,6 +11,7 @@ Hello, I'm an undergraduate in Chongqing University.
 
 Next steps:
 - Create my online resume using another jekyell theme or via a new layout(maybe a css)
+- Add category function
 
 My github repository ：[Hwei-esay](https://github.com/Hwei-esay/Hwei-esay.github.io)
 
