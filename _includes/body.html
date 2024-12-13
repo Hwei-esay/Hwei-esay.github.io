@@ -1,0 +1,76 @@
+<div class="page-wrapper" tabindex="-1" role="main">
+    {% if page.cover %}
+        <img src="{{ page.cover }}"
+             width="100%"
+             height="{{ page.cover_height | default: '100%' }}"
+             alt="{{ page.title | escape }}"
+             style="object-fit: cover;"
+        />
+    {% endif %}
+
+    <div class="page-inner">
+        <div id="book-search-results">
+            <div class="search-noresults">
+                <section class="normal markdown-section">
+                    {% if page.title %}
+                        <h1 id="{{ page.id }}">{{ page.title | escape }}</h1>
+                    {% else %}
+                        <h1 id="{{ page.id }}">{{ site.title | escape }}</h1>
+                    {% endif %}
+
+                    {{ content }}
+
+                    {%- if jekyll.environment != 'dev' and site.disqushandler -%}
+                        {%- include disqus.html -%}
+                    {%- endif -%}
+                </section>
+            </div>
+
+            {%- include search.html -%}
+        </div>
+    </div>
+</div>
+
+<!--底部波浪开始-->
+<div class="wiiuii_layout">
+<svg class="editorial"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 24 150 28"
+     preserveAspectRatio="none">
+ <defs>
+ <path id="gentle-wave"
+ d="M-160 44c30 0 
+    58-18 88-18s
+    58 18 88 18 
+    58-18 88-18 
+    58 18 88 18
+    v44h-352z" />
+  </defs>
+  <g class="parallax">
+   <use xlink:href="#gentle-wave" x="50" y="0" fill="#00F5FF"/>
+   <use xlink:href="#gentle-wave" x="50" y="6" fill="#1E90FF"/>
+   <use xlink:href="#gentle-wave" x="50" y="12" fill="#2d55aa"/>  
+  </g>
+</svg>
+</div>
+<style type='text/css'>
+.parallax > use{animation: move-forever 12s linear infinite;}.parallax > use:nth-child(1){animation-delay: -2s;}.parallax > use:nth-child(2){animation-delay: -2s; animation-duration: 5s;}.parallax > use:nth-child(3){animation-delay: -4s; animation-duration: 3s;}@keyframes move-forever{0%{transform: translate(-90px, 0%);} 100%{transform: translate(85px, 0%);}}.wiiuii_layout{width: 100%;height: 40px;position: relative;overflow: hidden;z-index: 1;background: var(--footer-bg);}.editorial{display: block; width: 100%; height: 40px; margin: 0;}
+</style>
+
+
+
+
+
+
+
+<!-- introduce mathjax support -->
+{% include mathjax.html %}
+
+<!-- introduce per-page mermaid support -->
+{% if page.mermaid %}
+    {% include mermaid.html %}
+{% endif %}
+
+<!-- introduce mathjax support -->
+{% include fixes-chrome-anchors.html %}
