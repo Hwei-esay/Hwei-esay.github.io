@@ -5,8 +5,8 @@ navbar_entries:
   - title: Paste
     url: paste
     
-  - title: Blog
-    url: blog
+  # - title: Blog
+  #   url: blog
 
   # - title: website
   #   url: https://www.abhinav.co
