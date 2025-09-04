@@ -2,6 +2,7 @@
 layout: post
 author: Haowei Guo
 tags: [dairy]
+title:心死道生
 ---
 # 心死道生
 
