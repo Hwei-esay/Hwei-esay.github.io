@@ -4,9 +4,9 @@ author: Haowei Guo
 tags: [dairy]
 title: 菜菜子&于谦【多新鲜呐ep04】
 ---
-![img](http://i0.hdslb.com/bfs/archive/a238a33adbf1a01d37d32a3884ff30586db37e35.jpg)
+![img](/assets/images/favicon/CaimingandYuqian.jpg)
 
-[当虚拟萌神遇上相声老炮，菜菜子给于谦一些虚拟主播的震撼！【多新鲜呐ep04 | 于谦的视频播客】](https://www.bilibili.com/video/BV1ybHXzfEEu/?spm_id_from=333.337.search-card.all.click&vd_source=8618b35766148e933dd3adf968d119bd)
+[当虚拟萌神遇上相声老炮，菜菜子给于谦一些虚拟主播的震撼！【多新鲜呐ep04 | 于谦的视频播客】](https://www.bilibili.com/video/BV1ybHXzfEEu)
 
 ## 爱是无条件的理解
 
@@ -14,11 +14,13 @@ title: 菜菜子&于谦【多新鲜呐ep04】
 
 “你答应他们的事情就一定要办到"这句话也让人动容。聊到菜菜子的“倒霉朋友"，就说菜菜子曾经答应孩子们问问到底恩希玛好不好吃，她真的去问了德刚，然后说你答应他们的事情一定要做到。这就让人感觉到他爱你，他无条件地把你当作一个平等的人来爱你。
 
-#### 这才可以被称为偶像
+## 只有爱可以修复心
+
+### 这才可以被称为偶像
 
 所谓偶像就是他真的有优秀的品质，他的言行非常值得你学习。
 
-#### 理性 Vs 感性
+### 理性 Vs 感性
 
 "过度的理性是一种悲哀，丧失了作为人类最基本的情感。"
 
