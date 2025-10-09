@@ -5,8 +5,8 @@ layout: home
 
 sub:
 
-Notes2: https://hwei-esay.github.io/notes2/
+Notes2: [https://hwei-esay.github.io/notes2/](https://hwei-esay.github.io/notes2/)
 
-Lectures: https://hwei-esay.github.io/Lectures/
+Lectures: [https://hwei-esay.github.io/Lectures/](https://hwei-esay.github.io/Lectures/)
 
-DOS: https://hwei-esay.github.io/DOS/
+DOS: [https://hwei-esay.github.io/DOS/](https://hwei-esay.github.io/DOS/)
