@@ -1,2 +1,2 @@
 # 操作，建模与经济
-![](/assets/bilibili-chat.png)
+![](/assets/images/bilibili-chat.png)

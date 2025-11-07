@@ -4,7 +4,7 @@ author: Haowei Guo
 tags: [dairy]
 title: 菜菜子&于谦【多新鲜呐ep04】
 ---
-![img](/assets/images/favicon/CaimingandYuqian.jpg)
+![img](/assets/images/CaimingandYuqian.jpg)
 
 [当虚拟萌神遇上相声老炮，菜菜子给于谦一些虚拟主播的震撼！【多新鲜呐ep04 | 于谦的视频播客】](https://www.bilibili.com/video/BV1ybHXzfEEu)
 
