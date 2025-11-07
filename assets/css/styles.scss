@@ -1,17 +1,6 @@
 ---
 ---
 
-@charset "utf-8";
-
-@import
-"reset",
-"wrapper",
-"page",
-"footer",
-"header",
-"float",
-"posts",
-"categories",
-"post",
-"mobile"
-;
+@import "bootstrap-dark";
+@import "syntax-highlighting";
+@import "main";
