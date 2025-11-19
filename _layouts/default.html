@@ -29,6 +29,14 @@
     {% seo %} {% feed_meta %} {%- if jekyll.environment == 'production' and
     site.google_analytics -%} {%- include google-analytics.html -%} {%- endif
     -%}
+        <!-- 自定义样式：修改分割线粗细 -->
+      <style>
+        hr {
+          margin: 1rem 0;
+          border: 0;
+          border-top: 5px solid #ccc; /* 调整数字改粗细，颜色也可改 */
+        }
+      </style>
   </head>
   <body class="d-flex flex-column h-100">
     <div class="container">
