@@ -2,7 +2,7 @@
 layout: post
 ---
 
-# Language Test
+# [Test] Language Test
 
 ## Python
 ```python
