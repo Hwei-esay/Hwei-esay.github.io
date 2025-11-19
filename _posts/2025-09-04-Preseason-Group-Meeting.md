@@ -3,7 +3,9 @@ layout: post
 author: Haowei Guo
 tags: [group meeting]
 ---
-概要
+# [Grow] Group Meeting Notes
+
+
 
 - [经验分享](#经验分享)
 - [未来规划](#未来规划)
