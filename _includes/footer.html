@@ -5,13 +5,13 @@
 <!--  </span>-->
 <!--</footer>-->
 <footer class="footer mt-auto py-3">
-  <div class="container footer-container d-flex justify-content-between align-items-center">
-    <!-- 图标 -->
-    <div>{% include svg_icons.html %}</div>
-
-    <!-- 日期 -->
-    <span class="footer-text">
-      Site Updated: {{ site.time | date: '%Y-%m-%d' }} {{ site.timezone_short }}
-    </span>
+  <div class="container footer-container d-flex justify-content-center">
+    <!-- 图标 + 日期 作为一个整体 -->
+    <div class="d-flex align-items-center gap-2">
+      {% include svg_icons.html %}
+      <span class="footer-text">
+        Site Updated: {{ site.time | date: '%Y-%m-%d' }} {{ site.timezone_short }}
+      </span>
+    </div>
   </div>
 </footer>
