@@ -1,4 +1,7 @@
-# 操作，建模与经济
+---
+layout: post
+title: "[Thoughts] 操作，建模与经济"
+---
 ![](/assets/images/bilibili-chat.png)
 
 Comment from 2025/11/19:

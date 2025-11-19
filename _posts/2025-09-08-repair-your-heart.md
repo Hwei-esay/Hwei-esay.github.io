@@ -2,6 +2,7 @@
 layout: post
 author: Haowei Guo
 tags: [dairy]
+title: "[Thoughts] Repair you heart"
 ---
 ### **最后，送你一句“行动咒语”**
 

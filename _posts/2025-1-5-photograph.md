@@ -1,8 +1,7 @@
 ---
-latout:post
+latout: post
+title: "[Photograh] 天鹅"
 ---
-
-# [Photograh] 天鹅
 
 这周末在天文通上看到了天气是少云适合观星的天气，所以就出去拍照了。
 
