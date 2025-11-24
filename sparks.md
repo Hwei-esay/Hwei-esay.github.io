@@ -1,9 +1,9 @@
 ---
 layout: page
-title: Notepad
-permalink: /notepad/
+title: Sparks
+permalink: /sparks/
 ---
-### Aim to collect small thoughts.
+### Aim to collect small sparks.
 
 ---
 > 操作、建模、经济
