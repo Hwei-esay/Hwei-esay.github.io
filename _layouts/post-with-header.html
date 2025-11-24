@@ -3,16 +3,14 @@ layout: default
 ---
 
 <style>
-
 .post .post-header {
   background-image: url("{{ page.header_image | relative_url }}") !important;
-}
-.post-header {
-  background-image: url('{{ page.header_image | default: "/assets/images/default-header.jpg" }}');
   background-size: cover;
-  background-position: center;
-  padding: 4rem 0;
+  background-position: center 30%; /* 重点：调整垂直位置，显示更多纵向内容 */
+  background-repeat: no-repeat;
+  padding: 6rem 0; /* 增加内边距让头部更高 */
   position: relative;
+  min-height: 60vh; /* 使用视口高度单位，显示更多图片内容 */
 }
 
 .post-header::before {
@@ -22,31 +20,49 @@ layout: default
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4); /* 调整遮罩透明度 */
 }
 
 .post-header-content {
   position: relative;
   z-index: 1;
+  text-align: left; /* 左对齐 */
+  color: white;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .post-header h1 {
   color: white !important;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  font-weight: bold;
 }
 
-.post-header .text-muted {
-  color: rgba(255, 255, 255, 0.8) !important;
+.post-subtitle {
+  color: white !important;
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  opacity: 0.95;
+}
+
+.post-header .post-date {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 1.1rem;
 }
 </style>
 
 <div class="post">
   <div class="post-header">
-    <div class="container">
-      <div class="post-header-content">
-        <h1>{{ page.title }}</h1>
-        <span class="fs-4 text-muted">{{ page.date | date: "%b %d, %y" }}</span>
-      </div>
+    <div class="post-header-content">
+      <h1>{{ page.title }}</h1>
+      {% if page.subtitle %}
+        <div class="post-subtitle">{{ page.subtitle }}</div>
+      {% endif %}
+      <span class="post-date">{{ page.date | date: "%b %d, %y" }}</span>
     </div>
   </div>
 
@@ -56,3 +72,61 @@ layout: default
     </div>
   </div>
 </div>
+<!-- -&#45;&#45;-->
+<!--layout: default-->
+<!-- -&#45;&#45;-->
+
+<!--<style>-->
+
+<!--.post .post-header {-->
+<!--  background-image: url("{{ page.header_image | relative_url }}") !important;-->
+<!--}-->
+<!--.post-header {-->
+<!--  background-image: url('{{ page.header_image | default: "/assets/images/default-header.jpg" }}');-->
+<!--  background-size: cover;-->
+<!--  background-position: center;-->
+<!--  padding: 4rem 0;-->
+<!--  position: relative;-->
+<!--}-->
+
+<!--.post-header::before {-->
+<!--  content: '';-->
+<!--  position: absolute;-->
+<!--  top: 0;-->
+<!--  left: 0;-->
+<!--  right: 0;-->
+<!--  bottom: 0;-->
+<!--  background: rgba(0, 0, 0, 0.5);-->
+<!--}-->
+
+<!--.post-header-content {-->
+<!--  position: relative;-->
+<!--  z-index: 1;-->
+<!--}-->
+
+<!--.post-header h1 {-->
+<!--  color: white !important;-->
+<!--  margin-bottom: 0.5rem;-->
+<!--}-->
+
+<!--.post-header .text-muted {-->
+<!--  color: rgba(255, 255, 255, 0.8) !important;-->
+<!--}-->
+<!--</style>-->
+
+<!--<div class="post">-->
+<!--  <div class="post-header">-->
+<!--    <div class="container">-->
+<!--      <div class="post-header-content">-->
+<!--        <h1>{{ page.title }}</h1>-->
+<!--        <span class="fs-4 text-muted">{{ page.date | date: "%b %d, %y" }}</span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <div class="container">-->
+<!--    <div class="mt-4">-->
+<!--      {{ content }}-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
