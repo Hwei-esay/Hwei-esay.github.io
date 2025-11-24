@@ -5,15 +5,15 @@ layout: default
 <style>
 .post .post-header {
   background-image: url("{{ page.header_image | relative_url }}") !important;
-  background-size: 100% auto; /* 宽度100%，高度自动按比例 */
-  background-position: center top; /* 顶部对齐 */
+  background-size: 100% auto;
+  background-position: center 20%; /* 向上偏移显示更多下方内容 */
   background-repeat: no-repeat;
   padding: 6rem 0;
   position: relative;
-  height: auto; /* 让高度由内容决定 */
-<!--  min-height: 300px; /* 设置最小高度避免太矮 */-->
+  height: 50vh; /* 对于超宽图片，使用较小的高度比例 */
+  min-height: 400px;
+  max-height: 600px;
 }
-
 
 .post-header::before {
   content: '';
