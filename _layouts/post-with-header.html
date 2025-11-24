@@ -1,18 +1,16 @@
- ---
+---
 layout: default
- ---
+---
 
 <style>
 .post .post-header {
   background-image: url("{{ page.header_image | relative_url }}") !important;
-  background-size: 100% auto;
-  background-position: center 20%; /* 向上偏移显示更多下方内容 */
+  background-size: cover;
+  background-position: center 30%; /* 调整垂直位置，显示更多纵向内容 */
   background-repeat: no-repeat;
-  padding: 6rem 0;
+  padding: 6rem 0; /* 增加内边距让头部更高 */
   position: relative;
-  height: 50vh; /* 对于超宽图片，使用较小的高度比例 */
-<!--  min-height: 400px;-->
-<!--  max-height: 500px;-->
+  min-height: 60vh; /* 使用视口高度单位，显示更多图片内容 */
 }
 
 .post-header::before {
@@ -45,7 +43,7 @@ layout: default
 
 .post-subtitle {
   color: white !important;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 300;
   line-height: 1.4;
   margin-bottom: 1rem;
