@@ -6,7 +6,7 @@ layout: default
 .post .post-header {
   background-image: url("{{ page.header_image | relative_url }}") !important;
   background-size: cover;
-  background-position: center 30%; /* 重点：调整垂直位置，显示更多纵向内容 */
+  background-position: center 30%; /* 调整垂直位置，显示更多纵向内容 */
   background-repeat: no-repeat;
   padding: 6rem 0; /* 增加内边距让头部更高 */
   position: relative;
@@ -26,10 +26,10 @@ layout: default
 .post-header-content {
   position: relative;
   z-index: 1;
-  text-align: left; /* 左对齐 */
+  text-align: left; /* 确保左对齐 */
   color: white;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0; /* 移除自动居中 */
   padding: 0 2rem;
 }
 
@@ -38,20 +38,23 @@ layout: default
   margin-bottom: 1rem;
   font-size: 3rem;
   font-weight: bold;
+  text-align: left; /* 明确设置标题左对齐 */
 }
 
 .post-subtitle {
   color: white !important;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 300;
   line-height: 1.4;
   margin-bottom: 1rem;
   opacity: 0.95;
+  text-align: left; /* 明确设置副标题左对齐 */
 }
 
 .post-header .post-date {
   color: rgba(255, 255, 255, 0.9) !important;
   font-size: 1.1rem;
+  text-align: left; /* 明确设置日期左对齐 */
 }
 </style>
 
