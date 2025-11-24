@@ -3,24 +3,17 @@ layout: default
 ---
 
 <style>
-<!--.post .post-header {-->
-<!--  background-image: url("{{ page.header_image | relative_url }}") !important;-->
-<!--  background-size: cover;-->
-<!--  background-position: center 30%; /* 调整垂直位置，显示更多纵向内容 */-->
-<!--  background-repeat: no-repeat;-->
-<!--  padding: 6rem 0; /* 增加内边距让头部更高 */-->
-<!--  position: relative;-->
-<!--&lt;!&ndash;  min-height: 60vh; /* 使用视口高度单位，显示更多图片内容 */&ndash;&gt;-->
-<!--}-->
-
 .post .post-header {
   background-image: url("{{ page.header_image | relative_url }}") !important;
-  background-size: auto;          /* 关键：使用原始尺寸 */
-  background-position: left top;  /* 不再居中，从左上角开始铺 */
-  background-repeat: no-repeat;   /* 只显示一次，不重复 */
+  background-size: 100% auto; /* 宽度100%，高度自动按比例 */
+  background-position: center top; /* 顶部对齐 */
+  background-repeat: no-repeat;
   padding: 6rem 0;
   position: relative;
+  height: auto; /* 让高度由内容决定 */
+  min-height: 300px; /* 设置最小高度避免太矮 */
 }
+
 
 .post-header::before {
   content: '';
