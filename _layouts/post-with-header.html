@@ -1,99 +1,18 @@
-<!-- -&#45;&#45;-->
-<!--layout: default-->
-<!-- -&#45;&#45;-->
-
-<!--<style>-->
-<!--.post .post-header {-->
-<!--  background-image: url("{{ page.header_image | relative_url }}") !important;-->
-<!--  background-size: 100% auto;-->
-<!--  background-position: center 20%; /* 向上偏移显示更多下方内容 */-->
-<!--  background-repeat: no-repeat;-->
-<!--  padding: 6rem 0;-->
-<!--  position: relative;-->
-<!--  height: 50vh; /* 对于超宽图片，使用较小的高度比例 */-->
-<!--  min-height: 400px;-->
-<!--  max-height: 600px;-->
-<!--}-->
-
-<!--.post-header::before {-->
-<!--  content: '';-->
-<!--  position: absolute;-->
-<!--  top: 0;-->
-<!--  left: 0;-->
-<!--  right: 0;-->
-<!--  bottom: 0;-->
-<!--  background: rgba(0, 0, 0, 0.4); /* 调整遮罩透明度 */-->
-<!--}-->
-
-<!--.post-header-content {-->
-<!--  position: relative;-->
-<!--  z-index: 1;-->
-<!--  text-align: left; /* 确保左对齐 */-->
-<!--  color: white;-->
-<!--  max-width: 800px;-->
-<!--  margin: 0; /* 移除自动居中 */-->
-<!--  padding: 0 2rem;-->
-<!--}-->
-
-<!--.post-header h1 {-->
-<!--  color: white !important;-->
-<!--  margin-bottom: 1rem;-->
-<!--  font-size: 3rem;-->
-<!--  font-weight: bold;-->
-<!--  text-align: left; /* 明确设置标题左对齐 */-->
-<!--}-->
-
-<!--.post-subtitle {-->
-<!--  color: white !important;-->
-<!--  font-size: 2rem;-->
-<!--  font-weight: 300;-->
-<!--  line-height: 1.4;-->
-<!--  margin-bottom: 1rem;-->
-<!--  opacity: 0.95;-->
-<!--  text-align: left; /* 明确设置副标题左对齐 */-->
-<!--}-->
-
-<!--.post-header .post-date {-->
-<!--  color: rgba(255, 255, 255, 0.9) !important;-->
-<!--  font-size: 1.1rem;-->
-<!--  text-align: left; /* 明确设置日期左对齐 */-->
-<!--}-->
-<!--</style>-->
-
-<!--<div class="post">-->
-<!--  <div class="post-header">-->
-<!--    <div class="post-header-content">-->
-<!--      <h1>{{ page.title }}</h1>-->
-<!--      {% if page.subtitle %}-->
-<!--        <div class="post-subtitle">{{ page.subtitle }}</div>-->
-<!--      {% endif %}-->
-<!--      <span class="post-date">{{ page.date | date: "%b %d, %y" }}</span>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <div class="container">-->
-<!--    <div class="mt-4">-->
-<!--      {{ content }}-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-
  ---
 layout: default
  ---
 
 <style>
-
 .post .post-header {
   background-image: url("{{ page.header_image | relative_url }}") !important;
-}
-.post-header {
-  background-image: url('{{ page.header_image | default: "/assets/images/default-header.jpg" }}');
-  background-size: cover;
-  background-position: center;
-  padding: 4rem 0;
+  background-size: 100% auto;
+  background-position: center 20%; /* 向上偏移显示更多下方内容 */
+  background-repeat: no-repeat;
+  padding: 6rem 0;
   position: relative;
+  height: 50vh; /* 对于超宽图片，使用较小的高度比例 */
+<!--  min-height: 400px;-->
+<!--  max-height: 500px;-->
 }
 
 .post-header::before {
@@ -103,31 +22,52 @@ layout: default
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4); /* 调整遮罩透明度 */
 }
 
 .post-header-content {
   position: relative;
   z-index: 1;
+  text-align: left; /* 确保左对齐 */
+  color: white;
+  max-width: 800px;
+  margin: 0; /* 移除自动居中 */
+  padding: 0 2rem;
 }
 
 .post-header h1 {
   color: white !important;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: left; /* 明确设置标题左对齐 */
 }
 
-.post-header .text-muted {
-  color: rgba(255, 255, 255, 0.8) !important;
+.post-subtitle {
+  color: white !important;
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  opacity: 0.95;
+  text-align: left; /* 明确设置副标题左对齐 */
+}
+
+.post-header .post-date {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: 1.1rem;
+  text-align: left; /* 明确设置日期左对齐 */
 }
 </style>
 
 <div class="post">
   <div class="post-header">
-    <div class="container">
-      <div class="post-header-content">
-        <h1>{{ page.title }}</h1>
-        <span class="fs-4 text-muted">{{ page.date | date: "%b %d, %y" }}</span>
-      </div>
+    <div class="post-header-content">
+      <h1>{{ page.title }}</h1>
+      {% if page.subtitle %}
+        <div class="post-subtitle">{{ page.subtitle }}</div>
+      {% endif %}
+      <span class="post-date">{{ page.date | date: "%b %d, %y" }}</span>
     </div>
   </div>
 
