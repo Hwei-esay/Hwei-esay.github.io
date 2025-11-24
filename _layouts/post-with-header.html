@@ -3,6 +3,10 @@ layout: default
 ---
 
 <style>
+
+.post .post-header {
+  background-image: url("{{ page.header_image | relative_url }}") !important;
+}
 .post-header {
   background-image: url('{{ page.header_image | default: "/assets/images/default-header.jpg" }}');
   background-size: cover;
