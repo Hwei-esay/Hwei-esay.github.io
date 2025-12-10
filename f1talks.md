@@ -13,7 +13,7 @@ header_image: "assets/images/max-verstappen-f1-australian-grand-prix-2025.jpg"
 
 ---
 ## 2025 Abu Dhabi Grand Prix 
-![img.png](assets/images/img.)
+![img.png](assets/images/img.png)
 
 ### Lando Norris wins the 2025 WDC finally
 在手握12分领先优势的情况下，Lando Norris 顺利在阿布扎比登上领奖台并最终取得2025的F1WDC。但是有很多人觉得LN(Lando Norris)并不值得这个WDC，相反，WDC应该归属与Max Verstappen。我觉得Max已经完成了自己所能做到的一切努力，剩下的就交给天命，但是将自己的胜负交给对手来决定始终是一件很令人不安的事情。无论如何，Max在本赛季证明了自己前四个世界冠军的含金量，并且将自己的人生哲学通过无与伦比的赛场表现感染了无数的观众。
