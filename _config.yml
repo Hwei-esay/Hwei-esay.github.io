@@ -115,7 +115,7 @@ analytics:
 # Site Author
 author:
   name             : "Hwei-esay"
-  avatar           : "assets/images/lewis-avatar.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "assets/images/lewis-avatar.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Make it nice and simple."
   location         : "Chongqing"
   email            : 2499032660@qq.com
