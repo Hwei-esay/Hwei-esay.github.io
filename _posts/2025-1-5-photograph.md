@@ -1,5 +1,4 @@
 ---
-latout: post
 title: "[Photograh] 天鹅"
 ---
 

@@ -1,5 +1,4 @@
 ---
-layout: post
 author: Haowei Guo
 tags: [group meeting]
 title: "[Grow] Group Meeting Notes"
