@@ -5,8 +5,7 @@ tags:
   - Thougts
 ---
 
-[![zhangxue.png](assets/images/zhangxue.png)](https://www.bilibili.com/video/BV1QFX6BFEMH)
-
+[![zhangxue.png](../assets/images/zhangxue.png)](https://www.bilibili.com/video/BV1QFX6BFEMH)
 ## 背景
 
 最近一个叫张雪的人和他的摩托车公司上了热搜，紧接着就是包括央媒在内的各大媒体的铺天盖地的宣传。我们不禁要问，张雪是谁，他为什么值得被全社会关注？
