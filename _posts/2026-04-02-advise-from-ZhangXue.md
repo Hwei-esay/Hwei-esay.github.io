@@ -5,7 +5,7 @@ tags:
   - Thougts
 ---
 
-(![zhangxue.png](assets/images/zhangxue.png))
+[![zhangxue.png](assets/images/zhangxue.png)](https://www.bilibili.com/video/BV1QFX6BFEMH)
 
 ## 背景
 
