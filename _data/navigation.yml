@@ -4,6 +4,8 @@ main:
   #   url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
   - title: "About"
     url: /about/
+  - title: "Repository"
+    url: "https://github.com/Hwei-esay/Hwei-esay.github.io"
   # - title: "Sample Posts"
   #   url: /year-archive/
   # - title: "Sample Collections"

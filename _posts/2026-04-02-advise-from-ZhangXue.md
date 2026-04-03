@@ -5,7 +5,7 @@ tags:
   - Thougts
 ---
 
-# 热爱可抵万难
+(![zhangxue.png](assets/images/zhangxue.png))
 
 ## 背景
 
