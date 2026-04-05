@@ -2,7 +2,7 @@
 title: "Advise from Zhang"
 show_date: true
 tags:
-  - Thougts
+  - Thoughts
 ---
 **张雪峰41岁的人生感悟：深耕、拥抱变化与认知的重构**
 
