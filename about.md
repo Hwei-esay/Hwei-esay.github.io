@@ -1,7 +1,7 @@
 ---
 permalink: /about/
 title: "About"
-layout: posts
+layout: default
 ---
 
 This is about.
