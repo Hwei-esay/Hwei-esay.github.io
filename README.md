@@ -30,7 +30,7 @@ http://127.0.0.1:4000
 
 ## 部署到 GitHub Pages
 
-1. 创建用户名仓库：`yourusername.github.io`
+1. 创建用户名仓库：`Hwei-esay.github.io`
 2. 修改 `_config.yml` 里的 `url`、`author`、`social` 等个人信息
 3. 提交并 push 到 GitHub
 

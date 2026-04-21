@@ -6,15 +6,15 @@
 # 再把 baseurl 改为 "/my-site" 即可。
 # -----------------------------
 
-title: "Lin's Signals"
-email: "hello@example.com" # TODO: 改成你的邮箱
+title: "Hwei's Signals"
+email: "2499032660@qq.com"
 description: >-
   一个用于写短博客、记录灵感、沉淀教程与学术报告笔记的个人 Jekyll 站点。
   设计保持简洁，但带一点炫彩和层次感，适合长期使用与 GitHub Pages 部署。
 
 # 站点正式域名。
 # 用户名仓库一般写成 https://你的用户名.github.io
-url: "https://yourusername.github.io" # TODO: 改成你的 GitHub Pages 域名
+url: "https://hwei-esay.github.io"
 
 # 用户名仓库保持空字符串；项目仓库才需要写成 "/repo-name"
 baseurl: ""
@@ -24,10 +24,10 @@ timezone: "Asia/Shanghai"
 
 # 站点署名信息，便于模板引用
 author:
-  name: "Your Name" # TODO: 改成你的名字
-  title: "Builder / Learner / Research Note Taker"
+  name: "Haowei Guo"
+  title: "Hwei's Signals"
   bio: "喜欢把零散经验整理成可复用的知识，把问题讲清楚，也把成长记录下来。"
-  github: "yourusername" # TODO: 改成你的 GitHub 用户名
+  github: "Hwei-esay"
 
 # 导航配置：可直接增删，header 会自动渲染
 navigation:
@@ -53,8 +53,8 @@ home:
 
 # 社交链接。需要哪个留哪个，不需要可删掉整行。
 social:
-  github: "https://github.com/yourusername" # TODO: 改成你的 GitHub 主页
-  email: "mailto:hello@example.com" # TODO: 改成你的邮箱
+  github: "https://github.com/Hwei-esay"
+  email: "mailto:2499032660@qq.com"
 
 # 自定义集合，用来区分不同内容形态
 collections:
