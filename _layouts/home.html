@@ -1,21 +1,109 @@
 ---
-layout: archive
+layout: default
 ---
-{%- assign locale = page.locale | default: layout.locale | default: site.locale %}
 
-{{ content }}
+{% assign featured_posts = site.posts | slice: 0, site.home.featured_posts %}
+{% assign featured_moments = site.moments | reverse | slice: 0, site.home.featured_moments %}
+{% assign featured_tutorials = site.tutorials | reverse | slice: 0, site.home.featured_tutorials %}
+{% assign featured_reports = site.academia | reverse | slice: 0, site.home.featured_reports %}
 
-<h3 class="archive__subtitle">{{ site.data.ui-text[locale].recent_posts | default: "Recent Posts" }}</h3>
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">Jekyll Personal Knowledge Hub</p>
+    <h1>{{ site.title }}</h1>
+    <p class="hero-text">{{ site.description }}</p>
+    <div class="hero-actions">
+      <a class="button button-primary" href="{{ '/blog/' | relative_url }}">开始阅读</a>
+      <a class="button button-secondary" href="{{ '/about/' | relative_url }}">了解更多</a>
+    </div>
+  </div>
+  <div class="hero-panel">
+    <div class="metric-card">
+      <span class="metric-label">内容模块</span>
+      <strong>4</strong>
+      <p>博客、感悟、教程、学术笔记</p>
+    </div>
+    <div class="metric-card">
+      <span class="metric-label">发布方式</span>
+      <strong>GitHub</strong>
+      <p>Markdown 写作，适合持续 push</p>
+    </div>
+  </div>
+</section>
 
-{% if paginator %}
-  {% assign posts = paginator.posts %}
-{% else %}
-  {% assign posts = site.posts %}
-{% endif %}
+<section class="section-grid">
+  <article class="panel panel-wide">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Recent Blog</p>
+        <h2>短博客</h2>
+      </div>
+      <a href="{{ '/blog/' | relative_url }}">查看全部</a>
+    </div>
+    <div class="card-list">
+      {% for post in featured_posts %}
+        <a class="content-card" href="{{ post.url | relative_url }}">
+          <p class="card-meta">{{ post.date | date: "%Y-%m-%d" }}</p>
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.excerpt | strip_html | strip_newlines | truncate: 120 }}</p>
+        </a>
+      {% endfor %}
+    </div>
+  </article>
 
-{% assign entries_layout = page.entries_layout | default: 'list' %}
-<div class="entries-{{ entries_layout }}">
-  {% include documents-collection.html locale=locale entries=posts type=entries_layout %}
-</div>
+  <article class="panel">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Micro Thoughts</p>
+        <h2>感悟短句</h2>
+      </div>
+      <a href="{{ '/moments/' | relative_url }}">更多短句</a>
+    </div>
+    <div class="moment-list">
+      {% for item in featured_moments %}
+        <a class="moment-item" href="{{ item.url | relative_url }}">
+          <strong>{{ item.title }}</strong>
+          <span>{{ item.date | date: "%m-%d" }}</span>
+        </a>
+      {% endfor %}
+    </div>
+  </article>
+</section>
 
-{% include paginator.html locale=locale %}
+<section class="section-grid">
+  <article class="panel">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Reusable Notes</p>
+        <h2>教程沉淀</h2>
+      </div>
+      <a href="{{ '/tutorials/' | relative_url }}">查看全部</a>
+    </div>
+    <div class="stack-list">
+      {% for item in featured_tutorials %}
+        <a class="stack-item" href="{{ item.url | relative_url }}">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.summary | default: item.excerpt | strip_html | truncate: 88 }}</p>
+        </a>
+      {% endfor %}
+    </div>
+  </article>
+
+  <article class="panel">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Academic Log</p>
+        <h2>学术报告</h2>
+      </div>
+      <a href="{{ '/academia/' | relative_url }}">查看全部</a>
+    </div>
+    <div class="stack-list">
+      {% for item in featured_reports %}
+        <a class="stack-item" href="{{ item.url | relative_url }}">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.summary | default: item.excerpt | strip_html | truncate: 88 }}</p>
+        </a>
+      {% endfor %}
+    </div>
+  </article>
+</section>

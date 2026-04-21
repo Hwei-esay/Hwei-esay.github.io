@@ -1,37 +1,21 @@
----
----
-{%- assign locale = page.locale | default: layout.locale | default: site.locale %}
-
-<!doctype html>
-{% include copyright.html %}
-<html lang="{{ locale | replace: "_", "-" | default: "en" }}" class="no-js">
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'zh-CN' }}">
   <head>
-    {% include head.html locale=locale %}
-    {% include head/custom.html %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="description" content="{{ page.description | default: site.description }}">
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    {% seo %}
+    {% feed_meta %}
   </head>
-
-  <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}" dir="{% if site.rtl %}rtl{% else %}ltr{% endif %}">
-    {% include_cached skip-links.html locale=locale %}
-    {% include_cached masthead.html locale=locale %}
-
-    <div class="initial-content">
-      {{ content }}
-      {% include after-content.html %}
+  <body>
+    <div class="site-shell">
+      {% include header.html %}
+      <main class="site-main">
+        {{ content }}
+      </main>
+      {% include footer.html %}
     </div>
-
-    {% if site.search == true %}
-      <div class="search-content">
-        {% include_cached search/search_form.html locale=locale %}
-      </div>
-    {% endif %}
-
-    <div id="footer" class="page__footer">
-      <footer>
-        {% include footer/custom.html %}
-        {% include_cached footer.html locale=locale %}
-      </footer>
-    </div>
-
-    {% include scripts.html locale=locale %}
   </body>
 </html>
