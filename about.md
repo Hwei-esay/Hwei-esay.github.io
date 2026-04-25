@@ -22,4 +22,4 @@ description: 关于这个站点与作者
 - [iLovePDF](https://www.ilovepdf.com/) — PDF 处理神器（合并、拆分、转换、压缩）
 
 ### 课题组
-- [CQU-CTCMp](http://www.cquctcmp.com/) — 重庆大学计算理论化学课题组
+- [CQU-CTCMp](http://cquctcmp.com/) — 重庆大学计算理论化学课题组
