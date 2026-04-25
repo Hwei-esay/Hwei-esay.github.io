@@ -1,5 +1,5 @@
 ---
-title: 科研方法论笔记
+title: Research Methodology Notes
 description: 科研训练的核心方法论：计算→故事→综述→精读，四步闭环掌握一个方向。
 ---
 
