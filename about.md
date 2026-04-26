@@ -20,6 +20,7 @@ description: 关于这个站点与作者
 
 ### 工具
 - [iLovePDF](https://www.ilovepdf.com/) — PDF 处理神器（合并、拆分、转换、压缩）
+- [SwitchResX 4.8.0](https://www.waitsun.com/serial/switchresx-4-8-0) — macOS 高分辨率屏幕管理工具
 
 ### 课题组
 - [CQU-CTCMp](http://cquctcmp.com/) — 重庆大学计算理论化学课题组
