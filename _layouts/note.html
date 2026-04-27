@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<article class="content-page">
+<article class="content-page{% if page.section == 'skills' %} content-page--skills{% endif %}">
   <header class="page-header">
     <p class="eyebrow">{{ page.section | default: 'Notes' | upcase }}</p>
     <h1>{{ page.title }}</h1>

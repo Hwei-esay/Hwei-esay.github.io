@@ -431,6 +431,21 @@ a {
   background: #06101b;
 }
 
+.content-page--skills .prose pre {
+  padding-top: 50px;
+}
+
+.content-page--skills .prose pre::before {
+  content: "Skill Content";
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  color: var(--primary);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .code-copy-button {
   position: absolute;
   top: 12px;
