@@ -1,0 +1,8 @@
+{% assign plain_content = content | strip_html %}
+{% assign word_count = plain_content | number_of_words %}
+{% assign read_minutes = word_count | plus: 179 | divided_by: 180 %}
+<p class="article-meta">
+  <span>{{ page.date | date: "%Y-%m-%d" }}</span>
+  <span>·</span>
+  <span>预计 {{ read_minutes }} 分钟</span>
+</p>
