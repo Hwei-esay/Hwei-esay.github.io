@@ -419,18 +419,63 @@ a {
 
 .site-footer {
   margin-top: 8px;
+  padding: 18px 22px;
+  border-radius: 18px;
 }
 
-.footer-links {
+.footer-heading {
   display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin: 16px 0;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
 }
 
-.footer-links a,
+.footer-heading strong {
+  font-size: 1rem;
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: 0.02em;
+}
+
+.footer-repo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(159, 181, 217, 0.22);
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+  transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.footer-repo-link:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(103, 232, 249, 0.38);
+  transform: translateY(-1px);
+}
+
+.footer-repo-link svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+}
+
+.footer-copy p,
 .copyright {
+  margin: 0;
   color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.footer-copy p {
+  max-width: 720px;
+}
+
+.copyright {
+  margin-top: 10px;
+  font-size: 0.82rem;
 }
 
 @media (max-width: 900px) {
@@ -460,6 +505,10 @@ a {
   .panel,
   .site-footer {
     padding: 22px;
+  }
+
+  .site-footer {
+    padding: 16px 18px;
   }
 
   .hero h1 {
