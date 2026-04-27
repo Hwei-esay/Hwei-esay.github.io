@@ -17,5 +17,53 @@
       </main>
       {% include footer.html %}
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const iconCopy = `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M16 1H6a2 2 0 0 0-2 2v12h2V3h10V1Zm3 4H10a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 16H10V7h9v14Z"></path>
+          </svg>
+        `;
+        const iconCheck = `
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+          </svg>
+        `;
+
+        document.querySelectorAll(".prose pre").forEach((pre) => {
+          if (pre.querySelector(".code-copy-button")) return;
+          const code = pre.querySelector("code");
+          if (!code) return;
+
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "code-copy-button";
+          button.setAttribute("aria-label", "Copy code");
+          button.innerHTML = iconCopy;
+
+          let timerId;
+
+          button.addEventListener("click", async () => {
+            try {
+              await navigator.clipboard.writeText(code.innerText);
+              button.classList.add("is-copied");
+              button.setAttribute("aria-label", "Copied");
+              button.innerHTML = iconCheck;
+              window.clearTimeout(timerId);
+              timerId = window.setTimeout(() => {
+                button.classList.remove("is-copied");
+                button.setAttribute("aria-label", "Copy code");
+                button.innerHTML = iconCopy;
+              }, 1800);
+            } catch (error) {
+              button.classList.remove("is-copied");
+              button.setAttribute("aria-label", "Copy failed");
+            }
+          });
+
+          pre.appendChild(button);
+        });
+      });
+    </script>
   </body>
 </html>
