@@ -15,13 +15,3 @@ description: 关于这个站点与作者
 我希望这里不是“堆内容”的地方，而是一个能持续提炼方法、观点和经验的小型知识库。
 
 如果你也在做类似的积累，欢迎通过 GitHub 或邮件交流。
-
-## 实用链接
-
-### 工具
-- [iLovePDF](https://www.ilovepdf.com/) — PDF 处理神器（合并、拆分、转换、压缩）
-- [Phonon Visualization](https://henriquemiranda.github.io/phononwebsite/phonon.html) — 在线声子振动可视化工具
-- [SwitchResX 4.8.0](https://www.waitsun.com/serial/switchresx-4-8-0) — macOS 高分辨率屏幕管理工具
-
-### 课题组
-- [CQU-CTCMp](http://cquctcmp.com/) — 重庆大学计算理论化学课题组
