@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phonon Band Viewer</title>
+  <meta name="description" content="Upload a phonopy band.yaml file and inspect phonon dispersions, eigenvectors, and vibrational modes.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero">
+      <p class="eyebrow">Local Tool / GitHub Pages Ready</p>
+      <h1>Phonon Band Viewer</h1>
+      <p class="hero-copy">
+        基于 <a href="https://github.com/henriquemiranda/phononwebsite" target="_blank" rel="noreferrer">phononwebsite</a>
+        的工作流，面向 <code>phonopy</code> 生成的 <code>band.yaml</code>。页面支持上传本地文件、加载内置样例、查看色散关系，并以原子和位移矢量展示振动模式。
+      </p>
+      <div class="toolbar">
+        <label class="file-picker">
+          <span>上传 band.yaml</span>
+          <input id="file-input" type="file" accept=".yaml,.yml">
+        </label>
+        <button id="load-sample" type="button">加载内置样例</button>
+        <a class="back-link" href="../../links/">返回 Links</a>
+      </div>
+      <p id="status" class="status" role="status">等待加载数据…</p>
+    </section>
+
+    <section class="layout-grid">
+      <article class="panel panel-plot">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">Dispersion</p>
+            <h2>声子色散关系</h2>
+          </div>
+          <div class="selection-chip">
+            <span id="selection-label">尚未选中模式</span>
+          </div>
+        </div>
+        <div id="plot" class="plot-wrap" aria-label="Phonon dispersion plot"></div>
+      </article>
+
+      <article class="panel panel-controls">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">Mode Controls</p>
+            <h2>振动模式控制</h2>
+          </div>
+        </div>
+        <div class="control-grid">
+          <label>
+            <span>振幅</span>
+            <input id="amplitude" type="range" min="0.05" max="1.5" step="0.05" value="0.45">
+            <output id="amplitude-value">0.45</output>
+          </label>
+          <label>
+            <span>速度</span>
+            <input id="speed" type="range" min="0.1" max="4" step="0.1" value="1.2">
+            <output id="speed-value">1.2</output>
+          </label>
+          <label>
+            <span>相位 (°)</span>
+            <input id="phase" type="range" min="0" max="360" step="1" value="0">
+            <output id="phase-value">0</output>
+          </label>
+          <label class="toggle">
+            <span>播放动画</span>
+            <button id="play-pause" type="button">暂停</button>
+          </label>
+        </div>
+        <div id="mode-meta" class="meta-box"></div>
+      </article>
+
+      <article class="panel panel-viewer">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">3D Viewer</p>
+            <h2>原子与矢量动画</h2>
+          </div>
+        </div>
+        <div id="viewer" class="viewer-wrap" aria-label="3D phonon mode viewer"></div>
+      </article>
+
+      <article class="panel panel-details">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">Eigenvectors</p>
+            <h2>模式详情</h2>
+          </div>
+        </div>
+        <div id="mode-details" class="details-wrap"></div>
+      </article>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

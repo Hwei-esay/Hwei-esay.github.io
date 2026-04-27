@@ -7,6 +7,10 @@ description: 常用工具、项目与课题组链接整理
 
 ## 科研工具
 
+### [Phonon Band Viewer]({{ '/tools/phonon/' | relative_url }})
+
+本站内置的 `phonopy band.yaml` 可视化工具，可上传本地文件、查看色散关系，并直接播放原子振动模式。
+
 ### [Phonon Visualization](https://henriquemiranda.github.io/phononwebsite/phonon.html)
 
 在线查看声子振动模式与相关可视化结果，适合快速核对模态示意。
