@@ -18,7 +18,18 @@ summary: 围绕 Nano Letters 2018 这篇 G/h-BN 手性声子工作，整理从 M
 
 > 说明：文中的超胞尺寸、路径设置、`auto_phonon.sh` 参数等都要根据具体体系确认。我的习惯是先询问师兄，或者让 AI 帮忙检查一版输入文件，再正式提交任务。
 
-## 一、最小复现流程
+## 目录
+
+- [一、最小复现流程](#minimal-workflow)
+- [二、理论与判断逻辑](#theory-and-logic)
+- [三、可直接复用的计算流程](#reusable-workflows)
+- [四、常用脚本模板](#script-templates)
+- [五、图像参数怎么改](#plot-settings)
+- [六、常见错误](#common-mistakes)
+- [七、我现在最推荐的工作流](#recommended-workflow)
+- [八、下一步最值得补的脚本](#next-script)
+
+## 一、最小复现流程 {#minimal-workflow}
 
 如果只想先把文章的大框架跑通，可以按下面三步走。
 
@@ -58,7 +69,7 @@ summary: 围绕 Nano Letters 2018 这篇 G/h-BN 手性声子工作，整理从 M
 
 ---
 
-## 二、理论与判断逻辑
+## 二、理论与判断逻辑 {#theory-and-logic}
 
 ### 1. `band.yaml` 默认不一定包含 `eigenvector`
 
@@ -218,7 +229,7 @@ s_z = sum_j 2 * Im(e_jx* * e_jy)
 
 ---
 
-## 三、可直接复用的计算流程
+## 三、可直接复用的计算流程 {#reusable-workflows}
 
 ### 流程 1：重新生成带 `eigenvector` 的 `Gamma-K` 路径 `band.yaml`
 
@@ -352,7 +363,7 @@ phonopy -c POSCAR --dim="5 5 1" --readfc mod_K.conf
 
 ---
 
-## 四、常用脚本模板
+## 四、常用脚本模板 {#script-templates}
 
 ### 1. 打印 `Gamma`、`M`、`K` 点的模式频率
 
@@ -685,7 +696,7 @@ tick_labels = ["M", r"$\Gamma$", "K", "M"]
 
 ---
 
-## 五、图像参数怎么改
+## 五、图像参数怎么改 {#plot-settings}
 
 ### 1. 图像比例
 
@@ -777,7 +788,7 @@ fig.tight_layout(rect=[0, 0, 0.85, 1])
 
 ---
 
-## 六、常见错误
+## 六、常见错误 {#common-mistakes}
 
 ### 错误 1：直接用 band index 代表物理分支
 
@@ -822,7 +833,7 @@ EIGENVECTORS = .TRUE.
 
 ---
 
-## 七、我现在最推荐的工作流
+## 七、我现在最推荐的工作流 {#recommended-workflow}
 
 如果目标是“画出正确的 `Gamma-K` 声子色散，并尽量正确地区分分支”，我建议按这个顺序做：
 
@@ -836,7 +847,7 @@ EIGENVECTORS = .TRUE.
 
 ---
 
-## 八、下一步最值得补的脚本
+## 八、下一步最值得补的脚本 {#next-script}
 
 当前最值得补的一段代码，不是继续改画图样式，而是：
 
