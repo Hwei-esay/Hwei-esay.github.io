@@ -559,18 +559,43 @@ a {
 }
 
 @media (max-width: 900px) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body::before {
+    display: none;
+  }
+
   .hero,
   .section-grid,
   .site-header {
     grid-template-columns: 1fr;
   }
 
+  .site-header,
+  .site-footer,
+  .panel,
+  .content-page,
+  .hero-panel .metric-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: 0 10px 28px rgba(2, 8, 23, 0.24);
+  }
+
   .site-header {
     position: static;
+    background: rgba(7, 17, 31, 0.84);
   }
 
   .archive-item {
     flex-direction: column;
+  }
+
+  .brand-mark {
+    animation: none;
+    opacity: 1;
+    filter: none;
   }
 }
 
