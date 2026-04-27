@@ -1,7 +1,6 @@
 ---
 title: 第四类磁体及其反常输运性质
 summary: 重庆大学物理学院“计算与理论凝聚态物理”系列报告笔记，主讲人为北京理工大学物理学院冯万祥。
-permalink: /academia/2026-04-29-fourth-kind-magnet/
 ---
 
 ## 报告信息
