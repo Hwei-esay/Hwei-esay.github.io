@@ -9,6 +9,8 @@ layout: default
   {% assign items = site.moments | reverse %}
 {% elsif key == 'tutorials' %}
   {% assign items = site.tutorials | reverse %}
+{% elsif key == 'skills' %}
+  {% assign items = site.skills | reverse %}
 {% elsif key == 'academia' %}
   {% assign items = site.academia | reverse %}
 {% endif %}

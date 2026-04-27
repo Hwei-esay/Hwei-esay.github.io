@@ -5,6 +5,7 @@ layout: default
 {% assign featured_posts = site.posts | slice: 0, site.home.featured_posts %}
 {% assign featured_moments = site.moments | reverse | slice: 0, site.home.featured_moments %}
 {% assign featured_tutorials = site.tutorials | reverse | slice: 0, site.home.featured_tutorials %}
+{% assign featured_skills = site.skills | reverse | slice: 0, site.home.featured_skills %}
 {% assign featured_reports = site.academia | reverse | slice: 0, site.home.featured_reports %}
 
 <section class="hero">
@@ -90,6 +91,26 @@ layout: default
     </div>
   </article>
 
+  <article class="panel">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Reusable Skills</p>
+        <h2>Skills 收藏</h2>
+      </div>
+      <a href="{{ '/skills/' | relative_url }}">查看全部</a>
+    </div>
+    <div class="stack-list">
+      {% for item in featured_skills %}
+        <a class="stack-item" href="{{ item.url | relative_url }}">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.summary | default: item.excerpt | strip_html | truncate: 88 }}</p>
+        </a>
+      {% endfor %}
+    </div>
+  </article>
+</section>
+
+<section class="section-grid">
   <article class="panel">
     <div class="section-heading">
       <div>
