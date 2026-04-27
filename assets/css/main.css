@@ -266,6 +266,17 @@ a {
   background: var(--panel-strong);
 }
 
+.metric-card-link {
+  display: block;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.metric-card-link:hover {
+  transform: translateY(-2px);
+  border-color: rgba(103, 232, 249, 0.3);
+  background: rgba(8, 18, 34, 0.98);
+}
+
 .metric-card strong {
   display: block;
   margin: 8px 0 10px;
@@ -275,6 +286,68 @@ a {
 .metric-label {
   color: var(--primary);
   font-size: 0.86rem;
+}
+
+.metric-card-subtle {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.metric-card-calendar strong {
+  margin-bottom: 14px;
+  font-size: 1.45rem;
+}
+
+.github-heatmap {
+  display: grid;
+  gap: 12px;
+}
+
+.github-heatmap-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.github-heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.github-heatmap-cell {
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.github-heatmap-cell.is-outside {
+  opacity: 0.2;
+}
+
+.github-heatmap-cell.level-0 {
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.github-heatmap-cell.level-1 {
+  background: rgba(34, 197, 94, 0.28);
+}
+
+.github-heatmap-cell.level-2 {
+  background: rgba(34, 197, 94, 0.46);
+}
+
+.github-heatmap-cell.level-3 {
+  background: rgba(34, 197, 94, 0.68);
+}
+
+.github-heatmap-cell.level-4 {
+  background: rgba(74, 222, 128, 0.92);
 }
 
 .section-grid {
