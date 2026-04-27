@@ -11,6 +11,8 @@ const state = {
   phaseDeg: 0,
   isPlaying: true,
   animationTime: 0,
+  projectionMode: "jz",
+  vectorScale: 2.6,
 };
 
 const elements = {
@@ -29,6 +31,9 @@ const elements = {
   phase: document.querySelector("#phase"),
   phaseValue: document.querySelector("#phase-value"),
   playPause: document.querySelector("#play-pause"),
+  projectionMode: document.querySelector("#projection-mode"),
+  vectorScale: document.querySelector("#vector-scale"),
+  vectorScaleValue: document.querySelector("#vector-scale-value"),
 };
 
 const viewerState = createViewer(elements.viewer);
@@ -82,6 +87,18 @@ function wireControls() {
       updateSelectedMode();
     }
   });
+
+  elements.projectionMode.addEventListener("change", () => {
+    state.projectionMode = elements.projectionMode.value;
+    renderPlot();
+    updateSelectedMode();
+  });
+
+  elements.vectorScale.addEventListener("input", () => {
+    state.vectorScale = Number(elements.vectorScale.value);
+    elements.vectorScaleValue.textContent = state.vectorScale.toFixed(1);
+    updateViewerForCurrentSelection();
+  });
 }
 
 async function loadSampleData() {
@@ -105,6 +122,7 @@ function applyYaml(text, sourceName) {
   state.selectedQIndex = 0;
   state.selectedBandIndex = Math.min(2, parsed.bandCount - 1);
   state.phaseDeg = 0;
+  state.animationTime = 0;
   elements.phase.value = "0";
   elements.phaseValue.textContent = "0";
   setStatus(`已加载 ${sourceName}，共 ${parsed.qpoints.length} 个 q 点，${parsed.bandCount} 条声子支。`);
@@ -131,16 +149,21 @@ function parseBandYaml(doc) {
     distance: Number(entry.distance ?? qIndex),
     label: sanitizeLabel(entry.label ?? ""),
     qPosition: (entry["q-position"] ?? [0, 0, 0]).map(Number),
-    bands: (entry.band ?? []).map((band, bandIndex) => ({
-      bandIndex,
-      frequency: Number(band.frequency ?? 0),
-      eigenvector: (band.eigenvector ?? []).map((atomVector) =>
+    bands: (entry.band ?? []).map((band, bandIndex) => {
+      const eigenvector = (band.eigenvector ?? []).map((atomVector) =>
         atomVector.map((component) => ({
           re: Number(component?.[0] ?? 0),
           im: Number(component?.[1] ?? 0),
         })),
-      ),
-    })),
+      );
+
+      return {
+        bandIndex,
+        frequency: Number(band.frequency ?? 0),
+        eigenvector,
+        angularMomentum: computeAngularMomentum(eigenvector),
+      };
+    }),
   }));
 
   if (!qpoints.length || !qpoints[0].bands.length) {
@@ -154,7 +177,70 @@ function parseBandYaml(doc) {
     atomPositionsCartesian,
     qpoints,
     bandCount: qpoints[0].bands.length,
+    tickPoints: computeTickPoints(qpoints),
   };
+}
+
+function computeAngularMomentum(eigenvector) {
+  let norm = 0;
+  let jx = 0;
+  let jy = 0;
+  let jz = 0;
+
+  for (const atomVector of eigenvector) {
+    const [ex, ey, ez] = atomVector;
+    norm += magnitudeSquared(ex) + magnitudeSquared(ey) + magnitudeSquared(ez);
+    jx += 2 * imaginaryCross(ey, ez);
+    jy += 2 * imaginaryCross(ez, ex);
+    jz += 2 * imaginaryCross(ex, ey);
+  }
+
+  if (norm < 1e-12) {
+    return { jx: 0, jy: 0, jz: 0 };
+  }
+
+  return {
+    jx: clampProjection(jx / norm),
+    jy: clampProjection(jy / norm),
+    jz: clampProjection(jz / norm),
+  };
+}
+
+function magnitudeSquared(component) {
+  return component.re ** 2 + component.im ** 2;
+}
+
+function imaginaryCross(a, b) {
+  return a.re * b.im - a.im * b.re;
+}
+
+function clampProjection(value) {
+  return Math.max(-1, Math.min(1, value));
+}
+
+function computeTickPoints(qpoints) {
+  const ticks = [];
+  const seen = new Set();
+
+  qpoints.forEach((point, index) => {
+    const isEndpoint = index === 0 || index === qpoints.length - 1;
+    if (!point.label && !isEndpoint) {
+      return;
+    }
+    const key = `${point.distance.toFixed(6)}:${point.label || index}`;
+    if (seen.has(key)) {
+      return;
+    }
+    seen.add(key);
+    ticks.push({
+      index,
+      distance: point.distance,
+      label: point.label || `q${index + 1}`,
+      coordinateLabel: formatCoordinateLabel(point.qPosition),
+    });
+  });
+
+  return ticks;
 }
 
 function inferMaterialName(atoms) {
@@ -182,7 +268,7 @@ function renderPlot() {
 
   const width = elements.plot.clientWidth || 720;
   const height = elements.plot.clientHeight || 420;
-  const padding = { top: 28, right: 22, bottom: 44, left: 54 };
+  const padding = { top: 28, right: 22, bottom: 98, left: 56 };
   const plotWidth = width - padding.left - padding.right;
   const plotHeight = height - padding.top - padding.bottom;
   const distances = data.qpoints.map((point) => point.distance);
@@ -196,38 +282,34 @@ function renderPlot() {
   const xToSvg = (value) => padding.left + scale(value, minX, maxX || minX + 1, 0, plotWidth);
   const yToSvg = (value) => padding.top + scale(value, maxY + yPadding, minY - yPadding, 0, plotHeight);
 
-  const gridLines = 5;
-  const xLabels = data.qpoints
-    .map((point, index) => ({ label: point.label, x: xToSvg(point.distance), index }))
-    .filter((item, index, array) => item.label && array.findIndex((other) => other.label === item.label && Math.abs(other.x - item.x) < 3) === index);
-
   const polylines = Array.from({ length: data.bandCount }, (_, bandIndex) => {
     const points = data.qpoints
       .map((point) => `${xToSvg(point.distance).toFixed(2)},${yToSvg(point.bands[bandIndex].frequency).toFixed(2)}`)
       .join(" ");
-    return `<polyline fill="none" stroke="rgba(25,114,120,0.45)" stroke-width="2" points="${points}" />`;
+    return `<polyline fill="none" stroke="rgba(25,114,120,0.34)" stroke-width="1.9" points="${points}" />`;
   }).join("");
 
   const circles = data.qpoints.flatMap((point, qIndex) =>
     point.bands.map((band, bandIndex) => {
       const selected = qIndex === state.selectedQIndex && bandIndex === state.selectedBandIndex;
+      const projectionValue = getProjectionValue(band.angularMomentum, state.projectionMode);
+      const fill = selected ? "#d62839" : projectionToColor(projectionValue, state.projectionMode === "none" ? 0.18 : 0.92);
       return `<circle
         class="mode-point"
         data-q="${qIndex}"
         data-band="${bandIndex}"
         cx="${xToSvg(point.distance).toFixed(2)}"
         cy="${yToSvg(band.frequency).toFixed(2)}"
-        r="${selected ? 5.8 : 3.8}"
-        fill="${selected ? "#d62839" : "#197278"}"
-        fill-opacity="${selected ? 1 : 0.82}"
+        r="${selected ? 6.2 : 4.1}"
+        fill="${fill}"
         stroke="white"
-        stroke-width="${selected ? 1.8 : 1.2}"
+        stroke-width="${selected ? 1.8 : 1.15}"
       />`;
     }),
   ).join("");
 
-  const yTicks = Array.from({ length: gridLines + 1 }, (_, index) => {
-    const fraction = index / gridLines;
+  const yTicks = Array.from({ length: 5 + 1 }, (_, index) => {
+    const fraction = index / 5;
     const value = maxY + yPadding - fraction * (maxY - minY + 2 * yPadding);
     const y = padding.top + fraction * plotHeight;
     return `
@@ -238,14 +320,24 @@ function renderPlot() {
     `;
   }).join("");
 
-  const xTickLines = data.qpoints.map((point) => {
+  const xTickLines = data.tickPoints.map((point) => {
     const x = xToSvg(point.distance);
     return `<line x1="${x}" y1="${padding.top}" x2="${x}" y2="${height - padding.bottom}" stroke="rgba(16,32,39,0.08)" />`;
   }).join("");
 
-  const xTickLabels = xLabels.map((item) =>
-    `<text x="${item.x}" y="${height - 14}" text-anchor="middle" font-size="13" fill="#102027">${item.label}</text>`,
-  ).join("");
+  const xTickLabels = data.tickPoints.map((point) => {
+    const x = xToSvg(point.distance);
+    return `
+      <g>
+        <text x="${x}" y="${height - 48}" text-anchor="middle" font-size="13" fill="#102027">${escapeHtml(point.label)}</text>
+        <text x="${x}" y="${height - 28}" text-anchor="middle" font-size="11.5" fill="#506066">${escapeHtml(point.coordinateLabel)}</text>
+      </g>
+    `;
+  }).join("");
+
+  const projectionLegend = state.projectionMode === "none"
+    ? `<span class="legend-item"><span class="legend-dot"></span>点击任一点即可切换 q 点与声子支</span>`
+    : `<span class="legend-item"><span class="legend-bar"></span>${state.projectionMode.toUpperCase()} = -1 → +1（蓝 → 红）</span>`;
 
   elements.plot.innerHTML = `
     <svg viewBox="0 0 ${width} ${height}" width="100%" height="100%" aria-label="Dispersion SVG">
@@ -258,9 +350,11 @@ function renderPlot() {
       ${circles}
       ${xTickLabels}
       <text x="${padding.left}" y="18" font-size="13" fill="#506066">Frequency (cm⁻¹)</text>
+      <text x="${(padding.left + width - padding.right) / 2}" y="${height - 10}" text-anchor="middle" font-size="12" fill="#506066">q-path / reciprocal coordinates</text>
     </svg>
     <div class="legend">
       <span class="legend-item"><span class="legend-dot"></span>点击任一点即可切换 q 点与声子支</span>
+      ${projectionLegend}
     </div>
   `;
 
@@ -274,6 +368,30 @@ function renderPlot() {
   });
 }
 
+function projectionToColor(value, saturation) {
+  const clamped = Math.max(-1, Math.min(1, value));
+  const neutral = [238, 243, 244];
+  const positive = [214, 40, 57];
+  const negative = [43, 80, 170];
+  const target = clamped >= 0 ? positive : negative;
+  const t = Math.abs(clamped) * saturation;
+  const mixed = neutral.map((base, index) => Math.round(base + (target[index] - base) * t));
+  return `rgb(${mixed[0]}, ${mixed[1]}, ${mixed[2]})`;
+}
+
+function getProjectionValue(angularMomentum, mode) {
+  if (mode === "jx") {
+    return angularMomentum.jx;
+  }
+  if (mode === "jy") {
+    return angularMomentum.jy;
+  }
+  if (mode === "jz") {
+    return angularMomentum.jz;
+  }
+  return 0;
+}
+
 function updateSelectedMode() {
   if (!state.data) {
     return;
@@ -282,6 +400,7 @@ function updateSelectedMode() {
   const point = state.data.qpoints[state.selectedQIndex];
   const band = point.bands[state.selectedBandIndex];
   const phase = ((state.phaseDeg % 360) * Math.PI) / 180;
+  const { jx, jy, jz } = band.angularMomentum;
 
   elements.selectionLabel.textContent = `q${state.selectedQIndex + 1} / band ${state.selectedBandIndex + 1}`;
   elements.modeMeta.innerHTML = `
@@ -291,7 +410,7 @@ function updateSelectedMode() {
       <dt>Label</dt><dd>${point.label || "—"}</dd>
       <dt>Distance</dt><dd>${point.distance.toFixed(4)}</dd>
       <dt>Eigenvalue</dt><dd>${band.frequency.toFixed(4)} cm⁻¹</dd>
-      <dt>Atoms</dt><dd>${state.data.atoms.length}</dd>
+      <dt>Jx / Jy / Jz</dt><dd>${jx.toFixed(3)} / ${jy.toFixed(3)} / ${jz.toFixed(3)}</dd>
     </dl>
   `;
 
@@ -302,18 +421,29 @@ function updateSelectedMode() {
 function renderModeTable(data, point, band) {
   const rows = data.atoms.map((atom, index) => {
     const vector = band.eigenvector[index] ?? [];
+    const magnitude = Math.sqrt(vector.reduce((sum, component) => sum + magnitudeSquared(component), 0));
     return `
       <tr>
         <td>${atom.symbol} ${index + 1}</td>
         <td>${formatComplexTriplet(vector, 0)}</td>
         <td>${formatComplexTriplet(vector, 1)}</td>
         <td>${formatComplexTriplet(vector, 2)}</td>
+        <td>${magnitude.toFixed(4)}</td>
       </tr>
     `;
   }).join("");
 
   return `
-    <p><strong>q = ${formatTuple(point.qPosition)}</strong>，频率 <strong>${band.frequency.toFixed(4)} cm⁻¹</strong></p>
+    <p>
+      <strong>${point.label || `q${point.qIndex + 1}`}</strong>
+      <span> q = ${formatTuple(point.qPosition)}</span>
+      <span> | frequency = <strong>${band.frequency.toFixed(4)} cm⁻¹</strong></span>
+    </p>
+    <p>
+      <strong>Jx = ${band.angularMomentum.jx.toFixed(3)}</strong>,
+      <strong>Jy = ${band.angularMomentum.jy.toFixed(3)}</strong>,
+      <strong>Jz = ${band.angularMomentum.jz.toFixed(3)}</strong>
+    </p>
     <table>
       <thead>
         <tr>
@@ -321,6 +451,7 @@ function renderModeTable(data, point, band) {
           <th>e<sub>x</sub></th>
           <th>e<sub>y</sub></th>
           <th>e<sub>z</sub></th>
+          <th>|e|</th>
         </tr>
       </thead>
       <tbody>${rows}</tbody>
@@ -337,6 +468,14 @@ function formatComplexTriplet(vector, componentIndex) {
 
 function formatTuple(values) {
   return `(${values.map((value) => value.toFixed(4)).join(", ")})`;
+}
+
+function formatCoordinateLabel(values) {
+  return `[${values.map((value) => trimCoordinate(value)).join(", ")}]`;
+}
+
+function trimCoordinate(value) {
+  return Number(value).toFixed(3).replace(/\.?0+$/, "");
 }
 
 function setStatus(message) {
@@ -390,7 +529,17 @@ function createViewer(container) {
   const root = new THREE.Group();
   scene.add(root);
 
-  const viewer = { scene, camera, renderer, controls, root, atomMeshes: [], arrowHelpers: [], equilibriumPositions: [] };
+  const viewer = {
+    scene,
+    camera,
+    renderer,
+    controls,
+    root,
+    atomMeshes: [],
+    ghostMeshes: [],
+    arrowHelpers: [],
+    equilibriumPositions: [],
+  };
 
   const resize = () => {
     const width = container.clientWidth || 640;
@@ -424,8 +573,7 @@ function createViewer(container) {
 }
 
 function updateViewerMode(data, qIndex, bandIndex, phase, amplitude) {
-  const point = data.qpoints[qIndex];
-  const band = point.bands[bandIndex];
+  const band = data.qpoints[qIndex].bands[bandIndex];
 
   if (!viewerState.atomMeshes.length) {
     initializeViewerObjects(data);
@@ -433,17 +581,18 @@ function updateViewerMode(data, qIndex, bandIndex, phase, amplitude) {
 
   for (let atomIndex = 0; atomIndex < data.atoms.length; atomIndex += 1) {
     const eq = viewerState.equilibriumPositions[atomIndex];
-    const displacement = evaluateDisplacement(band.eigenvector[atomIndex], phase, amplitude);
-    const position = new THREE.Vector3(eq.x + displacement[0], eq.y + displacement[1], eq.z + displacement[2]);
+    const instantaneous = evaluateDisplacement(band.eigenvector[atomIndex], phase, amplitude);
+    const vectorForArrow = evaluateDisplacement(band.eigenvector[atomIndex], phase, amplitude * state.vectorScale);
+    const position = new THREE.Vector3(eq.x + instantaneous[0], eq.y + instantaneous[1], eq.z + instantaneous[2]);
     viewerState.atomMeshes[atomIndex].position.copy(position);
 
     const arrow = viewerState.arrowHelpers[atomIndex];
-    const vector = new THREE.Vector3(displacement[0], displacement[1], displacement[2]);
+    const vector = new THREE.Vector3(...vectorForArrow);
     const length = Math.max(vector.length(), 0.0001);
-    arrow.position.copy(eq);
+    arrow.position.copy(position);
     arrow.setDirection(length > 0.0001 ? vector.clone().normalize() : new THREE.Vector3(0, 1, 0));
-    arrow.setLength(length * 2.8, length * 0.55, length * 0.36);
-    arrow.visible = length > 0.001;
+    arrow.setLength(length, Math.max(length * 0.22, 0.12), Math.max(length * 0.16, 0.08));
+    arrow.visible = length > 0.002;
   }
 }
 
@@ -458,6 +607,7 @@ function updateViewerForCurrentSelection() {
 function initializeViewerObjects(data) {
   viewerState.root.clear();
   viewerState.atomMeshes = [];
+  viewerState.ghostMeshes = [];
   viewerState.arrowHelpers = [];
   viewerState.equilibriumPositions = data.atomPositionsCartesian.map((position) => new THREE.Vector3(...position));
 
@@ -471,6 +621,15 @@ function initializeViewerObjects(data) {
 
   data.atoms.forEach((atom, atomIndex) => {
     const color = new THREE.Color(elementColor(atom.symbol));
+
+    const ghost = new THREE.Mesh(
+      new THREE.SphereGeometry(0.18, 24, 24),
+      new THREE.MeshStandardMaterial({ color, transparent: true, opacity: 0.22 }),
+    );
+    ghost.position.copy(viewerState.equilibriumPositions[atomIndex]);
+    viewerState.root.add(ghost);
+    viewerState.ghostMeshes.push(ghost);
+
     const mesh = new THREE.Mesh(
       new THREE.SphereGeometry(0.32, 32, 32),
       new THREE.MeshStandardMaterial({ color, roughness: 0.36, metalness: 0.08 }),
@@ -496,9 +655,7 @@ function buildUnitCell(lattice) {
   const ac = a.clone().add(c);
   const bc = b.clone().add(c);
   const abc = a.clone().add(b).add(c);
-  const points = [
-    origin, a, b, c, ab, ac, bc, abc,
-  ];
+  const points = [origin, a, b, c, ab, ac, bc, abc];
   const segments = [
     [0, 1], [0, 2], [0, 3],
     [1, 4], [1, 5], [2, 4],
@@ -546,4 +703,11 @@ function resizePlotOnWindow() {
       renderPlot();
     }, 80);
   });
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
 }

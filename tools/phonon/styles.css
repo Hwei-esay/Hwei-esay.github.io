@@ -173,6 +173,37 @@ button:hover,
   margin-bottom: 18px;
 }
 
+.plot-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.plot-select {
+  display: grid;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.plot-select span {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.plot-select select {
+  min-width: 112px;
+  min-height: 38px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface-strong);
+  font: inherit;
+  color: var(--ink);
+  padding: 0 12px;
+}
+
 .selection-chip {
   padding: 10px 14px;
   border-radius: 16px;
@@ -307,6 +338,14 @@ button:hover,
   background: var(--accent);
 }
 
+.legend-bar {
+  width: 110px;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #2b50aa 0%, #eef3f4 50%, #d62839 100%);
+  border: 1px solid rgba(16, 32, 39, 0.08);
+}
+
 .empty-state {
   padding: 36px 12px;
   text-align: center;
@@ -339,5 +378,9 @@ button:hover,
   .plot-wrap,
   .viewer-wrap {
     min-height: 320px;
+  }
+
+  .plot-tools {
+    justify-content: flex-start;
   }
 }
