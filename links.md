@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Link
+title: Links
 permalink: /links/
 description: 常用工具、项目与课题组链接整理
 ---

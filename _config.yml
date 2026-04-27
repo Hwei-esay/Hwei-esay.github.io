@@ -41,7 +41,7 @@ navigation:
     url: "/tutorials/"
   - title: "学术"
     url: "/academia/"
-  - title: "Link"
+  - title: "Links"
     url: "/links/"
   - title: "关于"
     url: "/about/"
