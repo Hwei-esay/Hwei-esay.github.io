@@ -15,6 +15,10 @@ description: 常用工具、项目与课题组链接整理
 
 在线查看声子振动模式与相关可视化结果，适合快速核对模态示意。
 
+### [Connected Papers](https://www.connectedpapers.com)
+
+用于围绕一篇论文快速展开相关文献网络，适合找前后续工作与相近研究脉络。
+
 ### [TBMethod](https://github.com/AlexanderZ11234/TBMethod)
 
 紧束缚模型相关的方法与代码仓库，适合查阅实现思路和项目结构。
