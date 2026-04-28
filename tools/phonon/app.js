@@ -13,6 +13,7 @@ const state = {
   animationTime: 0,
   projectionMode: "jz",
   vectorScale: 2.6,
+  viewMode: "3d",
 };
 
 const elements = {
@@ -21,6 +22,7 @@ const elements = {
   status: document.querySelector("#status"),
   plot: document.querySelector("#plot"),
   viewer: document.querySelector("#viewer"),
+  viewer2d: document.querySelector("#viewer-2d"),
   selectionLabel: document.querySelector("#selection-label"),
   modeMeta: document.querySelector("#mode-meta"),
   modeDetails: document.querySelector("#mode-details"),
@@ -34,6 +36,7 @@ const elements = {
   projectionMode: document.querySelector("#projection-mode"),
   vectorScale: document.querySelector("#vector-scale"),
   vectorScaleValue: document.querySelector("#vector-scale-value"),
+  viewMode: document.querySelector("#view-mode"),
 };
 
 const viewerState = createViewer(elements.viewer);
@@ -41,6 +44,7 @@ const viewerState = createViewer(elements.viewer);
 wireControls();
 resizePlotOnWindow();
 loadSampleData();
+applyViewMode();
 
 function wireControls() {
   elements.fileInput.addEventListener("change", async (event) => {
@@ -99,6 +103,12 @@ function wireControls() {
     elements.vectorScaleValue.textContent = state.vectorScale.toFixed(1);
     updateViewerForCurrentSelection();
   });
+
+  elements.viewMode.addEventListener("change", () => {
+    state.viewMode = elements.viewMode.value;
+    applyViewMode();
+    updateViewerForCurrentSelection();
+  });
 }
 
 async function loadSampleData() {
@@ -128,6 +138,12 @@ function applyYaml(text, sourceName) {
   setStatus(`已加载 ${sourceName}，共 ${parsed.qpoints.length} 个 q 点，${parsed.bandCount} 条声子支。`);
   renderPlot();
   updateSelectedMode();
+}
+
+function applyViewMode() {
+  const is2d = state.viewMode === "2d";
+  elements.viewer.classList.toggle("is-hidden", is2d);
+  elements.viewer2d.classList.toggle("is-hidden", !is2d);
 }
 
 function parseBandYaml(doc) {
@@ -416,6 +432,7 @@ function updateSelectedMode() {
 
   elements.modeDetails.innerHTML = renderModeTable(state.data, point, band);
   updateViewerMode(state.data, state.selectedQIndex, state.selectedBandIndex, phase, state.amplitude);
+  updateViewer2D(state.data, state.selectedQIndex, state.selectedBandIndex, phase, state.amplitude);
 }
 
 function renderModeTable(data, point, band) {
@@ -602,6 +619,63 @@ function updateViewerForCurrentSelection() {
   }
   const phase = ((state.phaseDeg % 360) * Math.PI) / 180;
   updateViewerMode(state.data, state.selectedQIndex, state.selectedBandIndex, phase, state.amplitude);
+  updateViewer2D(state.data, state.selectedQIndex, state.selectedBandIndex, phase, state.amplitude);
+}
+
+function updateViewer2D(data, qIndex, bandIndex, phase, amplitude) {
+  const band = data.qpoints[qIndex].bands[bandIndex];
+  const width = elements.viewer2d.clientWidth || 640;
+  const height = elements.viewer2d.clientHeight || 420;
+  const margin = 40;
+  const center = averageVector2(data.atomPositionsCartesian.map(([x, y]) => ({ x, y })));
+  const projected = data.atomPositionsCartesian.map(([x, y]) => ({ x: x - center.x, y: y - center.y }));
+  const maxExtent = Math.max(
+    ...projected.flatMap((point, index) => {
+      const displacement = evaluateDisplacement(band.eigenvector[index], phase, amplitude * state.vectorScale);
+      return [Math.abs(point.x), Math.abs(point.y), Math.abs(point.x + displacement[0]), Math.abs(point.y + displacement[1])];
+    }),
+    1,
+  );
+  const scale2d = Math.min((width - margin * 2) / (maxExtent * 2), (height - margin * 2) / (maxExtent * 2));
+  const toSvgX = (value) => width / 2 + value * scale2d;
+  const toSvgY = (value) => height / 2 - value * scale2d;
+
+  const atomsSvg = data.atoms.map((atom, atomIndex) => {
+    const base = projected[atomIndex];
+    const displacement = evaluateDisplacement(band.eigenvector[atomIndex], phase, amplitude);
+    const arrowVector = evaluateDisplacement(band.eigenvector[atomIndex], phase, amplitude * state.vectorScale);
+    const equilibrium = { x: toSvgX(base.x), y: toSvgY(base.y) };
+    const current = { x: toSvgX(base.x + displacement[0]), y: toSvgY(base.y + displacement[1]) };
+    const arrowEnd = { x: toSvgX(base.x + displacement[0] + arrowVector[0]), y: toSvgY(base.y + displacement[1] + arrowVector[1]) };
+    const planarLength = Math.hypot(arrowVector[0], arrowVector[1]);
+    const showArrow = planarLength > 0.01;
+    const labelX = current.x + 18;
+    const labelY = current.y - 12;
+
+    return `
+      <g class="atom-2d-group">
+        <circle cx="${equilibrium.x.toFixed(2)}" cy="${equilibrium.y.toFixed(2)}" r="30" fill="none" stroke="rgba(43,80,170,0.18)" stroke-width="4" />
+        ${showArrow ? `<line x1="${current.x.toFixed(2)}" y1="${current.y.toFixed(2)}" x2="${arrowEnd.x.toFixed(2)}" y2="${arrowEnd.y.toFixed(2)}" stroke="#2f43ff" stroke-width="6" stroke-linecap="round" marker-end="url(#arrow-head)" />` : ""}
+        <circle cx="${current.x.toFixed(2)}" cy="${current.y.toFixed(2)}" r="31" fill="rgba(255,255,255,0.96)" stroke="#2f43ff" stroke-width="5" />
+        <circle cx="${current.x.toFixed(2)}" cy="${current.y.toFixed(2)}" r="13.5" fill="#9b5f00" stroke="rgba(110,63,0,0.2)" stroke-width="1.5" />
+        <text x="${labelX.toFixed(2)}" y="${labelY.toFixed(2)}" fill="#506066" font-size="12">${escapeHtml(atom.symbol)}${atomIndex + 1}</text>
+      </g>
+    `;
+  }).join("");
+
+  elements.viewer2d.innerHTML = `
+    <div class="viewer-badge">2D / from +z to xy</div>
+    <div class="viewer-2d-caption">平面示意图：仅显示 x-y 分量，纯 z 模式箭头会减弱</div>
+    <svg viewBox="0 0 ${width} ${height}" width="100%" height="100%" aria-label="2D phonon schematic">
+      <defs>
+        <marker id="arrow-head" viewBox="0 0 10 10" refX="8.4" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#2f43ff"></path>
+        </marker>
+      </defs>
+      <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
+      ${atomsSvg}
+    </svg>
+  `;
 }
 
 function initializeViewerObjects(data) {
@@ -701,8 +775,14 @@ function resizePlotOnWindow() {
     window.clearTimeout(timeoutId);
     timeoutId = window.setTimeout(() => {
       renderPlot();
+      updateViewerForCurrentSelection();
     }, 80);
   });
+}
+
+function averageVector2(points) {
+  const total = points.reduce((sum, point) => ({ x: sum.x + point.x, y: sum.y + point.y }), { x: 0, y: 0 });
+  return { x: total.x / points.length, y: total.y / points.length };
 }
 
 function escapeHtml(text) {

@@ -94,8 +94,18 @@
             <p class="panel-kicker">3D Viewer</p>
             <h2>原子与矢量动画</h2>
           </div>
+          <div class="plot-tools">
+            <label class="plot-select">
+              <span>视图模式</span>
+              <select id="view-mode">
+                <option value="3d" selected>3D</option>
+                <option value="2d">2D</option>
+              </select>
+            </label>
+          </div>
         </div>
         <div id="viewer" class="viewer-wrap" aria-label="3D phonon mode viewer"></div>
+        <div id="viewer-2d" class="viewer-wrap viewer-wrap-2d is-hidden" aria-label="2D phonon mode viewer"></div>
       </article>
 
       <article class="panel panel-details">
