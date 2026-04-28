@@ -1,5 +1,7 @@
 # Jekyll Personal Website
 
+Also in [https://hwei-esay-github-io.pages.dev](https://hwei-esay-github-io.pages.dev)
+
 一个适合个人长期积累的 Jekyll 站点模板，包含：
 
 - 短博客
