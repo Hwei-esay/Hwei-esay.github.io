@@ -16,6 +16,17 @@ const state = {
   viewMode: "3d",
 };
 
+const viewer2DState = {
+  zoom: 1,
+  panX: 0,
+  panY: 0,
+  dragPointerId: null,
+  lastClientX: 0,
+  lastClientY: 0,
+  baseExtentCacheKey: "",
+  baseExtent: 1,
+};
+
 const elements = {
   fileInput: document.querySelector("#file-input"),
   loadSample: document.querySelector("#load-sample"),
@@ -37,11 +48,13 @@ const elements = {
   vectorScale: document.querySelector("#vector-scale"),
   vectorScaleValue: document.querySelector("#vector-scale-value"),
   viewMode: document.querySelector("#view-mode"),
+  reset2dView: document.querySelector("#reset-2d-view"),
 };
 
 const viewerState = createViewer(elements.viewer);
 
 wireControls();
+initialize2DInteractions();
 resizePlotOnWindow();
 loadSampleData();
 applyViewMode();
@@ -109,6 +122,11 @@ function wireControls() {
     applyViewMode();
     updateViewerForCurrentSelection();
   });
+
+  elements.reset2dView?.addEventListener("click", () => {
+    reset2DViewport();
+    updateViewerForCurrentSelection();
+  });
 }
 
 async function loadSampleData() {
@@ -133,6 +151,7 @@ function applyYaml(text, sourceName) {
   state.selectedBandIndex = Math.min(2, parsed.bandCount - 1);
   state.phaseDeg = 0;
   state.animationTime = 0;
+  reset2DViewport();
   elements.phase.value = "0";
   elements.phaseValue.textContent = "0";
   setStatus(`已加载 ${sourceName}，共 ${parsed.qpoints.length} 个 q 点，${parsed.bandCount} 条声子支。`);
@@ -224,6 +243,10 @@ function computeAngularMomentum(eigenvector) {
 
 function magnitudeSquared(component) {
   return component.re ** 2 + component.im ** 2;
+}
+
+function complexMagnitude(component) {
+  return Math.sqrt(magnitudeSquared(component));
 }
 
 function imaginaryCross(a, b) {
@@ -512,6 +535,10 @@ function scale(value, inMin, inMax, outMin, outMax) {
   return outMin + ratio * (outMax - outMin);
 }
 
+function clamp(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
 function fracToCartesian(frac, lattice) {
   const [a, b, c] = lattice;
   return [
@@ -626,19 +653,14 @@ function updateViewer2D(data, qIndex, bandIndex, phase, amplitude) {
   const band = data.qpoints[qIndex].bands[bandIndex];
   const width = elements.viewer2d.clientWidth || 640;
   const height = elements.viewer2d.clientHeight || 420;
-  const margin = 40;
+  const margin = 72;
   const center = averageVector2(data.atomPositionsCartesian.map(([x, y]) => ({ x, y })));
   const projected = data.atomPositionsCartesian.map(([x, y]) => ({ x: x - center.x, y: y - center.y }));
-  const maxExtent = Math.max(
-    ...projected.flatMap((point, index) => {
-      const displacement = evaluateDisplacement(band.eigenvector[index], phase, amplitude * state.vectorScale);
-      return [Math.abs(point.x), Math.abs(point.y), Math.abs(point.x + displacement[0]), Math.abs(point.y + displacement[1])];
-    }),
-    1,
-  );
-  const scale2d = Math.min((width - margin * 2) / (maxExtent * 2), (height - margin * 2) / (maxExtent * 2));
-  const toSvgX = (value) => width / 2 + value * scale2d;
-  const toSvgY = (value) => height / 2 - value * scale2d;
+  const baseExtent = getViewer2DBaseExtent(projected, band.eigenvector, amplitude, state.vectorScale);
+  const fitScale = Math.min((width - margin * 2) / (baseExtent * 2), (height - margin * 2) / (baseExtent * 2));
+  const scale2d = fitScale * viewer2DState.zoom;
+  const toSvgX = (value) => width / 2 + viewer2DState.panX + value * scale2d;
+  const toSvgY = (value) => height / 2 + viewer2DState.panY - value * scale2d;
 
   const atomsSvg = data.atoms.map((atom, atomIndex) => {
     const base = projected[atomIndex];
@@ -665,7 +687,7 @@ function updateViewer2D(data, qIndex, bandIndex, phase, amplitude) {
 
   elements.viewer2d.innerHTML = `
     <div class="viewer-badge">2D / from +z to xy</div>
-    <div class="viewer-2d-caption">平面示意图：仅显示 x-y 分量，纯 z 模式箭头会减弱</div>
+    <div class="viewer-2d-caption">平面示意图：拖拽平移，滚轮缩放；仅显示 x-y 分量，纯 z 模式箭头会减弱</div>
     <svg viewBox="0 0 ${width} ${height}" width="100%" height="100%" aria-label="2D phonon schematic">
       <defs>
         <marker id="arrow-head" viewBox="0 0 10 10" refX="8.4" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
@@ -676,6 +698,98 @@ function updateViewer2D(data, qIndex, bandIndex, phase, amplitude) {
       ${atomsSvg}
     </svg>
   `;
+}
+
+function initialize2DInteractions() {
+  const container = elements.viewer2d;
+  if (!container) {
+    return;
+  }
+
+  container.addEventListener("pointerdown", (event) => {
+    viewer2DState.dragPointerId = event.pointerId;
+    viewer2DState.lastClientX = event.clientX;
+    viewer2DState.lastClientY = event.clientY;
+    container.classList.add("is-dragging");
+    container.setPointerCapture(event.pointerId);
+  });
+
+  container.addEventListener("pointermove", (event) => {
+    if (viewer2DState.dragPointerId !== event.pointerId) {
+      return;
+    }
+    viewer2DState.panX += event.clientX - viewer2DState.lastClientX;
+    viewer2DState.panY += event.clientY - viewer2DState.lastClientY;
+    viewer2DState.lastClientX = event.clientX;
+    viewer2DState.lastClientY = event.clientY;
+    updateViewerForCurrentSelection();
+  });
+
+  const endDrag = (event) => {
+    if (viewer2DState.dragPointerId !== event.pointerId) {
+      return;
+    }
+    viewer2DState.dragPointerId = null;
+    container.classList.remove("is-dragging");
+    if (container.hasPointerCapture(event.pointerId)) {
+      container.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  container.addEventListener("pointerup", endDrag);
+  container.addEventListener("pointercancel", endDrag);
+  container.addEventListener("pointerleave", (event) => {
+    if ((event.buttons & 1) === 0) {
+      endDrag(event);
+    }
+  });
+
+  container.addEventListener(
+    "wheel",
+    (event) => {
+      event.preventDefault();
+      const multiplier = event.deltaY < 0 ? 1.12 : 1 / 1.12;
+      viewer2DState.zoom = clamp(viewer2DState.zoom * multiplier, 0.35, 6);
+      updateViewerForCurrentSelection();
+    },
+    { passive: false },
+  );
+}
+
+function reset2DViewport() {
+  viewer2DState.zoom = 1;
+  viewer2DState.panX = 0;
+  viewer2DState.panY = 0;
+  viewer2DState.dragPointerId = null;
+  viewer2DState.baseExtentCacheKey = "";
+}
+
+function getViewer2DBaseExtent(projected, eigenvector, amplitude, vectorScale) {
+  const cacheKey = `${state.selectedQIndex}:${state.selectedBandIndex}:${amplitude.toFixed(3)}:${vectorScale.toFixed(3)}`;
+  if (viewer2DState.baseExtentCacheKey === cacheKey) {
+    return viewer2DState.baseExtent;
+  }
+
+  let extent = 1;
+  for (let atomIndex = 0; atomIndex < projected.length; atomIndex += 1) {
+    const point = projected[atomIndex];
+    const vector = eigenvector[atomIndex] ?? [];
+    const planarReach = getPlanarReach(vector, amplitude, vectorScale);
+    extent = Math.max(extent, Math.abs(point.x) + planarReach, Math.abs(point.y) + planarReach);
+  }
+
+  viewer2DState.baseExtentCacheKey = cacheKey;
+  viewer2DState.baseExtent = extent * 1.18 + 0.28;
+  return viewer2DState.baseExtent;
+}
+
+function getPlanarReach(atomVector, amplitude, vectorScale) {
+  const ex = atomVector?.[0] ?? { re: 0, im: 0 };
+  const ey = atomVector?.[1] ?? { re: 0, im: 0 };
+  const scaleFactor = amplitude * 0.65;
+  const motionReach = scaleFactor * Math.hypot(complexMagnitude(ex), complexMagnitude(ey));
+  const arrowReach = motionReach * vectorScale;
+  return motionReach + arrowReach;
 }
 
 function initializeViewerObjects(data) {
