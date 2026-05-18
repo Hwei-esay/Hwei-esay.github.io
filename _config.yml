@@ -43,6 +43,8 @@ navigation:
     url: "/skills/"
   - title: "学术"
     url: "/academia/"
+  - title: "arXiv"
+    url: "/daily-arXiv-ai-enhanced/"
   - title: "Links"
     url: "/links/"
   - title: "关于"
