@@ -19,6 +19,10 @@ description: 常用工具、项目与课题组链接整理
 
 用于围绕一篇论文快速展开相关文献网络，适合找前后续工作与相近研究脉络。
 
+### [Kiteflyingee/academic_prompts](https://github.com/Kiteflyingee/academic_prompts#高效阅读论文)
+
+学术阅读与论文理解相关的 prompt 模板集合，可作为快速拆解论文、提炼问题和整理笔记的参考。
+
 ### [TBMethod](https://github.com/AlexanderZ11234/TBMethod)
 
 紧束缚模型相关的方法与代码仓库，适合查阅实现思路和项目结构。
