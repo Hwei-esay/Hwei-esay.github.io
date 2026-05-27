@@ -23,10 +23,6 @@ description: 常用工具、项目与课题组链接整理
 
 学术阅读与论文理解相关的 prompt 模板集合，可作为快速拆解论文、提炼问题和整理笔记的参考。
 
-### [summarize-literature-article](https://github.com/yanxiao-dai/yanxiao-dai/tree/main/skills/summarize-literature-article)
-
-用于将期刊论文整理成结构化中文文献总结报告的 Codex skill，适合做论文精读和图表梳理。
-
 ### [TBMethod](https://github.com/AlexanderZ11234/TBMethod)
 
 紧束缚模型相关的方法与代码仓库，适合查阅实现思路和项目结构。
