@@ -2,11 +2,16 @@
 layout: default
 ---
 
-{% assign featured_posts = site.posts | slice: 0, site.home.featured_posts %}
-{% assign featured_moments = site.moments | reverse | slice: 0, site.home.featured_moments %}
-{% assign featured_tutorials = site.tutorials | reverse | slice: 0, site.home.featured_tutorials %}
-{% assign featured_skills = site.skills | reverse | slice: 0, site.home.featured_skills %}
-{% assign featured_reports = site.academia | reverse | slice: 0, site.home.featured_reports %}
+{% assign posts_section = site.data.sections | where: "key", "posts" | first %}
+{% assign moments_section = site.data.sections | where: "key", "moments" | first %}
+{% assign tutorials_section = site.data.sections | where: "key", "tutorials" | first %}
+{% assign skills_section = site.data.sections | where: "key", "skills" | first %}
+{% assign academia_section = site.data.sections | where: "key", "academia" | first %}
+{% assign featured_posts = site.posts | slice: 0, posts_section.home_count %}
+{% assign featured_moments = site.moments | reverse | slice: 0, moments_section.home_count %}
+{% assign featured_tutorials = site.tutorials | reverse | slice: 0, tutorials_section.home_count %}
+{% assign featured_skills = site.skills | reverse | slice: 0, skills_section.home_count %}
+{% assign featured_reports = site.academia | reverse | slice: 0, academia_section.home_count %}
 
 <section class="hero">
   <div class="hero-copy">

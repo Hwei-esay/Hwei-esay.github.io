@@ -29,34 +29,7 @@ author:
   bio: "喜欢把零散经验整理成可复用的知识，把问题讲清楚，也把成长记录下来。"
   github: "Hwei-esay"
 
-# 导航配置：可直接增删，header 会自动渲染
-navigation:
-  - title: "首页"
-    url: "/"
-  - title: "博客"
-    url: "/blog/"
-  - title: "感悟"
-    url: "/moments/"
-  - title: "教程"
-    url: "/tutorials/"
-  - title: "Skills"
-    url: "/skills/"
-  - title: "学术"
-    url: "/academia/"
-  - title: "arXiv"
-    url: "/daily-arXiv-ai-enhanced/"
-  - title: "Links"
-    url: "/links/"
-  - title: "关于"
-    url: "/about/"
-
-# 首页展示的内容数量
-home:
-  featured_posts: 3
-  featured_moments: 6
-  featured_tutorials: 4
-  featured_skills: 4
-  featured_reports: 4
+# 可见站点 section 由 _data/sections.yml 统一维护。
 
 # 社交链接。需要哪个留哪个，不需要可删掉整行。
 social:

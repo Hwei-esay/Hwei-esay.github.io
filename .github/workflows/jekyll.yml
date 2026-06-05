@@ -30,6 +30,9 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Validate site structure
+        run: ruby scripts/validate_site_structure.rb
+
       - name: Build site
         run: bundle exec jekyll build --baseurl ""
 

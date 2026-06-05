@@ -8,7 +8,8 @@
   </a>
 
   <nav class="site-nav" aria-label="Main Navigation">
-    {% for item in site.navigation %}
+    {% assign nav_items = site.data.sections | where: "nav", true %}
+    {% for item in nav_items %}
       <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
     {% endfor %}
   </nav>

@@ -5,7 +5,6 @@ _site/
 .bundle/
 .bundle-user/
 vendor/
-Gemfile.lock
 
 .idea/
 .DS_Store
