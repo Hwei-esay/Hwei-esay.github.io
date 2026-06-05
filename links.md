@@ -39,6 +39,10 @@ description: 常用工具、项目与课题组链接整理
 
 在线文本差异对比工具，适合快速比较两段文本、代码或修改前后的内容。
 
+### [去空行工具](http://www.esjson.com/delSpace.html)
+
+在线删除文本空行的轻量工具，适合快速清理复制内容或 Markdown 草稿。
+
 ### [SwitchResX 4.8.0](https://www.waitsun.com/serial/switchresx-4-8-0)
 
 macOS 屏幕分辨率与显示模式管理工具，适合外接显示器调试。
