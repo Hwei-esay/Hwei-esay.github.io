@@ -42,6 +42,8 @@
   title: "arXiv"
   url: "/daily-arXiv-ai-enhanced/"
   description: "每日 arXiv 增强阅读入口"
+  external_project: true
+  repository: "Hwei-esay/daily-arXiv-ai-enhanced"
   nav: true
 - key: links
   title: "Links"

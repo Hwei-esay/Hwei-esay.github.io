@@ -20,6 +20,10 @@ The data file that names site sections, navigation entries, landing URLs, descri
 
 A top-level page such as `/blog/` or `/tutorials/` that lists entries from a Content Collection.
 
+### External Project Section
+
+A navigation entry that points to another repository or separately deployed GitHub Pages project under the same account. It belongs in the Section Registry, but it does not require a local landing page in this repository.
+
 ### Article Shell
 
 The shared visual frame for an individual content entry: title, section label, metadata, optional summary, and prose body.

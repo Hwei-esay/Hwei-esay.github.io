@@ -44,6 +44,10 @@ sections.each do |section|
   url = section["url"]
   fail_with("section #{section['key']} url must start with /") unless url.start_with?("/")
 
+  if section["external_project"] && section["repository"].to_s.strip.empty?
+    fail_with("external project section #{section['key']} must declare repository")
+  end
+
   collection = section["collection"]
   next unless collection
 
@@ -63,6 +67,7 @@ nav_sections = sections.select { |section| section["nav"] }
 nav_sections.each do |section|
   url = section["url"]
   next if url.start_with?("http://", "https://", "mailto:")
+  next if section["external_project"]
 
   permalink_exists = landing_pages.any? { |path| front_matter(path)["permalink"] == url }
   directory_exists = ROOT.join(url.delete_prefix("/")).directory?
