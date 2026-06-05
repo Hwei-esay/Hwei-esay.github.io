@@ -2,15 +2,28 @@
 layout: default
 ---
 
-<section class="content-page">
+<section class="content-page json-window">
+  <div class="terminal-bar">
+    <span></span><span></span><span></span>
+    <strong>page.json</strong>
+  </div>
   <header class="page-header">
-    <p class="eyebrow">Page</p>
+    <p class="eyebrow">"page"</p>
     <h1>{{ page.title }}</h1>
     {% if page.description %}
       <p>{{ page.description }}</p>
     {% endif %}
   </header>
+  <div class="json-meta">
+    <p><span class="json-punct">{</span></p>
+    <p><span class="json-key">"title"</span><span class="json-punct">:</span> <span class="json-value">"{{ page.title }}"</span><span class="json-punct">,</span></p>
+    <p><span class="json-key">"content"</span><span class="json-punct">:</span> <span class="json-punct">{</span></p>
+  </div>
   <div class="prose">
     {{ content }}
+  </div>
+  <div class="json-meta">
+    <p><span class="json-punct">}</span></p>
+    <p><span class="json-punct">}</span></p>
   </div>
 </section>

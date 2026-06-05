@@ -2,13 +2,27 @@
 layout: default
 ---
 
-<article class="content-page">
+<article class="content-page json-window">
+  <div class="terminal-bar">
+    <span></span><span></span><span></span>
+    <strong>article.json</strong>
+  </div>
   <header class="page-header">
-    <p class="eyebrow">{{ page.section | default: 'Blog' | upcase }}</p>
+    <p class="eyebrow">"{{ page.section | default: 'blog' }}"</p>
     <h1>{{ page.title }}</h1>
     {% include article-meta.html %}
   </header>
+  <div class="json-meta">
+    <p><span class="json-punct">{</span></p>
+    <p><span class="json-key">"title"</span><span class="json-punct">:</span> <span class="json-value">"{{ page.title }}"</span><span class="json-punct">,</span></p>
+    <p><span class="json-key">"date"</span><span class="json-punct">:</span> <span class="json-value">"{{ page.date | date: '%Y-%m-%d' }}"</span><span class="json-punct">,</span></p>
+    <p><span class="json-key">"content"</span><span class="json-punct">:</span> <span class="json-punct">{</span></p>
+  </div>
   <div class="prose">
     {{ content }}
+  </div>
+  <div class="json-meta">
+    <p><span class="json-punct">}</span></p>
+    <p><span class="json-punct">}</span></p>
   </div>
 </article>

@@ -13,28 +13,26 @@ layout: default
 {% assign featured_skills = site.skills | reverse | slice: 0, skills_section.home_count %}
 {% assign featured_reports = site.academia | reverse | slice: 0, academia_section.home_count %}
 
-<section class="hero">
-  <div class="hero-copy">
-    <p class="eyebrow">Jekyll Personal Knowledge Hub</p>
-    <h1>{{ site.title }}</h1>
-    <p class="hero-text">{{ site.description }}</p>
-    <div class="hero-actions">
-      <a class="button button-primary" href="{{ '/blog/' | relative_url }}">开始阅读</a>
-      <a class="button button-secondary" href="{{ '/about/' | relative_url }}">了解更多</a>
-    </div>
+<section class="hero json-window">
+  <div class="terminal-bar">
+    <span></span><span></span><span></span>
+    <strong>profile.json</strong>
   </div>
-  <div class="hero-panel">
-    <div class="metric-card metric-card-intro">
-      <span class="metric-label">个人简介</span>
-      <strong>Haowei Guo</strong>
-      <p>把零散经验整理成可复用的知识，也把研究过程写成后续还能继续使用的记录。</p>
-      <p class="metric-card-subtle">这里主要放短博客、教程沉淀、学术复现与长期积累中的关键笔记。</p>
+  <h1 class="sr-only">{{ site.title }}</h1>
+  <div class="json-block hero-copy">
+    <p><span class="json-punct">{</span></p>
+    <p><span class="json-key">"site"</span><span class="json-punct">:</span> <span class="json-value">"{{ site.title }}"</span><span class="json-punct">,</span></p>
+    <p><span class="json-key">"author"</span><span class="json-punct">:</span> <span class="json-value">"{{ site.author.name }}"</span><span class="json-punct">,</span></p>
+    <p><span class="json-key">"description"</span><span class="json-punct">:</span> <span class="json-string">"{{ site.description | strip_newlines }}"</span><span class="json-punct">,</span></p>
+    <p><span class="json-key">"sections"</span><span class="json-punct">:</span> <span class="json-punct">[</span></p>
+    <div class="json-indent hero-actions">
+      {% assign visible_sections = site.data.sections | where: "nav", true %}
+      {% for section in visible_sections %}
+        <a class="json-link" href="{{ section.url | relative_url }}"><span class="json-punct">{</span> <span class="json-key">"{{ section.key }}"</span><span class="json-punct">:</span> <span class="json-value">"{{ section.title }}"</span> <span class="json-punct">}</span></a>{% unless forloop.last %}<span class="json-punct">,</span>{% endunless %}
+      {% endfor %}
     </div>
-    <a class="metric-card metric-card-link" href="{{ '/tutorials/2026-04-27-build-this-site-with-ai/' | relative_url }}">
-      <span class="metric-label">发布方式</span>
-      <strong>GitHub + Cloudflare</strong>
-      <p>查看如何从 0 构建这个网站，以及可直接复用的 AI prompts。</p>
-    </a>
+    <p><span class="json-punct">]</span></p>
+    <p><span class="json-punct">}</span></p>
   </div>
 </section>
 
@@ -42,7 +40,7 @@ layout: default
   <article class="panel panel-wide">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">Recent Blog</p>
+        <p class="eyebrow">"recent_blog"</p>
         <h2>短博客</h2>
       </div>
       <a href="{{ '/blog/' | relative_url }}">查看全部</a>
@@ -61,7 +59,7 @@ layout: default
   <article class="panel">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">Micro Thoughts</p>
+        <p class="eyebrow">"micro_thoughts"</p>
         <h2>感悟短句</h2>
       </div>
       <a href="{{ '/moments/' | relative_url }}">更多短句</a>
@@ -81,7 +79,7 @@ layout: default
   <article class="panel">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">Reusable Notes</p>
+        <p class="eyebrow">"reusable_notes"</p>
         <h2>教程沉淀</h2>
       </div>
       <a href="{{ '/tutorials/' | relative_url }}">查看全部</a>
@@ -99,7 +97,7 @@ layout: default
   <article class="panel">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">Reusable Skills</p>
+        <p class="eyebrow">"reusable_skills"</p>
         <h2>Skills 收藏</h2>
       </div>
       <a href="{{ '/skills/' | relative_url }}">查看全部</a>
@@ -119,7 +117,7 @@ layout: default
   <article class="panel">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">Academic Log</p>
+        <p class="eyebrow">"academic_log"</p>
         <h2>学术报告</h2>
       </div>
       <a href="{{ '/academia/' | relative_url }}">查看全部</a>

@@ -8,9 +8,11 @@
   </a>
 
   <nav class="site-nav" aria-label="Main Navigation">
+    <span class="json-punct">{</span>
     {% assign nav_items = site.data.sections | where: "nav", true %}
     {% for item in nav_items %}
-      <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+      <a href="{{ item.url | relative_url }}"><span class="json-key">"{{ item.title }}"</span><span class="json-punct">:</span> <span class="json-value">"{{ item.url }}"</span></a>{% unless forloop.last %}<span class="json-punct">,</span>{% endunless %}
     {% endfor %}
+    <span class="json-punct">}</span>
   </nav>
 </header>

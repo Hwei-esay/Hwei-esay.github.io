@@ -28,6 +28,10 @@ A navigation entry that points to another repository or separately deployed GitH
 
 The shared visual frame for an individual content entry: title, section label, metadata, optional summary, and prose body.
 
+### Hacked Site Skin
+
+The visual language used across the site layouts. It borrows the JSON-like terminal style from Hacked Jekyll while keeping this repository's existing Content Collections, Section Registry, and Embedded Research Tool structure.
+
 ### Embedded Research Tool
 
 A standalone browser tool shipped under `tools/`, linked from the site, and published with the static site. `tools/phonon/` is the current Embedded Research Tool.
