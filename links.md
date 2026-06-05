@@ -23,6 +23,10 @@ description: 常用工具、项目与课题组链接整理
 
 学术阅读与论文理解相关的 prompt 模板集合，可作为快速拆解论文、提炼问题和整理笔记的参考。
 
+### [mattpocock/skills](https://github.com/mattpocock/skills)
+
+面向真实工程工作的 AI agent skills 集合，适合参考其中的调试、TDD、需求梳理和工作流模板。
+
 ### [TBMethod](https://github.com/AlexanderZ11234/TBMethod)
 
 紧束缚模型相关的方法与代码仓库，适合查阅实现思路和项目结构。
