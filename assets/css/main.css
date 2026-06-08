@@ -3,9 +3,9 @@
   --bg-soft: #0d1117;
   --panel: #0f141b;
   --panel-strong: #121923;
-  --text: #dbe4ee;
-  --muted: #7d8b99;
-  --line: #263241;
+  --text: #edf2f7;
+  --muted: #9aa8b7;
+  --line: #2d3b4b;
   --punct: #69db7c;
   --key: #8ce99a;
   --value: #66d9ef;
@@ -13,7 +13,8 @@
   --hover: #96f2d7;
   --danger: #ff6b6b;
   --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
-  --content-width: 1120px;
+  --content-width: 1080px;
+  --reading-width: 760px;
   --radius: 10px;
   --mono: "Hack", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   --sans: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
@@ -33,9 +34,9 @@ body {
   color: var(--text);
   font-family: var(--mono);
   background:
-    linear-gradient(rgba(105, 219, 124, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(105, 219, 124, 0.025) 1px, transparent 1px),
-    radial-gradient(circle at 20% 12%, rgba(102, 217, 239, 0.08), transparent 30%),
+    linear-gradient(rgba(105, 219, 124, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(105, 219, 124, 0.014) 1px, transparent 1px),
+    radial-gradient(circle at 20% 12%, rgba(102, 217, 239, 0.055), transparent 30%),
     var(--bg);
   background-size: 28px 28px, 28px 28px, auto, auto;
 }
@@ -47,7 +48,7 @@ body::before {
   pointer-events: none;
   background: linear-gradient(rgba(255, 255, 255, 0.025) 50%, rgba(0, 0, 0, 0.04) 50%);
   background-size: 100% 4px;
-  opacity: 0.28;
+  opacity: 0.1;
 }
 
 a {
@@ -123,13 +124,22 @@ a {
   height: 12px;
   border-radius: 50%;
   background: var(--punct);
-  box-shadow: 0 0 22px rgba(105, 219, 124, 0.8);
-  animation: cursor-pulse 1.2s steps(2, end) infinite;
+  box-shadow: 0 0 18px rgba(105, 219, 124, 0.72);
+  animation: cursor-pulse 2.2s ease-in-out infinite;
+  transform: translateZ(0);
+  will-change: transform, opacity;
 }
 
 @keyframes cursor-pulse {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: translateZ(0) scale(0.82);
+  }
+
   50% {
-    opacity: 0.22;
+    opacity: 1;
+    transform: translateZ(0) scale(1.08);
   }
 }
 
@@ -263,6 +273,11 @@ a {
   padding: 24px;
 }
 
+.site-main > .content-page {
+  width: min(100%, 920px);
+  margin-inline: auto;
+}
+
 .panel::before,
 .content-page::before,
 .site-footer::before {
@@ -329,13 +344,14 @@ a {
 }
 
 .page-header {
-  margin-bottom: 22px;
+  width: min(100%, var(--reading-width));
+  margin: 0 auto 24px;
 }
 
 .page-header h1 {
   color: var(--value);
-  font-size: clamp(1.8rem, 4vw, 3.2rem);
-  line-height: 1.18;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  line-height: 1.28;
 }
 
 .page-header p,
@@ -358,6 +374,8 @@ a {
 }
 
 .json-meta {
+  width: min(100%, var(--reading-width));
+  margin-inline: auto;
   color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.75;
@@ -368,7 +386,8 @@ a {
 }
 
 .summary-box {
-  margin: 18px 0;
+  width: min(100%, var(--reading-width));
+  margin: 18px auto;
   padding: 14px 16px;
   border: 1px dashed var(--line);
   border-radius: 8px;
@@ -435,13 +454,15 @@ a {
 }
 
 .prose {
-  margin: 18px 0;
-  padding: 18px;
-  border-left: 1px dashed var(--line);
+  width: min(100%, var(--reading-width));
+  margin: 22px auto;
+  padding: 4px 0;
   color: var(--text);
   font-family: var(--sans);
-  font-size: 1.02rem;
-  line-height: 1.95;
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.92;
+  text-rendering: optimizeLegibility;
 }
 
 .prose > :first-child {
@@ -458,18 +479,48 @@ a {
 .prose h4 {
   color: var(--value);
   font-family: var(--mono);
+  font-weight: 700;
   line-height: 1.35;
 }
 
 .prose h2 {
-  margin-top: 2.2rem;
-  padding-top: 1rem;
+  margin: 3rem 0 1.35rem;
+  padding-top: 1.35rem;
   border-top: 1px solid var(--line);
+}
+
+.prose h3 {
+  margin: 2.2rem 0 1rem;
 }
 
 .prose p,
 .prose li {
   color: var(--text);
+}
+
+.prose p {
+  margin: 1.15rem 0;
+}
+
+.prose ul,
+.prose ol {
+  margin: 1.2rem 0;
+  padding-left: 1.6rem;
+}
+
+.prose li + li {
+  margin-top: 0.45rem;
+}
+
+.prose strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.prose hr {
+  margin: 2.4rem 0;
+  border: 0;
+  border-top: 1px solid var(--line);
 }
 
 .prose a {
@@ -482,11 +533,15 @@ a {
 }
 
 .prose blockquote {
-  margin: 1.6rem 0;
-  padding: 0.8rem 1rem;
+  margin: 1.8rem 0;
+  padding: 1rem 1.2rem;
   border-left: 3px solid var(--punct);
-  background: rgba(105, 219, 124, 0.045);
-  color: var(--muted);
+  background: rgba(105, 219, 124, 0.07);
+  color: var(--text);
+}
+
+.prose blockquote p {
+  color: inherit;
 }
 
 .prose code {
@@ -507,6 +562,8 @@ a {
   border-radius: 8px;
   background: #070a0f;
   color: var(--text);
+  font-size: 0.94rem;
+  line-height: 1.65;
 }
 
 .prose pre code {
@@ -531,6 +588,7 @@ a {
 
 .prose th {
   color: var(--key);
+  background: rgba(105, 219, 124, 0.055);
 }
 
 .code-copy-button {
@@ -634,7 +692,8 @@ a {
   }
 
   .prose {
-    padding: 14px;
+    padding: 2px 0;
     font-size: 1rem;
+    line-height: 1.85;
   }
 }
