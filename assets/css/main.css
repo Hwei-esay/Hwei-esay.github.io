@@ -302,6 +302,17 @@ a {
   pointer-events: none;
 }
 
+.panel::after {
+  content: "}";
+  position: absolute;
+  bottom: 10px;
+  left: 16px;
+  color: rgba(105, 219, 124, 0.2);
+  font-size: 3rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
 .panel-wide {
   grid-column: span 2;
 }
@@ -360,7 +371,8 @@ a {
   margin: 0 auto 24px;
 }
 
-.listing-page .page-header {
+.listing-page .page-header,
+.static-page .page-header {
   margin-top: 28px;
 }
 
