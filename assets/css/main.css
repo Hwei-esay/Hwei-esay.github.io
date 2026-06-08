@@ -291,6 +291,17 @@ a {
   pointer-events: none;
 }
 
+.content-page::after {
+  content: "}";
+  position: absolute;
+  bottom: 10px;
+  left: 16px;
+  color: rgba(105, 219, 124, 0.2);
+  font-size: 3rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
 .panel-wide {
   grid-column: span 2;
 }
@@ -664,6 +675,7 @@ a {
   position: relative;
   z-index: 1;
   display: inline-flex;
+  margin-right: 2.5rem;
   padding: 6px;
 }
 
