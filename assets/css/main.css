@@ -502,6 +502,27 @@ a {
   margin: 1.15rem 0;
 }
 
+.prose img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(75vh, 900px);
+  margin: 1.75rem auto;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.prose a > img {
+  margin-inline: auto;
+}
+
+.prose td img,
+.prose th img {
+  max-height: 520px;
+  margin: 0.5rem auto;
+}
+
 .prose ul,
 .prose ol {
   margin: 1.2rem 0;

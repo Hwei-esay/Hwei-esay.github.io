@@ -12,17 +12,7 @@ layout: default
     <h1>{{ page.title }}</h1>
     {% include article-meta.html %}
   </header>
-  <div class="json-meta">
-    <p><span class="json-punct">{</span></p>
-    <p><span class="json-key">"title"</span><span class="json-punct">:</span> <span class="json-value">"{{ page.title }}"</span><span class="json-punct">,</span></p>
-    <p><span class="json-key">"date"</span><span class="json-punct">:</span> <span class="json-value">"{{ page.date | date: '%Y-%m-%d' }}"</span><span class="json-punct">,</span></p>
-    <p><span class="json-key">"content"</span><span class="json-punct">:</span> <span class="json-punct">{</span></p>
-  </div>
   <div class="prose">
     {{ content }}
-  </div>
-  <div class="json-meta">
-    <p><span class="json-punct">}</span></p>
-    <p><span class="json-punct">}</span></p>
   </div>
 </article>
