@@ -6,6 +6,8 @@ source_repository: "https://github.com/Hwei-esay/Physics"
 source_commit: "ab02139"
 ---
 
+{% raw %}
+
 ![](https://images.unsplash.com/photo-1734014937757-f39209af0579?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)
 
 ## 双层石墨烯晶格
@@ -89,3 +91,5 @@ ListPointPlot3D[latkagome3d, BoxRatios -> Automatic]
 [<img src="https://s21.ax1x.com/2024/12/18/pAL6xQx.jpg" data-border="0" alt="pAL6xQx.jpg" />](https://imgse.com/i/pAL6xQx)
 
 此处省略详细步骤，具体步骤和石墨烯晶格类似。
+
+{% endraw %}
