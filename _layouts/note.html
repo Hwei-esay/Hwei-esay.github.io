@@ -3,12 +3,7 @@ layout: default
 ---
 
 <article class="content-page json-window{% if page.section == 'skills' %} content-page--skills{% endif %}">
-  <div class="terminal-bar">
-    <span></span><span></span><span></span>
-    <strong>{{ page.section | default: 'note' }}.json</strong>
-  </div>
   <header class="page-header">
-    <p class="eyebrow">"{{ page.section | default: 'notes' }}"</p>
     <h1>{{ page.title }}</h1>
     {% include article-meta.html %}
   </header>

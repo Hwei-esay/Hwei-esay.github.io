@@ -288,6 +288,7 @@ a {
   color: rgba(105, 219, 124, 0.2);
   font-size: 3rem;
   line-height: 1;
+  pointer-events: none;
 }
 
 .panel-wide {
@@ -657,6 +658,13 @@ a {
   width: 22px;
   height: 22px;
   fill: currentColor;
+}
+
+.footer-repo-link {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  padding: 6px;
 }
 
 .footer-copy {
