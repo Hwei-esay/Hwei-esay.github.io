@@ -672,10 +672,11 @@ a {
 }
 
 .footer-repo-link {
-  position: relative;
+  position: absolute;
+  top: 17px;
+  right: 4.5rem;
   z-index: 1;
   display: inline-flex;
-  margin-right: 2.5rem;
   padding: 6px;
 }
 
