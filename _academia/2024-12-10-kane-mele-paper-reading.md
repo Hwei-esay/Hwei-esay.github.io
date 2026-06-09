@@ -10,7 +10,7 @@ source_commit: "ab02139"
 
 ## 文献阅读
 
-文献：[Kane和Mele - 2005 - Quantum Spin Hall Effect in Graphene.pdf](/assets/physics/Kane%E5%92%8CMele%20-%202005%20-%20Quantum%20Spin%20Hall%20Effect%20in%20Graphene-20241210145857-fujqh8z.pdf)
+文献：[Kane和Mele - 2005 - Quantum Spin Hall Effect in Graphene.pdf]({{ '/assets/physics/Kane%E5%92%8CMele%20-%202005%20-%20Quantum%20Spin%20Hall%20Effect%20in%20Graphene-20241210145857-fujqh8z.pdf' | relative_url }})
 
 起因：英文文献逐字逐句读完之后没有留下印象，第二天再打开就不知道讲了一些什么，因此把阅读的感想记录一下。
 
@@ -73,7 +73,7 @@ $$ \mathcal{H}_R=\lambda_R\psi^{\dagger}(\sigma_x\tau_zs_y-\sigma_ys_x)\psi\tag{
 
 在下文的讨论中我们假设$\lambda_R<\Delta_{SO}$并且分析这个导致的有能隙的相的属性。文末通过数值估算给出了这一假设的合理性。
 
-![image](/assets/physics/image-20241210210538-r2uqaeo.png)
+![image]({{ '/assets/physics/image-20241210210538-r2uqaeo.png' | relative_url }})
 
 由$\sigma_z\tau_zs_z$产生的带隙与$\sigma_z$或$\sigma_zs_z$的交错子晶格势能产生的能隙不同。
 

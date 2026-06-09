@@ -16,26 +16,42 @@ layout: default
   {% assign items = site.academia | reverse %}
 {% endif %}
 
-<section class="content-page json-window listing-page">
-  <div class="terminal-bar">
-    <span></span><span></span><span></span>
-    <strong>{{ key }}.json</strong>
-  </div>
+<section class="content-page listing-page">
   <header class="page-header">
-    <h1>{{ page.title }}</h1>
+    <h1>&gt; {{ page.title | downcase }}_</h1>
     <p>{{ page.description | default: section.description }}</p>
   </header>
 
-  <div class="archive-list">
-    <p class="json-array-open"><span class="json-key">"items"</span><span class="json-punct">:</span> <span class="json-punct">[</span></p>
-    {% for item in items %}
-      <a class="archive-item" href="{{ item.url | relative_url }}">
-        <div>
-          <h2><span class="json-punct">{</span> <span class="json-key">"title"</span><span class="json-punct">:</span> <span class="json-value">"{{ item.title }}"</span> <span class="json-punct">}</span></h2>
-          <p>{{ item.summary | default: item.excerpt | strip_html | strip_newlines | truncate: 120 }}</p>
-        </div>
-        <span>{{ item.date | date: "%Y-%m-%d" }}</span>
-      </a>
-    {% endfor %}
+  <div class="listing-layout">
+    <aside class="listing-sidebar">
+      <p class="panel-label">categories</p>
+      <div class="sidebar-filters" aria-label="Content filters">
+        <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">&gt; all <span>›</span></button>
+        {% if key == "posts" and site.categories != empty %}
+          {% for category in site.categories %}
+            <button class="filter-button" type="button" data-filter="{{ category[0] | escape }}" aria-pressed="false">_ {{ category[0] }}</button>
+          {% endfor %}
+        {% else %}
+          <a href="{{ '/blog/' | relative_url }}">_ posts</a>
+          <a href="{{ '/tutorials/' | relative_url }}">_ tutorials</a>
+          <a href="{{ '/skills/' | relative_url }}">_ skills</a>
+          <a href="{{ '/academia/' | relative_url }}">_ academia</a>
+        {% endif %}
+      </div>
+    </aside>
+
+    <div class="archive-table" role="list">
+      <div class="archive-head" aria-hidden="true"><span>#</span><span>title</span><span>category</span><span>date</span></div>
+      {% for item in items %}
+        <a class="archive-row" role="listitem" href="{{ item.url | relative_url }}" data-categories="{{ item.categories | join: ',' | escape }}">
+          <span class="archive-index">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span>
+          <span class="archive-title"><strong>{{ item.title }}</strong><small>{{ item.summary | default: item.description | default: item.excerpt | strip_html | strip_newlines | truncate: 88 }}</small></span>
+          <span class="archive-taxonomy">
+            {% if item.categories and item.categories != empty %}{{ item.categories | join: " / " }}{% elsif item.tags and item.tags != empty %}{{ item.tags | join: " / " }}{% else %}{{ key }}{% endif %}
+          </span>
+          <time datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%Y-%m-%d" }}</time>
+        </a>
+      {% endfor %}
+    </div>
   </div>
 </section>

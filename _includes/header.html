@@ -1,18 +1,18 @@
 <header class="site-header">
-  <a class="brand" href="{{ '/' | relative_url }}">
-    <span class="brand-mark"></span>
-    <span>
-      <strong>{{ site.title }}</strong>
-      <small>{{ site.author.title }}</small>
-    </span>
+  <a class="terminal-prompt" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
+    <span class="prompt-user">{{ site.terminal.user }}@{{ site.terminal.host }}</span><span class="prompt-separator">:</span><span class="prompt-path">{{ site.terminal.prompt_path }}</span><span class="prompt-symbol">$</span>
   </a>
 
-  <nav class="site-nav" aria-label="Main Navigation">
-    <span class="json-punct">{</span>
+  <nav class="site-nav" aria-label="Main navigation">
     {% assign nav_items = site.data.sections | where: "nav", true %}
     {% for item in nav_items %}
-      <a href="{{ item.url | relative_url }}"><span class="json-key">"{{ item.title }}"</span><span class="json-punct">:</span> <span class="json-value">"{{ item.url }}"</span></a>{% unless forloop.last %}<span class="json-punct">,</span>{% endunless %}
+      {% assign item_active = false %}
+      {% if item.url == "/" and page.url == "/" %}
+        {% assign item_active = true %}
+      {% elsif item.url != "/" and page.url contains item.url %}
+        {% assign item_active = true %}
+      {% endif %}
+      <a href="{{ item.url | relative_url }}"{% if item_active %} class="is-active" aria-current="page"{% endif %}>[ {{ item.title | downcase }} ]</a>
     {% endfor %}
-    <span class="json-punct">}</span>
   </nav>
 </header>

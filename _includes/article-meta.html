@@ -2,7 +2,14 @@
 {% assign word_count = plain_content | number_of_words %}
 {% assign read_minutes = word_count | plus: 179 | divided_by: 180 %}
 <p class="article-meta">
-  <span>{{ page.date | date: "%Y-%m-%d" }}</span>
-  <span>·</span>
-  <span>预计 {{ read_minutes }} 分钟</span>
+  <span>date={{ page.date | date: "%Y-%m-%d" }}</span>
+  <span>read={{ read_minutes }}min</span>
+  {% if page.categories and page.categories != empty %}
+    <span>category={{ page.categories | join: "," }}</span>
+  {% endif %}
 </p>
+{% if page.tags and page.tags != empty %}
+  <ul class="tag-list" aria-label="Tags">
+    {% for tag in page.tags %}<li>#{{ tag }}</li>{% endfor %}
+  </ul>
+{% endif %}

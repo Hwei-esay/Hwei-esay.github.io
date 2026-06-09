@@ -26,7 +26,7 @@ kane-mele模型考虑了以下作用：
 
 ### 0. 定义
 
-![Kane-Mele 晶格定义](/assets/physics/kanemele-define.png)
+![Kane-Mele 晶格定义]({{ '/assets/physics/kanemele-define.png' | relative_url }})
 
 $$
 \boldsymbol{a}_1=a\left(-\frac{1}{2},\frac{\sqrt{3}}{2}\right),\qquad

@@ -42,7 +42,7 @@ extra_javascript:
 ![](assets/nn456.png)
 ```
 
-![](/assets/physics/nn456.png)
+![]({{ '/assets/physics/nn456.png' | relative_url }})
 
 > **Tip** 使用本地图源时，文件需要放在 `docs/assets/` 中。目录示例如下：
 >

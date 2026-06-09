@@ -1,24 +1,24 @@
 - key: home
-  title: "首页"
+  title: "home"
   url: "/"
   description: "站点首页"
   nav: true
 - key: posts
-  title: "博客"
+  title: "posts"
   url: "/blog/"
   description: "100-200 字左右的博客文章"
   collection: "posts"
   nav: true
   home_count: 3
 - key: moments
-  title: "感悟"
+  title: "moments"
   url: "/moments/"
   description: "十几个字的短句与片段"
   collection: "moments"
   nav: true
   home_count: 6
 - key: tutorials
-  title: "教程"
+  title: "tutorials"
   url: "/tutorials/"
   description: "避免重复造轮子的教程沉淀"
   collection: "tutorials"
@@ -32,7 +32,7 @@
   nav: true
   home_count: 4
 - key: academia
-  title: "学术"
+  title: "academia"
   url: "/academia/"
   description: "学术报告与讲座笔记"
   collection: "academia"
@@ -51,7 +51,7 @@
   description: "常用工具、项目与课题组链接整理"
   nav: true
 - key: about
-  title: "关于"
+  title: "about"
   url: "/about/"
   description: "关于这个站点与作者"
   nav: true

@@ -2,16 +2,19 @@
 layout: default
 ---
 
-<article class="content-page json-window">
-  <div class="terminal-bar">
-    <span></span><span></span><span></span>
-    <strong>article.json</strong>
-  </div>
+<article class="content-page article-page">
   <header class="page-header">
-    <h1>{{ page.title }}</h1>
+    <p class="command-line"><span class="prompt-symbol">$</span> sed -n '1,$p' {{ page.slug }}.md</p>
+    <h1>&gt; {{ page.title }}_</h1>
     {% include article-meta.html %}
   </header>
-  <div class="prose">
-    {{ content }}
+  <div class="article-layout">
+    <aside class="toc-panel" aria-label="Table of contents">
+      <p class="panel-label">on_this_page</p>
+      <nav id="article-toc"><span class="muted">indexing...</span></nav>
+    </aside>
+    <div class="prose article-content">
+      {{ content }}
+    </div>
   </div>
 </article>
