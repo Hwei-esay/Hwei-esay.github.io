@@ -35,6 +35,10 @@ description: 常用工具、项目与课题组链接整理
 
 常用的 PDF 在线处理工具，适合合并、拆分、压缩和格式转换。
 
+### [iLoveIMG](https://www.iloveimg.com/)
+
+常用的图片在线处理工具，适合压缩、调整尺寸、裁剪和格式转换。
+
 ### [PDF to Markdown](https://pdf2md.morethan.io)
 
 在线将 PDF 快速转换为 Markdown，适合整理论文、说明文档和后续知识库笔记。
