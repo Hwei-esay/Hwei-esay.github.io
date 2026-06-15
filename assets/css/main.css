@@ -1181,6 +1181,248 @@ svg {
   }
 }
 
+/* Lewis Hamilton gallery */
+.lh-page {
+  min-width: 0;
+}
+
+.lh-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
+  gap: clamp(38px, 6vw, 92px);
+  align-items: center;
+  padding: clamp(46px, 7vw, 96px) clamp(30px, 6vw, 88px);
+  border-bottom: 1px solid var(--line);
+}
+
+.lh-profile {
+  max-width: 660px;
+}
+
+.lh-overline {
+  margin: 0 0 14px;
+  color: var(--green);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+
+.lh-profile h1 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: clamp(2rem, 4.5vw, 4.4rem);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1.08;
+}
+
+.lh-profile h1::first-letter {
+  color: var(--green);
+}
+
+.lh-lead {
+  margin: 26px 0 30px;
+  color: var(--muted);
+  font-size: clamp(0.9rem, 1.3vw, 1.02rem);
+  line-height: 1.85;
+}
+
+.lh-facts {
+  margin: 0;
+  border-top: 1px solid var(--line-strong);
+}
+
+.lh-facts div {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.lh-facts dt {
+  color: var(--green);
+  font-size: 0.73rem;
+}
+
+.lh-facts dt::after {
+  content: ":";
+}
+
+.lh-facts dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.78rem;
+}
+
+.lh-portrait {
+  width: 100%;
+  max-width: 720px;
+  margin: 0;
+  justify-self: end;
+  border: 1px solid var(--line-strong);
+  background: #030504;
+}
+
+.lh-portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lh-portrait figcaption,
+.lh-gallery-item figcaption {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-top: 1px solid var(--line);
+  color: var(--dim);
+  font-size: 0.65rem;
+}
+
+.lh-portrait figcaption span:first-child {
+  color: var(--green);
+}
+
+.lh-gallery-section {
+  padding: clamp(42px, 6vw, 82px) clamp(24px, 5vw, 70px);
+}
+
+.lh-section-heading {
+  display: flex;
+  gap: 24px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.lh-section-heading p {
+  margin: 0 0 7px;
+  color: var(--dim);
+  font-size: 0.72rem;
+}
+
+.lh-section-heading h2 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: clamp(1.25rem, 2.5vw, 1.8rem);
+  font-weight: 500;
+}
+
+.lh-section-heading > span {
+  color: var(--green);
+  font-size: 0.72rem;
+}
+
+.lh-gallery {
+  columns: 3 320px;
+  column-gap: clamp(16px, 2.2vw, 28px);
+}
+
+.lh-gallery-item {
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 clamp(16px, 2.2vw, 28px);
+  border: 1px solid var(--line);
+  background: #050706;
+  break-inside: avoid;
+  vertical-align: top;
+}
+
+.lh-gallery-item a {
+  display: block;
+  overflow: hidden;
+}
+
+.lh-gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 220ms ease, filter 220ms ease;
+}
+
+.lh-gallery-item:hover {
+  border-color: var(--green-dim);
+}
+
+.lh-gallery-item:hover img {
+  filter: brightness(1.04);
+  transform: scale(1.012);
+}
+
+.lh-gallery-item figcaption strong {
+  min-width: 0;
+  color: var(--text);
+  font-size: 0.7rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.lh-gallery-item figcaption span:first-child {
+  color: var(--green-dim);
+}
+
+.lh-rights-note {
+  margin: 24px 0 0;
+  color: var(--dim);
+  font-size: 0.68rem;
+  text-align: right;
+}
+
+@media (max-width: 980px) {
+  .lh-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .lh-profile,
+  .lh-portrait {
+    max-width: none;
+  }
+
+  .lh-portrait {
+    justify-self: stretch;
+  }
+}
+
+@media (max-width: 600px) {
+  .lh-hero {
+    gap: 30px;
+    padding: 38px 18px;
+  }
+
+  .lh-facts div {
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .lh-gallery-section {
+    padding: 36px 18px;
+  }
+
+  .lh-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .lh-gallery {
+    columns: 1;
+  }
+
+  .lh-gallery-item {
+    margin-bottom: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lh-gallery-item img {
+    transition: none;
+  }
+}
+
 @media (max-width: 420px) {
   .site-nav a {
     min-height: 30px;

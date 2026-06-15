@@ -45,6 +45,11 @@
   external_project: true
   repository: "Hwei-esay/daily-arXiv-ai-enhanced"
   nav: true
+- key: hamilton
+  title: "LH44"
+  url: "/lewis-hamilton/"
+  description: "Lewis Hamilton 壁纸、截图与照片收藏"
+  nav: true
 - key: links
   title: "Links"
   url: "/links/"

@@ -1,0 +1,68 @@
+---
+layout: default
+---
+
+{% assign hamilton = site.data.lewis_hamilton %}
+
+<article class="lh-page">
+  <header class="lh-hero">
+    <div class="lh-profile">
+      <p class="lh-overline">FORMULA ONE / #{{ hamilton.profile.number }}</p>
+      <h1>&gt; {{ hamilton.profile.name }}<span class="title-cursor" aria-hidden="true">_</span></h1>
+      <p class="lh-lead">{{ hamilton.profile.summary }}</p>
+
+      <dl class="lh-facts">
+        <div><dt>number</dt><dd>#{{ hamilton.profile.number }}</dd></div>
+        <div><dt>nationality</dt><dd>{{ hamilton.profile.nationality }}</dd></div>
+        <div><dt>born</dt><dd>{{ hamilton.profile.born }}</dd></div>
+        <div><dt>birthplace</dt><dd>{{ hamilton.profile.birthplace }}</dd></div>
+        <div><dt>titles</dt><dd>{{ hamilton.profile.championships }}</dd></div>
+      </dl>
+    </div>
+
+    <figure class="lh-portrait">
+      <img
+        src="{{ hamilton.portrait.src | relative_url }}"
+        alt="{{ hamilton.portrait.alt }}"
+        width="{{ hamilton.portrait.width }}"
+        height="{{ hamilton.portrait.height }}"
+        fetchpriority="high"
+      >
+      <figcaption><span>portrait.jpg</span><span>#44</span></figcaption>
+    </figure>
+  </header>
+
+  <section class="lh-gallery-section" aria-labelledby="lh-gallery-title">
+    <header class="lh-section-heading">
+      <div>
+        <p><span class="prompt-symbol">$</span> find ./gallery -type f</p>
+        <h2 id="lh-gallery-title">&gt; wallpapers_and_photos_</h2>
+      </div>
+      <span>{{ hamilton.gallery | size }} files</span>
+    </header>
+
+    <div class="lh-gallery">
+      {% for image in hamilton.gallery %}
+        <figure class="lh-gallery-item">
+          <a href="{{ image.src | relative_url }}" aria-label="Open full-size image: {{ image.caption }}">
+            <img
+              src="{{ image.src | relative_url }}"
+              alt="{{ image.alt }}"
+              width="{{ image.width }}"
+              height="{{ image.height }}"
+              loading="lazy"
+              decoding="async"
+            >
+          </a>
+          <figcaption>
+            <span>{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span>
+            <strong>{{ image.caption }}</strong>
+            <span>{{ image.width }}×{{ image.height }}</span>
+          </figcaption>
+        </figure>
+      {% endfor %}
+    </div>
+
+    <p class="lh-rights-note">Personal image collection. Copyright belongs to the respective photographers and rights holders.</p>
+  </section>
+</article>

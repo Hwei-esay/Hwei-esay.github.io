@@ -1,0 +1,85 @@
+profile:
+  name: "Lewis Hamilton"
+  number: "44"
+  nationality: "British"
+  born: "7 January 1985"
+  birthplace: "Stevenage, England"
+  championships: "7 Formula One World Championships"
+  summary: >-
+    Lewis Hamilton is one of the defining drivers of modern Formula One.
+    Known for his speed, consistency and wet-weather ability, he shares the
+    record for the most Formula One World Drivers' Championships and has
+    achieved more than 100 Grand Prix victories and pole positions.
+
+portrait:
+  src: "/assets/images/lewis-hamilton/01-trophy-portrait.jpg"
+  alt: "Lewis Hamilton smiling while holding a trophy"
+  width: 3000
+  height: 1688
+
+gallery:
+  - src: "/assets/images/lewis-hamilton/02-car-44.jpg"
+    alt: "Close-up of Lewis Hamilton's number 44 Formula One car"
+    caption: "Number 44"
+    width: 3840
+    height: 2160
+  - src: "/assets/images/lewis-hamilton/03-victory-crouch.jpg"
+    alt: "Lewis Hamilton celebrating on top of his Formula One car"
+    caption: "Victory"
+    width: 2560
+    height: 1600
+  - src: "/assets/images/lewis-hamilton/04-formula-wallpaper.jpg"
+    alt: "Lewis Hamilton Formula One wallpaper"
+    caption: "Formula wallpaper"
+    width: 2500
+    height: 1406
+  - src: "/assets/images/lewis-hamilton/05-mexico-gp-wallpaper.jpg"
+    alt: "Lewis Hamilton Mexico Grand Prix wallpaper"
+    caption: "Mexico GP"
+    width: 2560
+    height: 1440
+  - src: "/assets/images/lewis-hamilton/06-place-in-history.jpg"
+    alt: "Lewis Hamilton motorsport history wallpaper"
+    caption: "A place in history"
+    width: 2560
+    height: 1625
+  - src: "/assets/images/lewis-hamilton/07-pc-wallpaper.jpg"
+    alt: "Lewis Hamilton desktop wallpaper"
+    caption: "Race weekend"
+    width: 2048
+    height: 1152
+  - src: "/assets/images/lewis-hamilton/08-purple-44-poster.jpg"
+    alt: "Purple Lewis Hamilton number 44 poster"
+    caption: "Purple 44"
+    width: 828
+    height: 1034
+  - src: "/assets/images/lewis-hamilton/09-red-hamilton-poster.jpg"
+    alt: "Red Lewis Hamilton Formula One poster"
+    caption: "Hamilton poster"
+    width: 960
+    height: 1200
+  - src: "/assets/images/lewis-hamilton/10-champion-poster.jpg"
+    alt: "Lewis Hamilton 2020 world champion poster"
+    caption: "World champion"
+    width: 1125
+    height: 1994
+  - src: "/assets/images/lewis-hamilton/11-hamilton-wallpaper.png"
+    alt: "Lewis Hamilton racing wallpaper"
+    caption: "Track action"
+    width: 1920
+    height: 1080
+  - src: "/assets/images/lewis-hamilton/12-track-celebration.jpg"
+    alt: "Lewis Hamilton celebrating beside his Formula One car"
+    caption: "Celebration"
+    width: 2560
+    height: 1440
+  - src: "/assets/images/lewis-hamilton/13-night-portrait.jpg"
+    alt: "Lewis Hamilton in racing gear with fireworks behind him"
+    caption: "Night portrait"
+    width: 1340
+    height: 2382
+  - src: "/assets/images/lewis-hamilton/01-trophy-portrait.jpg"
+    alt: "Lewis Hamilton smiling while holding a trophy"
+    caption: "Lewis Hamilton"
+    width: 3000
+    height: 1688
