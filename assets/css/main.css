@@ -13,7 +13,7 @@
   --line-strong: #39443c;
   --danger: #d75f5f;
   --content-width: 1320px;
-  --reading-width: 780px;
+  --reading-width: 820px;
   --mono: "SFMono-Regular", "Cascadia Code", "Roboto Mono", Consolas, "Liberation Mono", Menlo, "PingFang SC", "Microsoft YaHei", monospace;
 }
 
@@ -35,8 +35,8 @@ body {
     radial-gradient(circle at 50% 0%, rgba(85, 216, 102, 0.045), transparent 36rem),
     var(--bg);
   font-family: var(--mono);
-  font-size: 15px;
-  line-height: 1.65;
+  font-size: 16px;
+  line-height: 1.72;
   overflow-x: hidden;
 }
 
@@ -130,7 +130,7 @@ svg {
   border-bottom: 1px solid var(--line);
   color: var(--dim);
   background: #090c0a;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   letter-spacing: 0.04em;
 }
 
@@ -172,7 +172,7 @@ svg {
   min-width: max-content;
   gap: 0.35ch;
   align-items: center;
-  font-size: 0.86rem;
+  font-size: 0.94rem;
 }
 
 .prompt-user,
@@ -222,7 +222,7 @@ svg {
   gap: 6px 15px;
   justify-content: flex-end;
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.86rem;
 }
 
 .site-nav a {
@@ -264,13 +264,13 @@ svg {
 .command-line {
   margin: 0 0 18px;
   color: var(--dim);
-  font-size: 0.77rem;
+  font-size: 0.84rem;
 }
 
 .hero-kicker {
   margin: 0 0 6px;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   letter-spacing: 0.08em;
 }
 
@@ -298,7 +298,8 @@ svg {
   max-width: 680px;
   margin: 25px 0 0;
   color: var(--muted);
-  font-size: clamp(0.94rem, 1.5vw, 1.05rem);
+  font-size: clamp(1.03rem, 1.5vw, 1.14rem);
+  line-height: 1.82;
 }
 
 .hero-actions {
@@ -319,7 +320,7 @@ svg {
 
 .terminal-button {
   padding: 9px 14px;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .terminal-button--quiet {
@@ -348,7 +349,7 @@ svg {
   border-bottom: 1px solid var(--line);
   color: var(--green);
   background: rgba(85, 216, 102, 0.035);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   letter-spacing: 0.08em;
 }
 
@@ -363,7 +364,7 @@ svg {
   gap: 10px;
   padding: 8px 0;
   border-bottom: 1px dotted var(--line);
-  font-size: 0.76rem;
+  font-size: 0.86rem;
 }
 
 .system-panel dl div:last-child {
@@ -421,7 +422,7 @@ svg {
   flex: 0 0 auto;
   padding-bottom: 3px;
   color: var(--green);
-  font-size: 0.76rem;
+  font-size: 0.86rem;
 }
 
 .section-heading > a:hover {
@@ -459,7 +460,7 @@ svg {
 .item-index,
 .archive-index {
   color: var(--green-dim);
-  font-size: 0.76rem;
+  font-size: 0.86rem;
 }
 
 .item-main {
@@ -471,21 +472,21 @@ svg {
 .item-main strong,
 .archive-title strong {
   color: var(--text-strong);
-  font-size: 0.88rem;
+  font-size: 0.98rem;
   font-weight: 500;
 }
 
 .item-main small,
 .archive-title small {
   color: var(--muted);
-  font-size: 0.73rem;
-  line-height: 1.55;
+  font-size: 0.84rem;
+  line-height: 1.65;
 }
 
 .home-list time,
 .compact-list time {
   color: var(--dim);
-  font-size: 0.72rem;
+  font-size: 0.82rem;
 }
 
 .home-grid {
@@ -511,7 +512,7 @@ svg {
 }
 
 .compact-list strong {
-  font-size: 0.8rem;
+  font-size: 0.92rem;
   font-weight: 500;
 }
 
@@ -534,12 +535,12 @@ svg {
 
 .directory-grid span {
   color: var(--dim);
-  font-size: 0.67rem;
+  font-size: 0.78rem;
 }
 
 .directory-grid strong {
   color: var(--green);
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 500;
 }
 
@@ -571,7 +572,7 @@ svg {
   gap: 8px 20px;
   margin: 20px 0 0;
   color: var(--dim);
-  font-size: 0.75rem;
+  font-size: 0.86rem;
 }
 
 .tag-list {
@@ -585,7 +586,7 @@ svg {
 
 .tag-list li {
   color: var(--green-dim);
-  font-size: 0.74rem;
+  font-size: 0.84rem;
 }
 
 .filter-bar {
@@ -598,7 +599,7 @@ svg {
 
 .filter-button {
   padding: 5px 9px;
-  font-size: 0.72rem;
+  font-size: 0.84rem;
 }
 
 .archive-table {
@@ -618,7 +619,7 @@ svg {
   padding: 9px 10px;
   border-bottom: 1px solid var(--line-strong);
   color: var(--dim);
-  font-size: 0.68rem;
+  font-size: 0.78rem;
   text-transform: uppercase;
 }
 
@@ -641,7 +642,7 @@ svg {
 .archive-taxonomy,
 .archive-row time {
   color: var(--dim);
-  font-size: 0.7rem;
+  font-size: 0.82rem;
   overflow-wrap: anywhere;
 }
 
@@ -687,8 +688,8 @@ svg {
 
 #article-toc li {
   min-width: 0;
-  font-size: 0.69rem;
-  line-height: 1.45;
+  font-size: 0.8rem;
+  line-height: 1.6;
 }
 
 #article-toc li::before {
@@ -716,8 +717,8 @@ svg {
   margin: 0 auto;
   color: var(--text);
   font-family: var(--mono);
-  font-size: 0.96rem;
-  line-height: 1.92;
+  font-size: 1.04rem;
+  line-height: 2;
   overflow-wrap: break-word;
 }
 
@@ -746,7 +747,7 @@ svg {
 }
 
 .prose h1 {
-  font-size: 1.65rem;
+  font-size: 1.82rem;
 }
 
 .prose h2 {
@@ -754,7 +755,7 @@ svg {
   padding: 10px 0;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  font-size: 1.3rem;
+  font-size: 1.45rem;
 }
 
 .prose h2::before {
@@ -764,7 +765,7 @@ svg {
 
 .prose h3 {
   margin: 2.3rem 0 1rem;
-  font-size: 1.08rem;
+  font-size: 1.2rem;
 }
 
 .prose h3::before {
@@ -860,8 +861,8 @@ svg {
   border: 1px solid var(--line-strong);
   color: #cbd4cd;
   background: #050806;
-  font-size: 0.82rem;
-  line-height: 1.7;
+  font-size: 0.92rem;
+  line-height: 1.75;
   overflow: auto;
 }
 
@@ -873,7 +874,7 @@ svg {
   border-bottom: 1px solid var(--line);
   color: var(--dim);
   background: var(--panel-alt);
-  font-size: 0.65rem;
+  font-size: 0.76rem;
 }
 
 .prose pre code {
@@ -964,7 +965,7 @@ svg {
   padding: 13px 14px 0;
   border: 1px solid var(--line);
   border-bottom: 0;
-  font-size: 0.86rem;
+  font-size: 1rem;
 }
 
 .links-page .prose > h3::before {
@@ -978,8 +979,8 @@ svg {
   border: 1px solid var(--line);
   border-top: 0;
   color: var(--muted);
-  font-size: 0.78rem;
-  line-height: 1.65;
+  font-size: 0.92rem;
+  line-height: 1.75;
 }
 
 @media (min-width: 761px) {
@@ -1014,7 +1015,7 @@ svg {
   padding: 23px 28px;
   border-top: 1px solid var(--line);
   color: var(--dim);
-  font-size: 0.72rem;
+  font-size: 0.84rem;
 }
 
 .site-footer > p {
@@ -1079,7 +1080,7 @@ svg {
 
 @media (max-width: 760px) {
   body {
-    font-size: 14px;
+    font-size: 15.5px;
   }
 
   .site-shell {
@@ -1113,7 +1114,7 @@ svg {
 
   .site-nav {
     gap: 5px 12px;
-    font-size: 0.74rem;
+    font-size: 0.82rem;
   }
 
   .hero-copy {
@@ -1202,7 +1203,7 @@ svg {
 .lh-overline {
   margin: 0 0 14px;
   color: var(--green);
-  font-size: 0.75rem;
+  font-size: 0.86rem;
   letter-spacing: 0.12em;
 }
 
@@ -1222,8 +1223,8 @@ svg {
 .lh-lead {
   margin: 26px 0 30px;
   color: var(--muted);
-  font-size: clamp(0.9rem, 1.3vw, 1.02rem);
-  line-height: 1.85;
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+  line-height: 1.9;
 }
 
 .lh-facts {
@@ -1241,7 +1242,7 @@ svg {
 
 .lh-facts dt {
   color: var(--green);
-  font-size: 0.73rem;
+  font-size: 0.84rem;
 }
 
 .lh-facts dt::after {
@@ -1251,7 +1252,7 @@ svg {
 .lh-facts dd {
   margin: 0;
   color: var(--text);
-  font-size: 0.78rem;
+  font-size: 0.9rem;
 }
 
 .lh-portrait {
@@ -1278,7 +1279,7 @@ svg {
   padding: 8px 10px;
   border-top: 1px solid var(--line);
   color: var(--dim);
-  font-size: 0.65rem;
+  font-size: 0.76rem;
 }
 
 .lh-portrait figcaption span:first-child {
@@ -1302,7 +1303,7 @@ svg {
 .lh-section-heading p {
   margin: 0 0 7px;
   color: var(--dim);
-  font-size: 0.72rem;
+  font-size: 0.84rem;
 }
 
 .lh-section-heading h2 {
@@ -1314,7 +1315,7 @@ svg {
 
 .lh-section-heading > span {
   color: var(--green);
-  font-size: 0.72rem;
+  font-size: 0.84rem;
 }
 
 .lh-gallery {
@@ -1356,7 +1357,7 @@ svg {
 .lh-gallery-item figcaption strong {
   min-width: 0;
   color: var(--text);
-  font-size: 0.7rem;
+  font-size: 0.82rem;
   font-weight: 500;
   overflow-wrap: anywhere;
 }
@@ -1368,7 +1369,7 @@ svg {
 .lh-rights-note {
   margin: 24px 0 0;
   color: var(--dim);
-  font-size: 0.68rem;
+  font-size: 0.8rem;
   text-align: right;
 }
 
@@ -1457,13 +1458,13 @@ svg {
   }
 
   .prose {
-    font-size: 0.92rem;
-    line-height: 1.84;
+    font-size: 1rem;
+    line-height: 1.92;
   }
 
   .prose pre {
     margin-inline: -7px;
-    font-size: 0.76rem;
+    font-size: 0.88rem;
   }
 }
 
@@ -1496,12 +1497,12 @@ svg {
 }
 
 .terminal-prompt {
-  font-size: 0.72rem;
+  font-size: 0.86rem;
 }
 
 .site-nav {
   gap: 6px 22px;
-  font-size: 0.7rem;
+  font-size: 0.82rem;
 }
 
 .home-intro {
@@ -1531,15 +1532,15 @@ svg {
 .intro-role {
   margin: 5px 0 22px 3ch;
   color: var(--text-strong);
-  font-size: clamp(0.92rem, 1.4vw, 1.08rem);
+  font-size: clamp(1.02rem, 1.4vw, 1.18rem);
 }
 
 .intro-description {
   max-width: 460px;
   margin: 0 0 0 3ch;
   color: var(--muted);
-  font-size: 0.82rem;
-  line-height: 1.75;
+  font-size: 0.94rem;
+  line-height: 1.85;
 }
 
 .home-intro .system-panel {
@@ -1573,7 +1574,7 @@ svg {
   padding: 7px 16px;
   border-top: 1px solid var(--line);
   color: var(--green);
-  font-size: 0.7rem;
+  font-size: 0.82rem;
 }
 
 .updates-section {
@@ -1597,7 +1598,7 @@ svg {
 .updates-heading h2 {
   margin: 0;
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: 400;
 }
 
@@ -1608,7 +1609,7 @@ svg {
 
 .updates-heading > a {
   order: 2;
-  font-size: 0.7rem;
+  font-size: 0.82rem;
 }
 
 .updates-heading::after {
@@ -1630,13 +1631,13 @@ svg {
 
 .update-card time {
   color: var(--dim);
-  font-size: 0.66rem;
+  font-size: 0.78rem;
 }
 
 .update-card h3 {
   margin: 10px 0 8px;
   color: var(--text-strong);
-  font-size: 0.9rem;
+  font-size: 1.02rem;
   font-weight: 500;
   line-height: 1.45;
 }
@@ -1645,13 +1646,13 @@ svg {
   min-height: 3.3em;
   margin: 0 0 14px;
   color: var(--muted);
-  font-size: 0.7rem;
-  line-height: 1.6;
+  font-size: 0.84rem;
+  line-height: 1.68;
 }
 
 .read-more {
   color: var(--green);
-  font-size: 0.67rem;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
@@ -1667,7 +1668,7 @@ svg {
   padding: 18px clamp(45px, 5vw, 74px);
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 0.7rem;
+  font-size: 0.84rem;
 }
 
 .quick-paths span,
@@ -1696,7 +1697,7 @@ svg {
 .links-page .page-header > p {
   margin-top: 7px;
   color: var(--text);
-  font-size: 0.76rem;
+  font-size: 0.9rem;
 }
 
 .links-page .page-header > p {
@@ -1737,7 +1738,7 @@ svg {
   border: 0;
   color: var(--muted);
   background: transparent;
-  font-size: 0.7rem;
+  font-size: 0.84rem;
   text-align: left;
 }
 
@@ -1771,7 +1772,7 @@ svg {
 }
 
 .listing-layout .archive-title strong {
-  font-size: 0.75rem;
+  font-size: 0.9rem;
 }
 
 .listing-layout .archive-taxonomy {
@@ -1795,7 +1796,7 @@ svg {
   padding: 11px 10px;
   border-bottom: 1px solid var(--line-strong);
   color: var(--dim);
-  font-size: 0.76rem;
+  font-size: 0.9rem;
 }
 
 .link-row {
@@ -1821,31 +1822,31 @@ svg {
 
 .link-title strong {
   color: var(--text-strong);
-  font-size: 0.88rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 
 .link-title small {
   color: var(--muted);
-  font-size: 0.78rem;
-  line-height: 1.55;
+  font-size: 0.92rem;
+  line-height: 1.68;
 }
 
 .link-url,
 .external-mark {
   color: var(--green);
-  font-size: 0.78rem;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.6;
   overflow-wrap: anywhere;
 }
 
 .links-sidebar .panel-label {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .links-sidebar .sidebar-filters .filter-button {
   min-height: 39px;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .site-footer {
