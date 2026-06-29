@@ -23,6 +23,10 @@ description: 常用工具、项目与课题组链接整理
 
 学术阅读与论文理解相关的 prompt 模板集合，可作为快速拆解论文、提炼问题和整理笔记的参考。
 
+### [Use the CommKit](https://mitcommlab.mit.edu/nse/use-the-commkit/)
+
+MIT NSE Communication Lab 的科研沟通指南集合，适合参考论文、报告、海报和申请材料的写作结构。
+
 ### [mattpocock/skills](https://github.com/mattpocock/skills)
 
 面向真实工程工作的 AI agent skills 集合，适合参考其中的调试、TDD、需求梳理和工作流模板。
