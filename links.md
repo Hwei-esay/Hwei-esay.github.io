@@ -55,6 +55,10 @@ MIT NSE Communication Lab 的科研沟通指南集合，适合参考论文、报
 
 在线删除文本空行的轻量工具，适合快速清理复制内容或 Markdown 草稿。
 
+### [macOS 应用已损坏解决方法](https://sysin.org/blog/macos-if-crashes-when-opening/)
+
+sysin 整理的 macOS 应用无法打开、隔离属性和重新签名问题排查教程，适合处理常见安装异常。
+
 ### [SwitchResX 4.8.0](https://www.waitsun.com/serial/switchresx-4-8-0)
 
 macOS 屏幕分辨率与显示模式管理工具，适合外接显示器调试。
