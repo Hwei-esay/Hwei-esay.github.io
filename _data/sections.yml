@@ -45,6 +45,13 @@
   external_project: true
   repository: "Hwei-esay/daily-arXiv-ai-enhanced"
   nav: true
+- key: crature
+  title: "Crature"
+  url: "/crature/"
+  description: "用合成、工具、用途与前置条件理解世界如何运行的 wiki"
+  external_project: true
+  repository: "Hwei-esay/crature"
+  nav: true
 - key: links
   title: "Links"
   url: "/links/"
