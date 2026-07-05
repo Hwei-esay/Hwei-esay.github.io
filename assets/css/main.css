@@ -112,54 +112,6 @@ svg {
   overflow: hidden;
 }
 
-.browser-bar {
-  display: grid;
-  grid-template-columns: auto auto minmax(220px, 640px) auto;
-  gap: 22px;
-  align-items: center;
-  min-height: 48px;
-  padding: 0 22px;
-  border-bottom: 1px solid var(--line);
-  color: #888c90;
-  background: linear-gradient(#fbfbfa, #f4f4f2);
-  font-size: 0.9rem;
-}
-
-.browser-dots {
-  display: inline-flex;
-  gap: 8px;
-}
-
-.browser-dots i {
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background: #ff5f57;
-}
-
-.browser-dots i:nth-child(2) {
-  background: #febc2e;
-}
-
-.browser-dots i:nth-child(3) {
-  background: #28c840;
-}
-
-.browser-address {
-  justify-self: center;
-  width: min(100%, 640px);
-  padding: 6px 18px;
-  border-radius: 10px;
-  color: #6e7175;
-  background: #e9e9e7;
-  text-align: center;
-}
-
-.browser-tools {
-  justify-self: end;
-  letter-spacing: 0.35em;
-}
-
 .site-header {
   display: flex;
   gap: 28px;
@@ -1311,14 +1263,6 @@ svg {
 }
 
 @media (max-width: 900px) {
-  .browser-bar {
-    grid-template-columns: auto minmax(120px, 1fr) auto;
-  }
-
-  .browser-actions {
-    display: none;
-  }
-
   .site-header {
     align-items: flex-start;
     flex-direction: column;
@@ -1376,20 +1320,6 @@ svg {
     border-width: 0;
     border-radius: 0;
     box-shadow: none;
-  }
-
-  .browser-bar {
-    min-height: 42px;
-    padding: 0 14px;
-  }
-
-  .browser-address {
-    padding: 5px 10px;
-    font-size: 0.78rem;
-  }
-
-  .browser-tools {
-    display: none;
   }
 
   .site-header {
