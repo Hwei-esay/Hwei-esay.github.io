@@ -2,11 +2,7 @@
 layout: default
 ---
 
-<section class="content-page json-window static-page">
-  <div class="terminal-bar">
-    <span></span><span></span><span></span>
-    <strong>page.json</strong>
-  </div>
+<section class="content-page static-page{% if page.url == '/links/' %} links-page{% endif %}{% if page.url == '/404.html' %} error-page{% endif %}">
   <header class="page-header">
     <h1>{{ page.title }}</h1>
     {% if page.description %}
