@@ -4,8 +4,7 @@ layout: default
 
 <article class="content-page article-page{% if page.section == 'skills' %} content-page--skills{% endif %}">
   <header class="page-header">
-    <p class="command-line"><span class="prompt-symbol">$</span> cat ./{{ page.section | default: 'notes' }}/{{ page.slug }}.md</p>
-    <h1>&gt; {{ page.title }}_</h1>
+    <h1>{{ page.title }}</h1>
     {% include article-meta.html %}
   </header>
   {% if page.summary %}

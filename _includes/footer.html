@@ -1,4 +1,14 @@
 <footer class="site-footer">
-  <p><span class="prompt-user">{{ site.terminal.user }}@{{ site.terminal.host }}</span>:<span class="prompt-path">{{ site.terminal.prompt_path }}</span>$</p>
-  <p class="footer-message">{{ site.terminal.status }}.</p>
+  <div>
+    <strong>墨语轻笺</strong>
+    <p>记录思考，分享生活</p>
+  </div>
+  <nav aria-label="Footer navigation">
+    <a href="{{ '/' | relative_url }}">首页</a>
+    <a href="{{ '/blog/' | relative_url }}">文章</a>
+    <a href="{{ '/moments/' | relative_url }}">归档</a>
+    <a href="{{ '/tutorials/' | relative_url }}">项目</a>
+    <a href="{{ '/about/' | relative_url }}">关于我</a>
+  </nav>
+  <p class="footer-copy">© {{ site.time | date: "%Y" }} 墨语轻笺 · All rights reserved.</p>
 </footer>

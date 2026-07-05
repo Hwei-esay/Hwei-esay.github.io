@@ -1,18 +1,28 @@
 <header class="site-header">
-  <a class="terminal-prompt" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
-    <span class="prompt-user">{{ site.terminal.user }}@{{ site.terminal.host }}</span><span class="prompt-separator">:</span><span class="prompt-path">{{ site.terminal.prompt_path }}</span><span class="prompt-symbol">$</span>
+  <a class="site-brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
+    <strong>墨语轻笺</strong>
+    <span>记录思考，分享生活</span>
   </a>
 
   <nav class="site-nav" aria-label="Main navigation">
     {% assign nav_items = site.data.sections | where: "nav", true %}
     {% for item in nav_items %}
+      {% unless item.key == "skills" or item.key == "academia" or item.key == "arxiv" or item.key == "hamilton" or item.key == "links" %}
       {% assign item_active = false %}
       {% if item.url == "/" and page.url == "/" %}
         {% assign item_active = true %}
       {% elsif item.url != "/" and page.url contains item.url %}
         {% assign item_active = true %}
       {% endif %}
-      <a href="{{ item.url | relative_url }}"{% if item_active %} class="is-active" aria-current="page"{% endif %}>[ {{ item.title | downcase }} ]</a>
+      {% assign nav_title = item.title %}
+      {% if item.key == "home" %}{% assign nav_title = "首页" %}{% endif %}
+      {% if item.key == "posts" %}{% assign nav_title = "文章" %}{% endif %}
+      {% if item.key == "moments" %}{% assign nav_title = "归档" %}{% endif %}
+      {% if item.key == "tutorials" %}{% assign nav_title = "项目" %}{% endif %}
+      {% if item.key == "about" %}{% assign nav_title = "关于我" %}{% endif %}
+      <a href="{{ item.url | relative_url }}"{% if item_active %} class="is-active" aria-current="page"{% endif %}>{{ nav_title }}</a>
+      {% endunless %}
     {% endfor %}
+    <a class="nav-search" href="{{ '/links/' | relative_url }}" aria-label="Search">⌕</a>
   </nav>
 </header>

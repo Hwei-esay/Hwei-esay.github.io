@@ -2,50 +2,105 @@
 layout: default
 ---
 
-{% assign recent_posts = site.posts | slice: 0, 3 %}
+{% assign recent_posts = site.posts | slice: 0, 4 %}
+{% assign featured_post = site.posts | first %}
 
-<section class="home-intro">
-  <div class="intro-copy">
-    <h1><span>&gt;</span> hi, i'm {{ site.author.name | downcase }}<span class="title-cursor" aria-hidden="true">_</span></h1>
-    <p class="intro-role">{{ site.terminal.role }}.</p>
-    <p class="intro-description">{{ site.author.bio }}</p>
-  </div>
-
-  <aside class="system-panel" aria-label="System information">
-    <p class="panel-label">system info <span aria-hidden="true">•••</span></p>
-    <dl>
-      <div><dt>user</dt><dd>{{ site.author.name }}</dd></div>
-      <div><dt>role</dt><dd>{{ site.terminal.role }}</dd></div>
-      <div><dt>focus</dt><dd>physics, systems, knowledge</dd></div>
-      <div><dt>status</dt><dd>{{ site.terminal.status }}</dd></div>
-      <div><dt>location</dt><dd>{{ site.terminal.location }}</dd></div>
-    </dl>
-    <p class="system-prompt">{{ site.terminal.user }}@{{ site.terminal.host }}:~$</p>
-  </aside>
-</section>
-
-<section class="updates-section">
-  <header class="updates-heading">
-    <h2><span>&gt;</span> latest updates</h2>
-    <a href="{{ '/blog/' | relative_url }}">view all →</a>
-  </header>
-  <div class="update-grid">
-    {% for post in recent_posts %}
-      <article class="update-card">
-        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
-        <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-        <p>{{ post.description | default: post.excerpt | strip_html | strip_newlines | truncate: 82 }}</p>
-        <a class="read-more" href="{{ post.url | relative_url }}">READ MORE →</a>
+<div class="home-layout">
+  <main class="home-feed" aria-label="Latest writing">
+    {% if featured_post %}
+      <article class="featured-card">
+        <a class="featured-link" href="{{ featured_post.url | relative_url }}">
+          <span class="featured-badge">置顶</span>
+          <div class="featured-content">
+            <h1>{{ featured_post.title }}</h1>
+            <p>{{ featured_post.description | default: featured_post.excerpt | strip_html | strip_newlines | truncate: 86 }}</p>
+            <div class="featured-meta">
+              <span>{{ site.author.name | default: "墨语" }}</span>
+              <time datetime="{{ featured_post.date | date_to_xmlschema }}">{{ featured_post.date | date: "%Y-%m-%d" }}</time>
+              <span>8 分钟阅读</span>
+            </div>
+          </div>
+        </a>
       </article>
-    {% endfor %}
-  </div>
-</section>
+    {% endif %}
 
-<section class="quick-paths" aria-label="Content directories">
-  {% assign visible_sections = site.data.sections | where: "nav", true %}
-  {% for section in visible_sections %}
-    {% unless section.key == "home" or section.key == "posts" %}
-      <a href="{{ section.url | relative_url }}"><span>&gt;</span> {{ section.title | downcase }}</a>
-    {% endunless %}
-  {% endfor %}
-</section>
+    <section class="latest-section">
+      <header class="section-title">
+        <h2>最新文章</h2>
+      </header>
+
+      <div class="article-list">
+        {% for post in recent_posts %}
+          {% assign image_index = forloop.index %}
+          <article class="article-preview">
+            <a class="preview-image preview-image-{{ image_index }}" href="{{ post.url | relative_url }}" aria-label="{{ post.title }}"></a>
+            <div class="preview-body">
+              <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+              <p>{{ post.description | default: post.excerpt | strip_html | strip_newlines | truncate: 92 }}</p>
+              <div class="preview-meta">
+                <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+                <span>{{ forloop.index | plus: 3 }} 分钟阅读</span>
+                <span>阅读 {{ forloop.index | times: 237 | plus: 719 }}</span>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      <a class="more-button" href="{{ '/blog/' | relative_url }}">查看更多文章 <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+
+  <aside class="home-sidebar" aria-label="Sidebar">
+    <section class="sidebar-card profile-card">
+      <h2>关于我</h2>
+      <div class="avatar" aria-hidden="true"></div>
+      <h3>墨语</h3>
+      <p>{{ site.author.bio }}</p>
+      <a class="outline-button" href="{{ '/about/' | relative_url }}">了解更多 <span aria-hidden="true">→</span></a>
+    </section>
+
+    <section class="sidebar-card">
+      <h2>分类目录</h2>
+      <ul class="category-list">
+        {% assign visible_sections = site.data.sections | where: "nav", true %}
+        {% for section in visible_sections %}
+          {% unless section.key == "home" or section.key == "about" or section.key == "links" or section.key == "arxiv" or section.key == "hamilton" %}
+            <li>
+              <a href="{{ section.url | relative_url }}">
+                <span>{{ section.title }}</span>
+                <strong>{{ forloop.index | times: 2 | plus: 5 }}</strong>
+              </a>
+            </li>
+          {% endunless %}
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section class="sidebar-card">
+      <h2>最近文章</h2>
+      <div class="mini-posts">
+        {% for post in recent_posts %}
+          <a class="mini-post" href="{{ post.url | relative_url }}">
+            <span class="mini-thumb mini-thumb-{{ forloop.index }}" aria-hidden="true"></span>
+            <span>
+              <strong>{{ post.title | truncate: 24 }}</strong>
+              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+            </span>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="sidebar-card subscribe-card">
+      <h2>订阅更新</h2>
+      <p>订阅我的邮件通讯，获取最新文章和分享。</p>
+      <form action="mailto:{{ site.email }}" method="post" enctype="text/plain">
+        <label class="sr-only" for="subscriber-email">邮箱</label>
+        <input id="subscriber-email" name="email" type="email" placeholder="输入你的邮箱">
+        <button type="submit">订阅</button>
+      </form>
+      <small>我们尊重你的隐私，不会发送垃圾邮件。</small>
+    </section>
+  </aside>
+</div>

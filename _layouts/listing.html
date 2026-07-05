@@ -18,30 +18,30 @@ layout: default
 
 <section class="content-page listing-page">
   <header class="page-header">
-    <h1>&gt; {{ page.title | downcase }}_</h1>
+    <h1>{{ page.title }}</h1>
     <p>{{ page.description | default: section.description }}</p>
   </header>
 
   <div class="listing-layout">
     <aside class="listing-sidebar">
-      <p class="panel-label">categories</p>
+      <p class="panel-label">分类目录</p>
       <div class="sidebar-filters" aria-label="Content filters">
-        <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">&gt; all <span>›</span></button>
+        <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">全部 <span>›</span></button>
         {% if key == "posts" and site.categories != empty %}
           {% for category in site.categories %}
-            <button class="filter-button" type="button" data-filter="{{ category[0] | escape }}" aria-pressed="false">_ {{ category[0] }}</button>
+            <button class="filter-button" type="button" data-filter="{{ category[0] | escape }}" aria-pressed="false">{{ category[0] }}</button>
           {% endfor %}
         {% else %}
-          <a href="{{ '/blog/' | relative_url }}">_ posts</a>
-          <a href="{{ '/tutorials/' | relative_url }}">_ tutorials</a>
-          <a href="{{ '/skills/' | relative_url }}">_ skills</a>
-          <a href="{{ '/academia/' | relative_url }}">_ academia</a>
+          <a href="{{ '/blog/' | relative_url }}">文章</a>
+          <a href="{{ '/tutorials/' | relative_url }}">教程</a>
+          <a href="{{ '/skills/' | relative_url }}">Skills</a>
+          <a href="{{ '/academia/' | relative_url }}">学术笔记</a>
         {% endif %}
       </div>
     </aside>
 
     <div class="archive-table" role="list">
-      <div class="archive-head" aria-hidden="true"><span>#</span><span>title</span><span>category</span><span>date</span></div>
+      <div class="archive-head" aria-hidden="true"><span>#</span><span>标题</span><span>分类</span><span>日期</span></div>
       {% for item in items %}
         <a class="archive-row" role="listitem" href="{{ item.url | relative_url }}" data-categories="{{ item.categories | join: ',' | escape }}">
           <span class="archive-index">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span>
