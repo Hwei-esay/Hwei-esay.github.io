@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AutoVASP Configurator | Hwei's Signals</title>
+    <meta name="description" content="图形化配置并生成完整的 AutoVASP 作业脚本。">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">skip to content</a>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="site-brand" href="../../" aria-label="墨语轻笺 home">
+          <strong>墨语轻笺</strong>
+          <span>记录思考，分享生活</span>
+        </a>
+        <nav class="site-nav" aria-label="Main navigation">
+          <a href="../../">首页</a>
+          <a href="../../blog/">文章</a>
+          <a href="../../moments/">归档</a>
+          <a href="../../tutorials/" class="is-active" aria-current="page">项目</a>
+          <a href="../../about/">关于我</a>
+          <a class="nav-search" href="../../links/" aria-label="Search">⌕</a>
+        </nav>
+      </header>
+
+      <main class="site-main autovasp-page" id="main-content">
+        <header class="tool-hero">
+          <div>
+            <p class="tool-kicker">Embedded Research Tool / AutoVASP</p>
+            <h1>AutoVASP Configurator</h1>
+            <p>选择计算模板，再按材料体系调整参数。右侧会实时生成保持原脚本结构的完整作业脚本。</p>
+          </div>
+          <a class="outline-button" href="../../links/">返回 Links</a>
+        </header>
+
+        <section class="template-section" aria-labelledby="template-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-index">01 / Template</p>
+              <h2 id="template-title">Template Library</h2>
+            </div>
+            <p>模板只填入推荐起点，不会锁定任何参数。</p>
+          </div>
+          <div id="template-list" class="template-list" role="group" aria-label="计算模板"></div>
+        </section>
+
+        <div class="config-layout">
+          <div id="parameter-groups" class="parameter-groups" aria-live="polite"></div>
+
+          <aside class="script-preview" aria-labelledby="preview-title">
+            <div class="preview-header">
+              <div>
+                <p class="section-index">Live output</p>
+                <h2 id="preview-title">Preview Script</h2>
+              </div>
+              <span id="parameter-count" class="parameter-count"></span>
+            </div>
+            <div class="preview-actions">
+              <button id="copy-script" class="tool-button tool-button-primary" type="button">复制脚本</button>
+              <button id="download-script" class="tool-button" type="button">下载 .sh</button>
+              <button id="reset-config" class="tool-button tool-button-quiet" type="button">恢复默认</button>
+            </div>
+            <p id="preview-status" class="preview-status" role="status">正在载入原始脚本…</p>
+            <pre class="script-code"><code id="script-output"></code></pre>
+          </aside>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <div>
+          <strong>墨语轻笺</strong>
+          <p>记录思考，分享生活</p>
+        </div>
+        <nav aria-label="Footer navigation">
+          <a href="../../">首页</a>
+          <a href="../../blog/">文章</a>
+          <a href="../../moments/">归档</a>
+          <a href="../../tutorials/">项目</a>
+          <a href="../../about/">关于我</a>
+        </nav>
+        <p class="footer-copy">© <span id="current-year"></span> 墨语轻笺 · All rights reserved.</p>
+      </footer>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

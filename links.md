@@ -7,6 +7,10 @@ description: 常用工具、项目与课题组链接整理
 
 ## 科研工具
 
+### [AutoVASP Configurator]({{ '/tools/autovasp/' | relative_url }})
+
+图形化配置 AutoVASP 的全部设置变量与高对称路径，支持常用计算模板、参数帮助、实时脚本预览、复制与下载。
+
 ### [Phonon Band Viewer]({{ '/tools/phonon/' | relative_url }})
 
 本站内置的 `phonopy band.yaml` 可视化工具，可上传本地文件、查看色散关系，并直接播放原子振动模式。

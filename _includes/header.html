@@ -23,6 +23,6 @@
       <a href="{{ item.url | relative_url }}"{% if item_active %} class="is-active" aria-current="page"{% endif %}>{{ nav_title }}</a>
       {% endunless %}
     {% endfor %}
-    <a class="nav-search" href="{{ '/links/' | relative_url }}" aria-label="Search">⌕</a>
+    <a href="{{ '/links/' | relative_url }}"{% if page.url contains '/links/' %} class="is-active" aria-current="page"{% endif %}>Links</a>
   </nav>
 </header>
