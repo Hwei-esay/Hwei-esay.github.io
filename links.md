@@ -43,6 +43,10 @@ description: 常用工具、项目与课题组链接整理
 
 在线将 PDF 快速转换为 Markdown，适合整理论文、说明文档和后续知识库笔记。
 
+### [Markdown to PDF](https://www.markdowntopdf.com)
+
+在线将 Markdown 文件转换为 PDF，适合快速导出排版后的文档。
+
 ### [Text Difference](https://www.jq22.com/textDifference)
 
 在线文本差异对比工具，适合快速比较两段文本、代码或修改前后的内容。
