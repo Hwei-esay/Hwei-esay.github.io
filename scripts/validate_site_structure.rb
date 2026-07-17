@@ -76,4 +76,12 @@ nav_sections.each do |section|
   fail_with("navigation target #{url} from section #{section['key']} has no page or directory") unless permalink_exists || directory_exists || index_exists
 end
 
+layout_files = ROOT.join("_layouts").glob("*.html")
+layout_files.each do |path|
+  path.read.scan(/\{\{\s*["'](\/assets\/[^"']+)["']\s*\|\s*relative_url\s*\}\}/).flatten.each do |asset_url|
+    asset_path = ROOT.join(asset_url.delete_prefix("/"))
+    fail_with("#{path.basename} references missing asset #{asset_url}") unless asset_path.file?
+  end
+end
+
 puts "site structure validation passed"
