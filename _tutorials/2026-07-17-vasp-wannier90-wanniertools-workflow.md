@@ -58,6 +58,40 @@ bsub < AutoVASP.sh
 
 这两个结果是后续检查 Wannier90 拟合质量时主要使用的参考。至此，VASP 计算完成。
 
+### 2.4 错误检查示例：投影能带异常
+
+`AutoVASP.sh` 计算完成后，首先检查 `nonscf/` 中的 `band.png`。如图 1 所示，能带计算结果正常。
+
+<figure style="margin: 1.8rem 0; text-align: center;">
+  <img src="{{ '/assets/tutorials/vasp-wannier90-wanniertools/01-band-normal.png' | relative_url }}" alt="正常的能带计算结果" style="width: 680px; max-width: 100%; height: auto; margin: 0 auto;">
+  <figcaption style="margin-top: 0.6rem; color: #6b7280; font-size: 0.9rem;">图 1　<code>nonscf/band.png</code> 中正常的能带计算结果</figcaption>
+</figure>
+
+接着检查 `nonscf/Pro_band/` 文件夹。如图 2 所示，投影能带出现错误。
+
+<figure style="margin: 1.8rem 0; text-align: center;">
+  <img src="{{ '/assets/tutorials/vasp-wannier90-wanniertools/02-projected-band-error.png' | relative_url }}" alt="投影能带错误" style="width: 680px; max-width: 100%; height: auto; margin: 0 auto;">
+  <figcaption style="margin-top: 0.6rem; color: #6b7280; font-size: 0.9rem;">图 2　<code>nonscf/Pro_band/</code> 中出现错误的投影能带</figcaption>
+</figure>
+
+此时需要检查 `scf/`、`nonscf/` 中的 `<jobID>.log`，以及工作路径下的 `<jobID>.err` 和 `<jobID>.out`。
+
+> 本例中，我直接将这些日志交给 AI 检查。后续熟悉相关内容后，再补充人工检查方法，以及如何核对 AI 识别出的错误是否正确。
+
+检查后发现，日志提示网格选择有误：原设置为 `(12 12 3)`，如图 3 所示。将网格修改为 `(9 9 9)`，如图 4 所示，然后重新提交计算。
+
+<figure style="margin: 1.8rem 0; text-align: center;">
+  <img src="{{ '/assets/tutorials/vasp-wannier90-wanniertools/03-kmesh-original-12x12x3.png' | relative_url }}" alt="原网格设置 12 12 3" style="width: 680px; max-width: 100%; height: auto; margin: 0 auto;">
+  <figcaption style="margin-top: 0.6rem; color: #6b7280; font-size: 0.9rem;">图 3　<code>AutoVASP.sh</code> 中原来的网格设置 <code>(12 12 3)</code></figcaption>
+</figure>
+
+<figure style="margin: 1.8rem 0; text-align: center;">
+  <img src="{{ '/assets/tutorials/vasp-wannier90-wanniertools/04-kmesh-corrected-9x9x9.png' | relative_url }}" alt="修改后的网格设置 9 9 9" style="width: 680px; max-width: 100%; height: auto; margin: 0 auto;">
+  <figcaption style="margin-top: 0.6rem; color: #6b7280; font-size: 0.9rem;">图 4　<code>AutoVASP.sh</code> 中修改后的网格设置 <code>(9 9 9)</code></figcaption>
+</figure>
+
+因此，使用 `AutoVASP.sh` 时需要特别注意网格的选择。
+
 ## 3. Wannier90 能带拟合
 
 这一步的目标是使用 Wannier90 拟合 VASP 能带，并得到 `wannier90_hr.dat`。
