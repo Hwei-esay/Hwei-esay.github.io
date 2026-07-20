@@ -90,7 +90,14 @@ bsub < AutoVASP.sh
   <figcaption style="margin-top: 0.6rem; color: #6b7280; font-size: 0.9rem;">图 4　<code>AutoVASP.sh</code> 中修改后的网格设置 <code>(9 9 9)</code></figcaption>
 </figure>
 
-因此，使用 `AutoVASP.sh` 时需要特别注意网格的选择。
+需要补充说明的是，真正导致这种投影能带异常的原因，是 `AutoVASP` 计算中没有打开 SOC。图 5 中的 `SOC=0` 表明 SOC 处于关闭状态。
+
+<figure style="margin: 1.8rem 0; text-align: center;">
+  <img src="{{ '/assets/tutorials/vasp-wannier90-wanniertools/05-soc-disabled.png' | relative_url }}" alt="AutoVASP 中 SOC 未开启" style="width: 580px; max-width: 100%; height: auto; margin: 0 auto;">
+  <figcaption style="margin-top: 0.6rem; color: #6b7280; font-size: 0.9rem;">图 5　<code>AutoVASP.sh</code> 中的 <code>SOC=0</code>，即 SOC 未开启</figcaption>
+</figure>
+
+因此，使用 `AutoVASP.sh` 时既要注意网格的选择，也要确认 SOC 是否已经打开。对于本例，投影能带异常的真正原因是 SOC 未开启。
 
 ## 3. Wannier90 能带拟合
 
