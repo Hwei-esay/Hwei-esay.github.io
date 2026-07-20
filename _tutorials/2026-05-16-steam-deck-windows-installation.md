@@ -3,7 +3,7 @@ title: "Steam Deck 安装 Windows 系统详细教程"
 date: 2026-05-16
 categories: [教程, 硬件]
 tags: [Steam Deck, Windows, 双系统, 双引导]
-author: Hwei
+author: hwei
 ---
 
 # Steam Deck 安装 Windows 系统详细教程

@@ -6,6 +6,8 @@
     <span>作者：{{ page.authors | join: " / " }}</span>
   {% elsif page.author %}
     <span>作者：{{ page.author }}</span>
+  {% else %}
+    <span>作者：hwei</span>
   {% endif %}
   <span>{{ page.date | date: "%Y-%m-%d" }}</span>
   <span>{{ read_minutes }} 分钟阅读</span>
