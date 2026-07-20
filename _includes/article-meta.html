@@ -2,6 +2,11 @@
 {% assign word_count = plain_content | number_of_words %}
 {% assign read_minutes = word_count | plus: 179 | divided_by: 180 %}
 <p class="article-meta">
+  {% if page.authors and page.authors != empty %}
+    <span>作者：{{ page.authors | join: " / " }}</span>
+  {% elsif page.author %}
+    <span>作者：{{ page.author }}</span>
+  {% endif %}
   <span>{{ page.date | date: "%Y-%m-%d" }}</span>
   <span>{{ read_minutes }} 分钟阅读</span>
   {% if page.categories and page.categories != empty %}

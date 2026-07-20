@@ -1,6 +1,7 @@
 ---
 title: VASP–Wannier90–WannierTools 计算流程
 date: 2026-07-17
+authors: [zyun, hwei]
 summary: 以 Bi₂Se₃ 为例，整理从 VASP 能带计算、Wannier90 拟合到 WannierTools 拓扑边界态与 Berry curvature 计算的完整流程。
 ---
 
