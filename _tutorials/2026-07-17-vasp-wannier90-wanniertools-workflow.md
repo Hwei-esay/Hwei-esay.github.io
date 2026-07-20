@@ -8,6 +8,12 @@ summary: 以 Bi₂Se₃ 为例，整理从 VASP 能带计算、Wannier90 拟合�
 
 本教程以 Bi₂Se₃ 为例，介绍如何依次使用 VASP、Wannier90 和 WannierTools，得到材料的拓扑边界态（LDOS）和 Berry curvature 分布。
 
+本教程对应的工作目录现已迁移至：
+
+```text
+/work/wangr/data2/guohw/examples/bi2se3
+```
+
 开始计算时，唯一需要自行准备的结构输入文件是正确的 `POSCAR`。计算过程中还需要以下脚本：
 
 | 脚本 | 用途 |
@@ -58,7 +64,21 @@ bsub < AutoVASP.sh
 
 这两个结果是后续检查 Wannier90 拟合质量时主要使用的参考。至此，VASP 计算完成。
 
-### 2.4 错误检查示例：投影能带异常
+### 2.4 修改 `nonscf/band.png` 的绘图上下限
+
+如需修改 `nonscf/band.png` 的绘图上下限，打开同目录下的 `bandplot.gnu`，找到第 21 行：
+
+```gnuplot
+plot [0:1] [-15.0:15.0]  \
+```
+
+修改第二个方括号 `[-15.0:15.0]` 中的范围即可。修改完成后，在同一目录下运行：
+
+```bash
+gnuplot bandplot.gnu
+```
+
+### 2.5 错误检查示例：投影能带异常
 
 `AutoVASP.sh` 计算完成后，首先检查 `nonscf/` 中的 `band.png`。如图 1 所示，能带计算结果正常。
 
