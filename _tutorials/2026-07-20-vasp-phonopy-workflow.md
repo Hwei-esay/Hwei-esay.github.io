@@ -386,7 +386,7 @@ DIM = 2 2 3 → 168 原子
 - `ALGO`、`ENCUT`、`EDIFF` 等 INCAR 参数错误；
 - K 点过密导致成本无法接受；
 - POTCAR 顺序错误；
-- 48 核并行设置不合适；
+- 核数与 `NPAR` 的并行组合不合适；
 - RMM-DIIS、`ZHEGV failed`、`BRMIX` 等电子收敛问题；
 - `vasprun.xml` 无法被 Phonopy 读取。
 
@@ -498,7 +498,41 @@ ICHARG = 2
 
 每次只改变一个因素，然后重新运行同一个预计算。这样才有清楚的对照。
 
-### 8.5 是否需要预计算多个结构
+### 8.5 OSZICAR 中 dE 发散时检查并行核数
+
+正常的电子自洽过程中，`OSZICAR` 中 `dE` 的绝对值应该整体趋近于 0。个别电子步出现小幅回升或正负号变化并不一定有问题；但如果 `dE` 连续多个电子步在很大的数量级上剧烈振荡，甚至越来越大，而且迟迟没有最终的 `F=` 行，就说明电子自洽已经发散，不能继续使用该目录中的力和 `vasprun.xml`。
+
+![OSZICAR 中 dE 剧烈振荡并发散]({{ '/assets/tutorials/vasp-phonopy-workflow/oszicar-de-divergence.png' | relative_url }})
+
+上图红框中的 `dE` 在相邻 `DAV` 步之间大幅正负振荡，数量级达到约 $10^6$ 至 $10^9$ eV，并没有向 0 收敛。这不是正常的收敛波动。
+
+确认位移结构、POTCAR 顺序和实际使用的 INCAR 没有问题后，可以保持其他输入不变，先测试较少的并行核数。修改 `auto_phonon.sh` 中的 LSF 资源设置：
+
+```bash
+#BSUB -n 32
+#BSUB -R "span[ptile=32]"
+```
+
+同时保持：
+
+```bash
+export NPAR=8
+```
+
+本例最初使用 96 核、`NPAR=8` 时，`disp-001/OSZICAR` 在电子迭代中发散；仅将任务改为 32 核并保持 `NPAR=8` 后，同一位移结构在 22 个电子步内正常收敛，并输出最终的 `F=` 行。因此，旧版 VASP、单个 Γ 点和特定并行划分的组合有时会影响数值稳定性。
+
+重新测试时，不要直接启动全部位移结构。应在新目录中重新计算同一个 `POSCAR-001`，并检查实际并行配置和收敛结果：
+
+```bash
+grep -E "NPAR" disp-001/INCAR
+grep -E "running on|NCORES_PER_BAND" disp-001/OUTCAR | head
+grep -E "BRMIX|FEXCP|RAD_INT" disp-001/log
+tail -n 5 disp-001/OSZICAR
+```
+
+成功时，错误关键词检查不应有输出，`dE` 的绝对值应逐步减小到 `EDIFF` 以下，并且 `OSZICAR` 最后出现 `F=`。32 核、`NPAR=8` 是本例验证有效的组合，不是适用于所有体系和服务器的固定参数；如果减少核数后仍然发散，应继续检查电子算法、占据设置、VASP 版本和编译环境。
+
+### 8.6 是否需要预计算多个结构
 
 最低要求是计算一个位移结构。如果不同元素的化学环境差别很大，可分别选择一个 K、Zn 和 Br 位移结构进行预计算。三个预计算约占总成本的 3/42，仍然比整批失败便宜得多。
 
@@ -783,7 +817,7 @@ WARNING in EDDRMM: call to ZHEGV failed
 - [ ] 优化后结构仍是目标极化态；
 - [ ] `DIM` 与预期原子数一致；
 - [ ] `INCAR-st` 实际内容为 `ALGO = Normal`；
-- [ ] 预计算使用最终 KPOINTS、POTCAR、INCAR 和 48 核配置；
+- [ ] 预计算使用最终 KPOINTS、POTCAR、INCAR、核数和 `NPAR` 配置；
 - [ ] 预计算没有 `ZHEGV`、`BRMIX`、NaN 等错误；
 - [ ] 预计算正常输出 `TOTAL-FORCE` 和完整 `vasprun.xml`。
 
