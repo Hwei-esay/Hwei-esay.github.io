@@ -55,6 +55,10 @@ description: 常用工具、项目与课题组链接整理
 
 在线删除文本空行的轻量工具，适合快速清理复制内容或 Markdown 草稿。
 
+### [macOS 应用“已损坏，无法打开”解决方法](https://sysin.org/blog/macos-if-crashes-when-opening/)
+
+汇总 macOS 应用因开发者验证或安全隔离属性而无法打开时的常见排查与处理方法。
+
 ### [SwitchResX 4.8.0](https://www.waitsun.com/serial/switchresx-4-8-0)
 
 macOS 屏幕分辨率与显示模式管理工具，适合外接显示器调试。
