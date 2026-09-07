@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="简洁的本地工作时长与任务管理面板。">
+  <title>工作时光</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="../../" aria-label="返回主页"><span class="brand-mark">◔</span><span><strong>工作时光</strong><small>专注工作，从上机开始</small></span></a>
+      <nav class="app-nav" aria-label="应用导航">
+        <button class="nav-item is-active" data-nav="dashboard"><span>⌂</span>首页</button>
+        <button class="nav-item" data-nav="records"><span>◷</span>工作记录</button>
+        <button class="nav-item" data-nav="stats"><span>▥</span>统计</button>
+        <button class="nav-item" data-nav="settings"><span>⚙</span>设置</button>
+      </nav>
+      <div class="sidebar-quote">「时间不会辜负<br>每一个专注的人。」</div>
+      <a class="back-home" href="../../">← 返回个人主页</a>
+    </aside>
+
+    <main class="workspace">
+      <header class="topbar">
+        <div><p class="greeting-icon">☀</p><div><h1 id="greeting">早上好，研究员</h1><p>新的一天，也要高效工作呀！</p></div></div>
+        <div class="topbar-right"><time id="today"></time><span class="profile">◉ <b>研究员</b>⌄</span></div>
+      </header>
+
+      <section class="content-grid">
+        <div class="main-column">
+          <section class="card time-card">
+            <h2>今日工作时长</h2>
+            <div class="time-layout">
+              <div class="status-pane"><span class="status-dot"></span><span>当前状态</span><strong id="work-status">未上机</strong><dl><div><dt>开始时间</dt><dd id="started-at">--:--</dd></div><div><dt>已工作时长</dt><dd id="elapsed-small">0 分钟</dd></div></dl><button class="outline-button" id="clock-button">▣ <span>上机</span></button></div>
+              <div class="progress-ring" id="progress-ring"><div><span>已工作</span><strong id="elapsed-large">0<span> 分钟</span></strong><small id="target-label">目标：8 小时 0 分钟</small></div></div>
+              <div class="summary-pane"><div><span class="summary-icon">◎</span><p>今日目标时长<strong id="target-value">8 小时 0 分钟</strong></p><button class="icon-button" id="edit-target" aria-label="修改目标">✎</button></div><div><span class="summary-icon">◷</span><p>已完成时长<strong id="completed-value">0 分钟</strong></p></div><div><span class="summary-icon">◔</span><p>剩余时长<strong id="remaining-value">8 小时 0 分钟</strong></p></div><div class="progress-line"><i id="progress-line"></i><b id="progress-percent">0%</b></div></div>
+            </div>
+          </section>
+
+          <section class="card overview-card"><h2>今日工作概览</h2><div class="metrics"><article><span>◷</span><p>上机次数<strong id="session-count">0 次</strong></p></article><article><span>◴</span><p>累计工作时长<strong id="overview-elapsed">0 分钟</strong></p></article><article><span>◎</span><p>目标时长<strong id="overview-target">8 小时 0 分钟</strong></p></article><article><span>◔</span><p>完成进度<strong id="overview-percent">0%</strong></p></article></div></section>
+
+          <div class="bottom-grid">
+            <section class="card records-card"><div class="section-heading"><h2>最近工作记录</h2><button class="text-button" data-nav="records">查看更多 ›</button></div><ol id="recent-records" class="records"></ol></section>
+            <section class="card chart-card"><div class="section-heading"><h2>今日工作趋势</h2><span class="legend">● 工作时长</span></div><div class="chart" id="work-chart" aria-label="今日工作趋势图"></div><p class="tip">☼ 专注的时间，会让你看见更好的自己。</p></section>
+          </div>
+        </div>
+
+        <aside class="task-column">
+          <section class="card task-card"><div class="section-heading"><h2>▣ 待办列表</h2><button class="add-button" id="add-task">＋ 添加任务</button></div><ul class="task-list" id="task-list"></ul><p class="empty-tasks" id="empty-tasks">今天还没有任务，添加一项开始吧。</p></section>
+          <section class="card completed-card"><div class="section-heading"><h2>✓ 已完成列表</h2><button class="text-button" id="clear-completed">清空</button></div><ul class="completed-list" id="completed-list"></ul><p class="empty-tasks" id="empty-completed">完成的任务会显示在这里。</p></section>
+        </aside>
+      </section>
+    </main>
+  </div>
+  <dialog id="task-dialog"><form method="dialog" id="task-form"><div class="dialog-heading"><h2>添加任务</h2><button value="cancel" aria-label="关闭">×</button></div><label>任务内容<input id="task-name" name="task-name" required maxlength="60" placeholder="例如：阅读文献"></label><label>计划时间<input id="task-time" name="task-time" type="time"></label><menu><button value="cancel" class="cancel-button">取消</button><button value="default" class="submit-button">添加任务</button></menu></form></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="./app.js"></script>
+</body>
+</html>

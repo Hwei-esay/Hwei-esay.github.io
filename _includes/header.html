@@ -23,6 +23,7 @@
       <a href="{{ item.url | relative_url }}"{% if item_active %} class="is-active" aria-current="page"{% endif %}>{{ nav_title }}</a>
       {% endunless %}
     {% endfor %}
+    <a href="{{ '/tools/worktime/' | relative_url }}"{% if page.url contains '/tools/worktime/' %} class="is-active" aria-current="page"{% endif %}>工作时光</a>
     <a href="{{ '/links/' | relative_url }}"{% if page.url contains '/links/' %} class="is-active" aria-current="page"{% endif %}>Links</a>
   </nav>
 </header>
