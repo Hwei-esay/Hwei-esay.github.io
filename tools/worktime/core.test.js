@@ -52,3 +52,65 @@ test("hourly trend reflects real session overlap", () => {
   assert.equal(trend[10], 15 * 60 * 1000);
   assert.equal(trend.reduce((sum, value) => sum + value, 0), 45 * 60 * 1000);
 });
+
+test("manual records can be added to a past date", () => {
+  const now = at("2026-09-08T12:00:00+08:00");
+  const state = core.normalizeState({}, now);
+  const result = core.saveManualSession(state, {
+    date: "2026-09-07",
+    startTime: "09:00",
+    endTime: "10:30"
+  }, now);
+  assert.equal(result.ok, true);
+  assert.equal(state.days["2026-09-07"].elapsedMs, 90 * 60 * 1000);
+  assert.equal(core.allSessions(state)[0].source, "manual");
+});
+
+test("manual records can be moved and edited without double counting", () => {
+  const now = at("2026-09-08T12:00:00+08:00");
+  const state = core.normalizeState({}, now);
+  const created = core.saveManualSession(state, {
+    date: "2026-09-07",
+    startTime: "09:00",
+    endTime: "10:00"
+  }, now);
+  const updated = core.saveManualSession(state, {
+    id: created.id,
+    date: "2026-09-06",
+    startTime: "14:00",
+    endTime: "16:30"
+  }, now);
+  assert.equal(updated.ok, true);
+  assert.equal(state.days["2026-09-07"].elapsedMs, 0);
+  assert.equal(state.days["2026-09-06"].elapsedMs, 150 * 60 * 1000);
+  assert.equal(core.allSessions(state).length, 1);
+});
+
+test("records can be deleted and future records are rejected", () => {
+  const now = at("2026-09-08T12:00:00+08:00");
+  const state = core.normalizeState({}, now);
+  const future = core.saveManualSession(state, {
+    date: "2026-09-08",
+    startTime: "13:00",
+    endTime: "14:00"
+  }, now);
+  assert.equal(future.ok, false);
+
+  const created = core.saveManualSession(state, {
+    date: "2026-09-07",
+    startTime: "09:00",
+    endTime: "10:00"
+  }, now);
+  assert.ok(core.removeSession(state, created.id));
+  assert.equal(core.allSessions(state).length, 0);
+  assert.equal(state.days["2026-09-07"].elapsedMs, 0);
+});
+
+test("overlapping manual records are rejected", () => {
+  const now = at("2026-09-08T12:00:00+08:00");
+  const state = core.normalizeState({}, now);
+  core.saveManualSession(state, { date: "2026-09-07", startTime: "09:00", endTime: "10:00" }, now);
+  const overlap = core.saveManualSession(state, { date: "2026-09-07", startTime: "09:30", endTime: "10:30" }, now);
+  assert.equal(overlap.ok, false);
+  assert.match(overlap.error, /重叠/);
+});

@@ -20,6 +20,7 @@
         <button class="nav-item" data-nav="settings"><span>⚙</span>设置</button>
       </nav>
       <div class="sidebar-quote">「时间不会辜负<br>每一个专注的人。」</div>
+      <button class="clear-data-button" id="clear-data" type="button">清除全部数据</button>
       <a class="back-home" href="../../">← 返回个人主页</a>
     </aside>
 
@@ -46,6 +47,14 @@
             <section class="card records-card"><div class="section-heading"><h2>最近工作记录</h2><button class="text-button" data-nav="records">查看更多 ›</button></div><ol id="recent-records" class="records"></ol></section>
             <section class="card chart-card"><div class="section-heading"><div><span class="section-kicker">HOURLY VIEW</span><h2>今日工作趋势</h2></div><span class="legend"><i></i>真实工作时长</span></div><div class="chart" id="work-chart" aria-label="今日每小时工作时长趋势图"></div><p class="tip">每段工作会按实际发生的小时归入图表，跨过零点时自动切换到新一天。</p></section>
           </div>
+
+          <section class="card history-card" id="history-card">
+            <div class="section-heading history-heading">
+              <div><span class="section-kicker">HISTORY</span><h2>历史工作记录</h2><p>可以补录、修改或删除任意日期的工作记录。</p></div>
+              <button class="add-button primary-action" id="add-record" type="button">＋ 手动记录</button>
+            </div>
+            <div class="history-list" id="history-list"></div>
+          </section>
         </div>
 
         <aside class="task-column">
@@ -56,6 +65,19 @@
     </main>
   </div>
   <dialog id="task-dialog"><form method="dialog" id="task-form"><div class="dialog-heading"><h2>添加任务</h2><button value="cancel" aria-label="关闭">×</button></div><label>任务内容<input id="task-name" name="task-name" required maxlength="60" placeholder="例如：阅读文献"></label><label>计划时间<input id="task-time" name="task-time" type="time"></label><menu><button value="cancel" class="cancel-button">取消</button><button value="default" class="submit-button">添加任务</button></menu></form></dialog>
+  <dialog id="record-dialog">
+    <form method="dialog" id="record-form">
+      <div class="dialog-heading"><div><span class="section-kicker">MANUAL ENTRY</span><h2 id="record-dialog-title">手动记录工作</h2></div><button value="cancel" aria-label="关闭">×</button></div>
+      <input id="record-id" type="hidden">
+      <label>工作日期<input id="record-date" type="date" required></label>
+      <div class="time-fields">
+        <label>开始时间<input id="record-start" type="time" required></label>
+        <label>结束时间<input id="record-end" type="time" required></label>
+      </div>
+      <p class="form-error" id="record-error" role="alert"></p>
+      <menu><button value="cancel" class="cancel-button">取消</button><button value="default" class="submit-button">保存记录</button></menu>
+    </form>
+  </dialog>
   <div class="toast" id="toast" role="status"></div>
   <script src="./core.js"></script>
   <script src="./app.js"></script>

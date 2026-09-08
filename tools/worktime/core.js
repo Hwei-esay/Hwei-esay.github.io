@@ -35,22 +35,36 @@
     return state.days[key];
   }
 
-  function addSession(state, start, end) {
-    if (!(end > start)) return;
+  function makeSessionId(start, end, suffix = "") {
+    return `session-${start}-${end}${suffix}`;
+  }
+
+  function addSession(state, start, end, options = {}) {
+    if (!(end > start)) return [];
+    const ids = [];
     let cursor = start;
+    let segmentIndex = 0;
     while (cursor < end) {
       const segmentEnd = Math.min(end, nextDayStart(cursor));
       const durationMs = segmentEnd - cursor;
       const day = ensureDay(state, dateKey(cursor));
-      day.sessions.push({ start: cursor, end: segmentEnd, durationMs });
+      const id = segmentIndex === 0
+        ? (options.id || makeSessionId(start, end))
+        : makeSessionId(start, end, `-${segmentIndex}`);
+      day.sessions.push({ id, start: cursor, end: segmentEnd, durationMs, source: options.source || "timer" });
       day.elapsedMs += durationMs;
+      ids.push(id);
       cursor = segmentEnd;
+      segmentIndex += 1;
     }
+    return ids;
   }
 
   function normalizeDay(day) {
-    const sessions = Array.isArray(day?.sessions) ? day.sessions.map(session => ({
+    const sessions = Array.isArray(day?.sessions) ? day.sessions.map((session, index) => ({
       ...session,
+      id: session.id || makeSessionId(session.start, session.end, `-${index}`),
+      source: session.source || "timer",
       durationMs: Number.isFinite(session.durationMs)
         ? session.durationMs
         : Number(session.minutes || 0) * 60 * SECOND_MS
@@ -91,7 +105,7 @@
   function rollover(state, now) {
     const todayStart = startOfDay(now);
     if (state.activeStart !== null && state.activeStart < todayStart) {
-      addSession(state, state.activeStart, todayStart);
+      addSession(state, state.activeStart, todayStart, { source: "timer" });
       state.activeStart = todayStart;
     } else if (state.activeStart !== null && state.activeStart > now) {
       state.activeStart = now;
@@ -114,8 +128,62 @@
     const recordedMs = Math.floor(rawDurationMs / SECOND_MS) * SECOND_MS;
     state.activeStart = null;
     if (recordedMs < MIN_SESSION_MS) return { recordedMs: 0, discarded: true };
-    addSession(state, start, start + recordedMs);
+    addSession(state, start, start + recordedMs, { source: "timer" });
     return { recordedMs, discarded: false };
+  }
+
+  function parseLocalDateTime(date, time) {
+    const dateMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(date || "");
+    const timeMatch = /^(\d{2}):(\d{2})$/.exec(time || "");
+    if (!dateMatch || !timeMatch) return null;
+    const [, year, month, day] = dateMatch.map(Number);
+    const [, hour, minute] = timeMatch.map(Number);
+    const value = new Date(year, month - 1, day, hour, minute, 0, 0);
+    if (value.getFullYear() !== year || value.getMonth() !== month - 1 || value.getDate() !== day || value.getHours() !== hour || value.getMinutes() !== minute) return null;
+    return value.getTime();
+  }
+
+  function removeSession(state, id) {
+    let removed = null;
+    Object.values(state.days).forEach(day => {
+      day.sessions = day.sessions.filter(session => {
+        if (session.id !== id) return true;
+        day.elapsedMs = Math.max(0, day.elapsedMs - session.durationMs);
+        removed = session;
+        return false;
+      });
+    });
+    return removed;
+  }
+
+  function saveManualSession(state, record, now) {
+    const start = parseLocalDateTime(record.date, record.startTime);
+    const end = parseLocalDateTime(record.date, record.endTime);
+    if (start === null || end === null) return { ok: false, error: "日期或时间格式不正确" };
+    if (end <= start) return { ok: false, error: "结束时间必须晚于开始时间" };
+    if (end > now) return { ok: false, error: "不能记录尚未发生的时间" };
+
+    const overlaps = allSessions(state).some(session =>
+      session.id !== record.id && start < session.end && end > session.start
+    );
+    if (overlaps) return { ok: false, error: "该时间段与已有记录重叠" };
+
+    if (record.id) removeSession(state, record.id);
+    let id = record.id || makeSessionId(start, end, "-manual");
+    const existingIds = new Set(allSessions(state).map(session => session.id));
+    let suffix = 1;
+    while (existingIds.has(id)) {
+      id = makeSessionId(start, end, `-manual-${suffix}`);
+      suffix += 1;
+    }
+    addSession(state, start, end, { id, source: "manual" });
+    return { ok: true, id, durationMs: end - start };
+  }
+
+  function allSessions(state) {
+    return Object.entries(state.days)
+      .flatMap(([date, day]) => day.sessions.map(session => ({ ...session, date })))
+      .sort((a, b) => b.start - a.start);
   }
 
   function dayElapsedMs(state, now) {
@@ -158,6 +226,9 @@
     rollover,
     startClock,
     stopClock,
+    saveManualSession,
+    removeSession,
+    allSessions,
     dayElapsedMs,
     todaySessions,
     hourlyTrend

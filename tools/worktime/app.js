@@ -1,9 +1,11 @@
 (() => {
   "use strict";
 
-  const storageKey = "worktime-dashboard-v1";
+  const storageKey = "worktime-dashboard-v2";
+  const retiredStorageKeys = ["worktime-dashboard-v1"];
   const minuteMs = 60 * 1000;
   const core = window.WorktimeCore;
+  retiredStorageKeys.forEach(key => localStorage.removeItem(key));
   let state = loadState();
   let toastTimer;
 
@@ -34,7 +36,16 @@
     emptyCompleted: document.querySelector("#empty-completed"),
     dialog: document.querySelector("#task-dialog"),
     form: document.querySelector("#task-form"),
-    toast: document.querySelector("#toast")
+    toast: document.querySelector("#toast"),
+    historyList: document.querySelector("#history-list"),
+    recordDialog: document.querySelector("#record-dialog"),
+    recordForm: document.querySelector("#record-form"),
+    recordDialogTitle: document.querySelector("#record-dialog-title"),
+    recordId: document.querySelector("#record-id"),
+    recordDate: document.querySelector("#record-date"),
+    recordStart: document.querySelector("#record-start"),
+    recordEnd: document.querySelector("#record-end"),
+    recordError: document.querySelector("#record-error")
   };
 
   function loadState() {
@@ -136,6 +147,7 @@
     renderRecords(sessions);
     renderTasks(now);
     renderChart(now);
+    renderHistory();
   }
 
   function renderRecords(records) {
@@ -182,6 +194,97 @@
         }).join("")}</div>
         <div class="bar-labels">${[0, 4, 8, 12, 16, 20, 24].map(hour => `<span>${String(hour).padStart(2, "0")}:00</span>`).join("")}</div>
       </div>`;
+  }
+
+  function formatRecordDate(date) {
+    return new Intl.DateTimeFormat("zh-CN", { month: "long", day: "numeric", weekday: "short" }).format(new Date(`${date}T00:00:00`));
+  }
+
+  function timeInputValue(timestamp) {
+    const date = new Date(timestamp);
+    return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+  }
+
+  function renderHistory() {
+    const records = core.allSessions(state);
+    elements.historyList.innerHTML = records.map(record => `
+      <article class="history-item">
+        <div class="history-date"><strong>${formatRecordDate(record.date)}</strong><span>${record.date}</span></div>
+        <div class="history-period"><strong>${formatTime(record.start)}–${formatTime(record.end)}</strong><span>${record.source === "manual" ? "手动记录" : "计时记录"}</span></div>
+        <strong class="history-duration">${formatDuration(record.durationMs)}</strong>
+        <div class="history-actions">
+          <button type="button" data-edit-record="${record.id}" aria-label="修改 ${record.date} 的工作记录">修改</button>
+          <button type="button" data-delete-record="${record.id}" aria-label="删除 ${record.date} 的工作记录">删除</button>
+        </div>
+      </article>`).join("") || `<div class="empty-history"><span>◷</span><strong>还没有历史记录</strong><p>点击“手动记录”补充今天或往日的工作时间。</p></div>`;
+  }
+
+  function openRecordDialog(record) {
+    const now = new Date();
+    elements.recordForm.reset();
+    elements.recordError.textContent = "";
+    elements.recordDate.max = core.dateKey(now.getTime());
+    if (record) {
+      elements.recordDialogTitle.textContent = "修改工作记录";
+      elements.recordId.value = record.id;
+      elements.recordDate.value = record.date;
+      elements.recordStart.value = timeInputValue(record.start);
+      elements.recordEnd.value = timeInputValue(record.end);
+    } else {
+      const endMinutes = now.getHours() * 60 + now.getMinutes();
+      const startMinutes = Math.max(0, endMinutes - 60);
+      const formatClockMinutes = value => `${String(Math.floor(value / 60)).padStart(2, "0")}:${String(value % 60).padStart(2, "0")}`;
+      elements.recordDialogTitle.textContent = "手动记录工作";
+      elements.recordId.value = "";
+      elements.recordDate.value = core.dateKey(now.getTime());
+      elements.recordStart.value = formatClockMinutes(startMinutes);
+      elements.recordEnd.value = formatClockMinutes(endMinutes);
+    }
+    elements.recordDialog.showModal();
+  }
+
+  function saveRecord(event) {
+    event.preventDefault();
+    if (event.submitter?.value === "cancel") return elements.recordDialog.close();
+    const result = core.saveManualSession(state, {
+      id: elements.recordId.value || null,
+      date: elements.recordDate.value,
+      startTime: elements.recordStart.value,
+      endTime: elements.recordEnd.value
+    }, Date.now());
+    if (!result.ok) {
+      elements.recordError.textContent = result.error;
+      return;
+    }
+    saveState();
+    elements.recordDialog.close();
+    render();
+    showToast(elements.recordId.value ? "工作记录已更新" : "工作记录已添加");
+  }
+
+  function handleHistoryAction(event) {
+    const editButton = event.target.closest("[data-edit-record]");
+    const deleteButton = event.target.closest("[data-delete-record]");
+    const id = editButton?.dataset.editRecord || deleteButton?.dataset.deleteRecord;
+    if (!id) return;
+    const record = core.allSessions(state).find(session => session.id === id);
+    if (!record) return;
+    if (editButton) return openRecordDialog(record);
+    if (!window.confirm(`确定删除 ${record.date} ${formatTime(record.start)}–${formatTime(record.end)} 的记录吗？`)) return;
+    core.removeSession(state, id);
+    saveState();
+    render();
+    showToast("工作记录已删除");
+  }
+
+  function clearAllData() {
+    if (!window.confirm("确定清除全部工作记录、任务和设置吗？此操作无法撤销。")) return;
+    localStorage.removeItem(storageKey);
+    retiredStorageKeys.forEach(key => localStorage.removeItem(key));
+    state = core.normalizeState({}, Date.now());
+    saveState();
+    render();
+    showToast("全部数据已清除");
   }
 
   function toggleClock() {
@@ -244,7 +347,11 @@
   elements.clockButton.addEventListener("click", toggleClock);
   document.querySelector("#edit-target").addEventListener("click", setTarget);
   document.querySelector("#add-task").addEventListener("click", () => elements.dialog.showModal());
+  document.querySelector("#add-record").addEventListener("click", () => openRecordDialog());
+  document.querySelector("#clear-data").addEventListener("click", clearAllData);
   elements.form.addEventListener("submit", addTask);
+  elements.recordForm.addEventListener("submit", saveRecord);
+  elements.historyList.addEventListener("click", handleHistoryAction);
   [elements.taskList, elements.completedList].forEach(list => {
     list.addEventListener("change", toggleTask);
     list.addEventListener("click", deleteTask);
@@ -259,7 +366,7 @@
   document.querySelectorAll("[data-nav]").forEach(button => button.addEventListener("click", () => {
     document.querySelectorAll(".nav-item").forEach(item => item.classList.toggle("is-active", item === button));
     if (button.dataset.nav === "settings") return setTarget();
-    document.querySelector(button.dataset.nav === "dashboard" ? ".time-card" : button.dataset.nav === "records" ? ".records-card" : ".chart-card").scrollIntoView({ behavior: "smooth", block: "center" });
+    document.querySelector(button.dataset.nav === "dashboard" ? ".time-card" : button.dataset.nav === "records" ? ".history-card" : ".chart-card").scrollIntoView({ behavior: "smooth", block: "center" });
   }));
 
   render();
