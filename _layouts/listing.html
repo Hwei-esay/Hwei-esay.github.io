@@ -16,42 +16,59 @@ layout: default
   {% assign items = site.academia | reverse %}
 {% endif %}
 
-<section class="content-page listing-page">
-  <header class="page-header">
-    <h1>{{ page.title }}</h1>
-    <p>{{ page.description | default: section.description }}</p>
-  </header>
+<section class="catalog-shell">
+  <aside class="catalog-nav">
+    <a class="catalog-brand" href="{{ '/' | relative_url }}">H. Guo</a>
+    <nav aria-label="Content navigation">
+      <a href="{{ '/' | relative_url }}"><span>⌂</span> Home</a>
+      <a href="{{ '/tutorials/' | relative_url }}"{% if key == 'tutorials' %} class="is-active"{% endif %}><span>◇</span> Projects</a>
+      <a href="{{ '/blog/' | relative_url }}"{% if key == 'posts' %} class="is-active"{% endif %}><span>▣</span> Notes</a>
+      <a href="{{ '/academia/' | relative_url }}"{% if key == 'academia' %} class="is-active"{% endif %}><span>○</span> Academia</a>
+      <a href="{{ '/about/' | relative_url }}"><span>△</span> About</a>
+    </nav>
+    <blockquote>The universe is not only stranger than we imagine, it is stranger than we can imagine.</blockquote>
+    <div class="catalog-socials">
+      <a href="{{ site.social.github }}" aria-label="GitHub">GH</a>
+      <a href="{{ site.social.email }}" aria-label="Email">@</a>
+      <button class="theme-toggle theme-toggle--catalog" type="button" aria-label="切换深浅色模式" aria-pressed="false"><span class="theme-toggle-track"><span class="theme-toggle-dot"></span></span></button>
+    </div>
+  </aside>
 
-  <div class="listing-layout">
-    <aside class="listing-sidebar">
-      <p class="panel-label">分类目录</p>
-      <div class="sidebar-filters" aria-label="Content filters">
-        <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">全部 <span>›</span></button>
-        {% if key == "posts" and site.categories != empty %}
-          {% for category in site.categories %}
-            <button class="filter-button" type="button" data-filter="{{ category[0] | escape }}" aria-pressed="false">{{ category[0] }}</button>
-          {% endfor %}
-        {% else %}
-          <a href="{{ '/blog/' | relative_url }}">文章</a>
-          <a href="{{ '/tutorials/' | relative_url }}">教程</a>
-          <a href="{{ '/skills/' | relative_url }}">Skills</a>
-          <a href="{{ '/academia/' | relative_url }}">学术笔记</a>
-        {% endif %}
+  <main class="catalog-main">
+    <header class="catalog-header">
+      <div>
+        <p class="eyebrow">ARCHIVE / {{ key | upcase }}</p>
+        <h1>{{ page.title }}</h1>
+        <p>{{ page.description | default: section.description }}</p>
       </div>
-    </aside>
+      <label class="catalog-search" for="site-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+        <input id="site-search" type="search" placeholder="Search notes..." autocomplete="off">
+      </label>
+    </header>
 
-    <div class="archive-table" role="list">
-      <div class="archive-head" aria-hidden="true"><span>#</span><span>标题</span><span>分类</span><span>日期</span></div>
+    <div class="filter-chips" aria-label="Content filters">
+      <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+      {% if key == "posts" and site.categories != empty %}
+        {% for category in site.categories %}<button class="filter-button" type="button" data-filter="{{ category[0] | escape }}" aria-pressed="false">{{ category[0] }}</button>{% endfor %}
+      {% else %}
+        <a href="{{ '/blog/' | relative_url }}">Notes</a>
+        <a href="{{ '/tutorials/' | relative_url }}">Projects</a>
+        <a href="{{ '/academia/' | relative_url }}">Academia</a>
+        <a href="{{ '/skills/' | relative_url }}">Skills</a>
+      {% endif %}
+    </div>
+
+    <div class="archive-list">
       {% for item in items %}
-        <a class="archive-row" role="listitem" href="{{ item.url | relative_url }}" data-categories="{{ item.categories | join: ',' | escape }}">
-          <span class="archive-index">{{ forloop.index | prepend: "0" | slice: -2, 2 }}</span>
-          <span class="archive-title"><strong>{{ item.title }}</strong><small>{{ item.summary | default: item.description | default: item.excerpt | strip_html | strip_newlines | truncate: 88 }}</small></span>
-          <span class="archive-taxonomy">
-            {% if item.categories and item.categories != empty %}{{ item.categories | join: " / " }}{% elsif item.tags and item.tags != empty %}{{ item.tags | join: " / " }}{% else %}{{ key }}{% endif %}
-          </span>
+        <a class="archive-row" href="{{ item.url | relative_url }}" data-categories="{{ item.categories | join: ',' | escape }}" data-search="{{ item.title | append: ' ' | append: item.description | append: ' ' | append: item.tags | strip_html | escape }}">
           <time datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%Y-%m-%d" }}</time>
+          <span class="archive-title"><strong>{{ item.title }}</strong><small>{{ item.summary | default: item.description | default: item.excerpt | strip_html | strip_newlines | truncate: 94 }}</small></span>
+          <span class="archive-taxonomy">{% if item.categories and item.categories != empty %}{{ item.categories | first }}{% elsif item.tags and item.tags != empty %}{{ item.tags | first }}{% else %}{{ key }}{% endif %}</span>
+          <span class="archive-arrow" aria-hidden="true">→</span>
         </a>
       {% endfor %}
+      <p class="empty-state" hidden>没有找到匹配内容。</p>
     </div>
-  </div>
+  </main>
 </section>

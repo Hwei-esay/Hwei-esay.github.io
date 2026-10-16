@@ -1,29 +1,22 @@
 <header class="site-header">
   <a class="site-brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
-    <strong>墨语轻笺</strong>
-    <span>记录思考，分享生活</span>
+    <strong>H. Guo</strong>
+    <span>Signals &amp; Notes</span>
   </a>
 
   <nav class="site-nav" aria-label="Main navigation">
-    {% assign nav_items = site.data.sections | where: "nav", true %}
-    {% for item in nav_items %}
-      {% unless item.key == "skills" or item.key == "academia" or item.key == "hamilton" or item.key == "links" %}
-      {% assign item_active = false %}
-      {% if item.url == "/" and page.url == "/" %}
-        {% assign item_active = true %}
-      {% elsif item.url != "/" and page.url contains item.url %}
-        {% assign item_active = true %}
-      {% endif %}
-      {% assign nav_title = item.title %}
-      {% if item.key == "home" %}{% assign nav_title = "首页" %}{% endif %}
-      {% if item.key == "posts" %}{% assign nav_title = "文章" %}{% endif %}
-      {% if item.key == "moments" %}{% assign nav_title = "归档" %}{% endif %}
-      {% if item.key == "tutorials" %}{% assign nav_title = "项目" %}{% endif %}
-      {% if item.key == "about" %}{% assign nav_title = "关于我" %}{% endif %}
-      <a href="{{ item.url | relative_url }}"{% if item_active %} class="is-active" aria-current="page"{% endif %}>{{ nav_title }}</a>
-      {% endunless %}
-    {% endfor %}
-    <a href="{{ '/tools/worktime/' | relative_url }}"{% if page.url contains '/tools/worktime/' %} class="is-active" aria-current="page"{% endif %}>工作时光</a>
-    <a href="{{ '/links/' | relative_url }}"{% if page.url contains '/links/' %} class="is-active" aria-current="page"{% endif %}>Links</a>
+    <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="is-active" aria-current="page"{% endif %}>Home</a>
+    <a href="{{ '/tutorials/' | relative_url }}"{% if page.url contains '/tutorials/' %} class="is-active" aria-current="page"{% endif %}>Projects</a>
+    <a href="{{ '/blog/' | relative_url }}"{% if page.url contains '/blog/' %} class="is-active" aria-current="page"{% endif %}>Notes</a>
+    <a href="{{ '/about/' | relative_url }}"{% if page.url contains '/about/' %} class="is-active" aria-current="page"{% endif %}>About</a>
   </nav>
+
+  <div class="header-actions">
+    <a class="icon-button" href="{{ '/blog/#site-search' | relative_url }}" aria-label="搜索文章">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
+    </a>
+    <button class="theme-toggle" type="button" aria-label="切换深浅色模式" aria-pressed="false">
+      <span class="theme-toggle-track"><span class="theme-toggle-dot"></span></span>
+    </button>
+  </div>
 </header>

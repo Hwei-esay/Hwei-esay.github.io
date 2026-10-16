@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: 'zh-CN' }}">
+<html lang="{{ site.lang | default: 'zh-CN' }}" data-theme="light">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
     <meta name="description" content="{{ page.description | default: site.description }}">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#f3f6f8">
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem("hwei-theme");
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = savedTheme || systemTheme;
+      })();
+    </script>
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
     <script>
       window.MathJax = {
@@ -22,7 +29,7 @@
     {% seo %}
     {% feed_meta %}
   </head>
-  <body>
+  <body class="layout-{{ page.layout | default: 'default' }}{% if page.url == '/' %} is-home{% endif %}">
     <a class="skip-link" href="#main-content">skip to content</a>
     <div class="site-shell">
       {% include header.html %}

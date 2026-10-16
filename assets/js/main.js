@@ -1,4 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const themeButtons = [...document.querySelectorAll(".theme-toggle")];
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+
+  const applyTheme = (theme, persist = true) => {
+    document.documentElement.dataset.theme = theme;
+    themeButtons.forEach((button) => button.setAttribute("aria-pressed", String(theme === "dark")));
+    if (themeMeta) themeMeta.content = theme === "dark" ? "#050a11" : "#f3f6f8";
+    if (persist) localStorage.setItem("hwei-theme", theme);
+  };
+
+  applyTheme(document.documentElement.dataset.theme || "light", false);
+  themeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+    });
+  });
+
   const linksProse = document.querySelector(".links-page .prose");
 
   if (linksProse) {
@@ -96,24 +113,55 @@ document.addEventListener("DOMContentLoaded", () => {
         list.appendChild(item);
       });
       toc.replaceChildren(list);
+
+      const tocLinks = [...toc.querySelectorAll("a")];
+      const observer = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (!visible) return;
+        tocLinks.forEach((link) => link.classList.toggle("is-current", link.hash === `#${visible.target.id}`));
+      }, { rootMargin: "-10% 0px -75%", threshold: 0 });
+      headings.forEach((heading) => observer.observe(heading));
     }
   }
 
   const filterButtons = [...document.querySelectorAll(".filter-button")];
   const archiveRows = [...document.querySelectorAll(".archive-row, .link-row")];
+  const searchInput = document.querySelector("#site-search");
+  const emptyState = document.querySelector(".empty-state");
+  let activeFilter = "all";
+
+  const applyFilters = () => {
+    const query = searchInput?.value.trim().toLocaleLowerCase() || "";
+    let visibleCount = 0;
+
+    archiveRows.forEach((row) => {
+      const categories = (row.dataset.categories || "").split(",");
+      const searchable = (row.dataset.search || row.textContent).toLocaleLowerCase();
+      const matchesFilter = activeFilter === "all" || categories.includes(activeFilter);
+      const matchesSearch = !query || searchable.includes(query);
+      row.hidden = !matchesFilter || !matchesSearch;
+      if (!row.hidden) visibleCount += 1;
+    });
+
+    if (emptyState) emptyState.hidden = visibleCount !== 0;
+  };
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      const filter = button.dataset.filter;
+      activeFilter = button.dataset.filter;
       filterButtons.forEach((item) => {
         const active = item === button;
         item.classList.toggle("is-active", active);
         item.setAttribute("aria-pressed", String(active));
       });
-      archiveRows.forEach((row) => {
-        const categories = (row.dataset.categories || "").split(",");
-        row.hidden = filter !== "all" && !categories.includes(filter);
-      });
+      applyFilters();
     });
   });
+
+  searchInput?.addEventListener("input", applyFilters);
+  if (window.location.hash === "#site-search" && searchInput) {
+    window.requestAnimationFrame(() => searchInput.focus());
+  }
 });

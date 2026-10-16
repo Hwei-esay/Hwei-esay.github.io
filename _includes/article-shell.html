@@ -1,0 +1,25 @@
+<article class="article-shell">
+  <aside class="article-rail">
+    <div class="article-rail-head">
+      <a class="catalog-brand" href="{{ '/' | relative_url }}">H. Guo</a>
+      <button class="theme-toggle" type="button" aria-label="切换深浅色模式" aria-pressed="false"><span class="theme-toggle-track"><span class="theme-toggle-dot"></span></span></button>
+    </div>
+    <a class="back-link" href="{{ include.back_url | default: '/blog/' | relative_url }}">← &nbsp;Back to {{ include.back_label | default: 'Notes' }}</a>
+    <nav class="article-rail-toc" aria-label="Table of contents">
+      <p class="panel-label">CONTENTS</p>
+      <div id="article-toc"><span class="muted">indexing...</span></div>
+    </nav>
+    <a class="next-card" href="{{ '/blog/' | relative_url }}"><span>Next signal</span><strong>继续浏览全部笔记</strong><i aria-hidden="true">→</i></a>
+  </aside>
+
+  <main class="article-main">
+    <header class="article-header">
+      <p class="article-kicker">{{ page.section | default: 'NOTE' | upcase }} &nbsp;·&nbsp; {{ page.date | date: "%Y-%m-%d" }}</p>
+      <h1>{{ page.title }}</h1>
+      {% include article-meta.html %}
+      {% if page.summary %}<p class="article-summary">{{ page.summary }}</p>{% endif %}
+    </header>
+    <div class="article-cover" role="img" aria-label="抽象蓝紫色粒子波文章封面"></div>
+    <div class="prose article-content">{{ include.body }}</div>
+  </main>
+</article>
