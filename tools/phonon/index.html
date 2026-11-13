@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -6,8 +8,10 @@
   <title>Phonon Band Viewer</title>
   <meta name="description" content="Upload a phonopy band.yaml file and inspect phonon dispersions, eigenvectors, and vibrational modes.">
   <link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="{{ '/assets/css/site-theme.css' | relative_url }}">
 </head>
-<body>
+<body class="site-page tool-page tool-phonon">
+{% include header.html %}
   <main class="page-shell">
     <section class="hero">
       <p class="eyebrow">Local Tool / GitHub Pages Ready</p>

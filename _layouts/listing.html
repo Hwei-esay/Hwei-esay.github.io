@@ -30,11 +30,10 @@ layout: default
     <div class="catalog-socials">
       <a href="{{ site.social.github }}" aria-label="GitHub">GH</a>
       <a href="{{ site.social.email }}" aria-label="Email">@</a>
-      <button class="theme-toggle theme-toggle--catalog" type="button" aria-label="切换深浅色模式" aria-pressed="false"><span class="theme-toggle-track"><span class="theme-toggle-dot"></span></span></button>
     </div>
   </aside>
 
-  <main class="catalog-main">
+  <div class="catalog-main">
     <header class="catalog-header">
       <div>
         <p class="eyebrow">ARCHIVE / {{ key | upcase }}</p>
@@ -70,5 +69,5 @@ layout: default
       {% endfor %}
       <p class="empty-state" hidden>没有找到匹配内容。</p>
     </div>
-  </main>
+  </div>
 </section>

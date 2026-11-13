@@ -10,7 +10,7 @@ keyboard handlers. This static Jekyll site only needs the resulting decoration.
 No upstream JavaScript, Three.js, FFmpeg or export server is a runtime dependency.
 
 grass.mp4 is a 1600 × 900 H.264/yuv420p derivative with no audio and faststart.
-Conversion filter: scale=1600:-2,hue=s=0,eq=contrast=1.8:brightness=-0.18,format=yuv420p
+Conversion filter: scale=1600:-2,eq=saturation=0.7:contrast=1.35:brightness=-0.08,format=yuv420p
 Encoder settings: libx264, preset medium, crf 28; poster is frame 0, JPEG quality 2.
 The original 166 MiB video and conversion tools are not published.
 
@@ -31,3 +31,6 @@ the same validation and build without deploying. Before this redesign the verifi
 production SHA was 863e23bd85ad183794e7871141fd956218c89f45, run 38903952887.
 Rollback by reverting the redesign PR on a new branch, reviewing/merging the revert
 into master, and waiting for the existing Pages deployment. Do not force-push.
+
+All reading layouts and the three embedded tools share assets/css/site-theme.css.
+Interior pages use the colored static poster at low opacity to protect readability.

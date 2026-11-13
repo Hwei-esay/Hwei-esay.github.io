@@ -5,11 +5,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const applyTheme = (theme, persist = true) => {
     document.documentElement.dataset.theme = theme;
     themeButtons.forEach((button) => button.setAttribute("aria-pressed", String(theme === "dark")));
-    if (themeMeta) themeMeta.content = theme === "dark" ? "#050a11" : "#f3f6f8";
+    if (themeMeta) themeMeta.content = theme === "dark" ? "#0b0f12" : "#f3f6f8";
     if (persist) localStorage.setItem("hwei-theme", theme);
   };
 
-  applyTheme(document.documentElement.dataset.theme || "light", false);
+  applyTheme(document.body.classList.contains("site-page") ? "dark" : (document.documentElement.dataset.theme || "light"), false);
   themeButtons.forEach((button) => {
     button.addEventListener("click", () => {
       applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");

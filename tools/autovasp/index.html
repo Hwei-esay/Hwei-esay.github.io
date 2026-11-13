@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
@@ -5,27 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AutoVASP Configurator | Hwei's Signals</title>
     <meta name="description" content="图形化配置并生成完整的 AutoVASP 作业脚本。">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#0b0f12">
     <link rel="stylesheet" href="../../assets/css/main.css">
     <link rel="stylesheet" href="./styles.css">
-  </head>
-  <body>
+  <link rel="stylesheet" href="{{ '/assets/css/site-theme.css' | relative_url }}">
+</head>
+  <body class="site-page tool-page tool-autovasp">
     <a class="skip-link" href="#main-content">skip to content</a>
     <div class="site-shell">
-      <header class="site-header">
-        <a class="site-brand" href="../../" aria-label="墨语轻笺 home">
-          <strong>墨语轻笺</strong>
-          <span>记录思考，分享生活</span>
-        </a>
-        <nav class="site-nav" aria-label="Main navigation">
-          <a href="../../">首页</a>
-          <a href="../../blog/">文章</a>
-          <a href="../../moments/">归档</a>
-          <a href="../../tutorials/" class="is-active" aria-current="page">项目</a>
-          <a href="../../about/">关于我</a>
-          <a class="nav-search" href="../../links/" aria-label="Search">⌕</a>
-        </nav>
-      </header>
+      {% include header.html %}
 
       <main class="site-main autovasp-page" id="main-content">
         <header class="tool-hero">
