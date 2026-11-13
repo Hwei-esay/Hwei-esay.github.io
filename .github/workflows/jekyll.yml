@@ -1,6 +1,8 @@
 name: Deploy Jekyll site to Pages
 
 on:
+  pull_request:
+    branches: ["master"]
   push:
     branches: ["master"]
   workflow_dispatch:
@@ -11,7 +13,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  group: "pages-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
@@ -28,6 +30,7 @@ jobs:
           bundler-cache: true
 
       - name: Setup Pages
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
 
       - name: Validate site structure
@@ -40,6 +43,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
 
   deploy:
+    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

@@ -1,22 +1,8 @@
-<header class="site-header">
-  <a class="site-brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
-    <strong>H. Guo</strong>
-    <span>Signals &amp; Notes</span>
-  </a>
-
+<header class="site-header unified-header">
+  <a class="site-brand" href="{{ '/' | relative_url }}">{{ site.author.name | escape }} <span>/</span></a>
   <nav class="site-nav" aria-label="Main navigation">
-    <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="is-active" aria-current="page"{% endif %}>Home</a>
-    <a href="{{ '/tutorials/' | relative_url }}"{% if page.url contains '/tutorials/' %} class="is-active" aria-current="page"{% endif %}>Projects</a>
-    <a href="{{ '/blog/' | relative_url }}"{% if page.url contains '/blog/' %} class="is-active" aria-current="page"{% endif %}>Notes</a>
-    <a href="{{ '/about/' | relative_url }}"{% if page.url contains '/about/' %} class="is-active" aria-current="page"{% endif %}>About</a>
+    <a href="{{ '/tutorials/' | relative_url }}"{% if page.url contains '/tutorials/' %} aria-current="page"{% endif %}>Work</a>
+    <a href="{{ '/blog/' | relative_url }}"{% if page.url contains '/blog/' %} aria-current="page"{% endif %}>Notes</a>
+    <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a>
   </nav>
-
-  <div class="header-actions">
-    <a class="icon-button" href="{{ '/blog/#site-search' | relative_url }}" aria-label="搜索文章">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4 4"></path></svg>
-    </a>
-    <button class="theme-toggle" type="button" aria-label="切换深浅色模式" aria-pressed="false">
-      <span class="theme-toggle-track"><span class="theme-toggle-dot"></span></span>
-    </button>
-  </div>
 </header>

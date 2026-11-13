@@ -1,38 +1,67 @@
----
-layout: default
----
-
-{% assign recent_posts = site.posts | slice: 0, 3 %}
-
-<section class="home-hero" aria-labelledby="home-title">
-  <div class="hero-copy">
-    <p class="eyebrow">RESEARCH&nbsp;&nbsp;/&nbsp;&nbsp;THINKING&nbsp;&nbsp;/&nbsp;&nbsp;LIFE</p>
-    <h1 id="home-title">记录思考<br>也记录前行。</h1>
-    <p class="hero-intro">这是我的个人信号站，<br>记录一些项目进展、学术思考和生活片段。</p>
-    <a class="hero-cta" href="{{ '/blog/' | relative_url }}">查看最新文章 <span aria-hidden="true">→</span></a>
-  </div>
-  <div class="hero-footnote"><span></span><p>Better Questions.<br>Lead to Deeper Understanding.</p></div>
-  <p class="hero-counter">01<br><span>/ 04</span></p>
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'zh-CN' }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0B0F12">{% seo %}{% feed_meta %}
+<link rel="stylesheet" href="{{ '/assets/css/home.css' | relative_url }}">
+<script src="{{ '/assets/js/grass.js' | relative_url }}" defer>
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<div class="landing">
+<div class="grass" aria-hidden="true">
+<img src="{{ '/assets/media/grass-poster.jpg' | relative_url }}" alt="" fetchpriority="high">
+<video muted loop playsinline preload="none" poster="{{ '/assets/media/grass-poster.jpg' | relative_url }}" data-src="{{ '/assets/media/grass.mp4' | relative_url }}">
+</video>
+</div>
+<header class="header">
+<a class="brand" href="{{ '/' | relative_url }}">{{ site.author.name | escape }} <span>/</span>
+</a>
+<nav aria-label="Main navigation">
+<a href="{{ '/tutorials/' | relative_url }}">Work</a>
+<a href="{{ '/blog/' | relative_url }}">Notes</a>
+<a href="{{ '/about/' | relative_url }}">About</a>
+</nav>
+</header>
+<main id="main-content" class="hero">
+<p class="eyebrow">RESEARCHER / MAKER</p>{% assign names = site.author.name | split: ' ' %}<h1>{{ names | first | escape }}<br>{{ names | shift | join: ' ' | escape }}.</h1>
+<p class="intro">A space for ideas, code, and things in progress.</p>
+<div class="hero-links">
+<a href="{{ '/tutorials/' | relative_url }}">Selected work <span aria-hidden="true">↗</span>
+</a>
+<a href="{{ '/blog/' | relative_url }}">Read my notes <span aria-hidden="true">↗</span>
+</a>
+</div>
+</main>
+<div class="hero-footer">
+<a class="scroll" href="#explore">SCROLL TO EXPLORE ↓</a>
+<div class="social">
+<button type="button" class="motion" hidden aria-pressed="false">Pause motion</button>
+<a href="{{ site.social.github }}">GitHub</a>
+<a href="{{ site.social.email }}">Email</a>
+</div>
+</div>
+</div>
+<section id="explore" class="explore" aria-labelledby="recent-title">
+<div class="section-heading">
+<h2 id="recent-title">Recent notes</h2>
+<a href="{{ '/blog/' | relative_url }}">All notes ↗</a>
+</div>
+<div class="notes">{% for post in site.posts limit:3 %}<article>
+<time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y.%m.%d' }}</time>
+<h3>
+<a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+</h3>
+<p>{{ post.description | default: post.excerpt | strip_html | truncate: 100 }}</p>
+</article>{% endfor %}</div>
+<div class="section-heading">
+<h2>Explore the collection</h2>
+</div>
+<nav class="collections" aria-label="Content collections">{% for section in site.data.sections %}{% unless section.key == 'home' %}<a href="{{ section.url | relative_url }}">{{ section.title }} <span aria-hidden="true">↗</span>
+</a>{% endunless %}{% endfor %}</nav>
 </section>
-
-<section class="recent-section" aria-labelledby="recent-title">
-  <header class="recent-heading">
-    <h2 id="recent-title">Recent Posts</h2>
-    <a href="{{ '/blog/' | relative_url }}">View All <span aria-hidden="true">→</span></a>
-  </header>
-  <div class="recent-grid">
-    {% for post in recent_posts %}
-      <article class="post-card post-card-{{ forloop.index }}">
-        <a class="post-card-visual" href="{{ post.url | relative_url }}" tabindex="-1" aria-hidden="true"></a>
-        <div class="post-card-body">
-          <p class="post-card-kicker">{% if post.categories and post.categories != empty %}{{ post.categories | first }}{% else %}思考 &amp; 记录{% endif %}</p>
-          <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-          <div class="post-card-meta">
-            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
-            <span aria-hidden="true">→</span>
-          </div>
-        </div>
-      </article>
-    {% endfor %}
-  </div>
-</section>
+<footer class="footer">© {{ site.time | date: '%Y' }} {{ site.author.name | escape }}</footer>
+</body>
+</html>
