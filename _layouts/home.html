@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0B0F12">{% seo %}{% feed_meta %}
 <link rel="stylesheet" href="{{ '/assets/css/home.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/ascii-grass.css' | relative_url }}">
 <script src="{{ '/assets/js/grass.js' | relative_url }}" defer>
 </script>
 </head>
@@ -12,9 +13,7 @@
 <a class="skip-link" href="#main-content">Skip to content</a>
 <div class="landing">
 <div class="grass" aria-hidden="true">
-<img src="{{ '/assets/media/grass-poster.jpg' | relative_url }}" alt="" fetchpriority="high">
-<video muted loop playsinline preload="none" poster="{{ '/assets/media/grass-poster.jpg' | relative_url }}" data-src="{{ '/assets/media/grass.mp4' | relative_url }}">
-</video>
+{% include ascii-grass.html animate=true %}
 </div>
 <header class="header">
 <a class="brand" href="{{ '/' | relative_url }}">{{ site.author.name | escape }} <span>/</span>

@@ -11,8 +11,11 @@
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./refresh.css">
 <link rel="stylesheet" href="{{ '/assets/css/site-theme.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/ascii-grass.css' | relative_url }}">
+<script src="{{ '/assets/js/grass.js' | relative_url }}" defer></script>
 </head>
 <body class="site-page tool-page tool-worktime">
+<div class="interior-grass">{% include ascii-grass.html %}</div>
 {% include header.html %}
   <div class="app-shell">
     <aside class="sidebar">
