@@ -1,0 +1,37 @@
+/* Three ordinary text layers; color and layout can be tuned independently. */
+.ascii-field {
+  --ascii-shadow: #486955;
+  --ascii-green: #8daa74;
+  --ascii-sun: #d2cf93;
+  --ascii-size: calc(100vw / 54);
+  --ascii-leading: 2.6vh;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.ascii-field .ascii-layer {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  white-space: pre;
+  font-family: "Courier New", Courier, monospace;
+  font-size: var(--ascii-size);
+  font-weight: 400;
+  line-height: var(--ascii-leading);
+  letter-spacing: 0;
+  text-shadow: none;
+  overflow: hidden;
+}
+.ascii-layer-0 { color: var(--ascii-shadow); }
+.ascii-layer-1 { color: var(--ascii-green); }
+.ascii-layer-2 { color: var(--ascii-sun); }
+.grass .ascii-field { mask-image: linear-gradient(110deg,transparent 13%,#0005 34%,#000 60%); }
+body.site-page { isolation: isolate; }
+.interior-grass { position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.18; mask-image:linear-gradient(90deg,transparent,#000 65%); }
+@media(max-width:600px) {
+  .grass .ascii-field { mask-image:linear-gradient(to bottom,transparent,#000 65%); }
+}

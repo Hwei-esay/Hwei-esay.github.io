@@ -1,36 +1,24 @@
-# Homepage grass background
+# ASCII grass background
 
-Source: https://github.com/yusen-dev/living-ascii/releases/tag/wallpapers-v1
-Original: grass-desktop-4k.mp4 (12 seconds, 3840 × 2160, 30 fps).
-Copyright (c) 2026 Yusen. MIT license: living-ascii-LICENSE.txt.
+The live background is original procedural JavaScript, not a video, image filter or WebGL effect.
+assets/js/grass.js creates three text grids from deterministic grass stems and wind curves.
+The displayed strokes are real ASCII characters in HTML pre elements, tinted green and pale gold.
 
-The upstream src/main.js and src/post.js were inspected before choosing video:
-the interactive demo includes multiple WebGL passes, export endpoints and global
-keyboard handlers. This static Jekyll site only needs the resulting decoration.
-No upstream JavaScript, Three.js, FFmpeg or export server is a runtime dependency.
+Settings at the top of grass.js control density, speed, fps (12), maxColumns (160),
+maxRows (64), and cellWidth (9). Colors are CSS variables in assets/css/ascii-grass.css.
+Composition masks and placement remain in home.css and ascii-grass.css.
+The homepage animates; reading and tool pages render one static frame.
 
-grass.mp4 is a 1600 × 900 H.264/yuv420p derivative with no audio and faststart.
-Conversion filter: scale=1600:-2,eq=saturation=0.7:contrast=1.35:brightness=-0.08,format=yuv420p
-Encoder settings: libx264, preset medium, crf 28; poster is frame 0, JPEG quality 2.
-The original 166 MiB video and conversion tools are not published.
+_includes/ascii-grass.html contains the same renderer's phase-zero text as a no-JS fallback.
+Reduced motion renders a still frame. Hidden or offscreen pages pause requestAnimationFrame.
+The pause button is keyboard accessible. pagehide cleanup disconnects observers and listeners;
+bfcache restoration resumes only when appropriate. No global key handlers are installed.
 
-Edit assets/css/home.css for colors, brightness, masks, visible area and responsive
-layout. Edit playbackRate (currently 0.7) in assets/js/grass.js for speed.
-Stroke density is baked into the source video; changing it requires a new export
-with upstream density and output-size parameters, followed by replacing both assets.
-The image remains visible if JS, autoplay or video decoding fails. Reduced motion
-does not load the video. Offscreen/hidden pages pause it. A keyboard-accessible
-button also allows visitors to pause motion.
+The previous living-ascii video assets have been removed. The upstream implementation was
+reviewed as a visual reference; no upstream renderer code is copied. Its historical MIT
+notice is retained in living-ascii-LICENSE.txt for attribution of the previous release.
 
-Name and contact links come from _config.yml (author.name and social).
-Intro and primary navigation live in _layouts/home.html. Collection links come
-from _data/sections.yml. All local URLs pass through relative_url.
-
-Deployment: existing Jekyll GitHub Actions on master, output _site. PR builds run
-the same validation and build without deploying. Before this redesign the verified
-production SHA was 863e23bd85ad183794e7871141fd956218c89f45, run 38903952887.
-Rollback by reverting the redesign PR on a new branch, reviewing/merging the revert
-into master, and waiting for the existing Pages deployment. Do not force-push.
-
-All reading layouts and the three embedded tools share assets/css/site-theme.css.
-Interior pages use the colored static poster at low opacity to protect readability.
+Name/contact: _config.yml. Homepage copy: _layouts/home.html.
+Shared page theme: assets/css/site-theme.css. Routes and article data are unchanged.
+Rollback baseline for the live-text change: 9669123dc9731e95dac3bf45c0a4d1f5de55ddf1.
+Revert the live-text PR through a new PR and allow the existing master workflow to deploy.
