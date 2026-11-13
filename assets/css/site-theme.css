@@ -65,6 +65,12 @@ body.site-page { margin:0; color:var(--text); background:var(--bg); font-family:
 .tool-page .greeting-icon,.tool-page .profile,.tool-page .status-pane,.tool-page .summary-pane,.tool-page .progress-ring>div { color:var(--text); background:var(--surface); box-shadow:none; }
 .tool-page .card h2,.tool-page .card h3,.tool-page .card strong,.tool-page .topbar h1,.tool-page .sidebar strong { color:var(--text); }
 .tool-page .card p,.tool-page .card small,.tool-page .sidebar small,.tool-page .sidebar-quote { color:var(--muted); }
+.tool-phonon .layout-grid>* { min-width:0; }
+.tool-phonon .panel-header { flex-wrap:wrap; }
+.tool-phonon .plot-tools { flex-wrap:wrap; max-width:100%; }
+.tool-phonon .control-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.tool-phonon .plot-wrap,.tool-phonon .viewer-wrap { max-width:100%; min-width:0; }
+.tool-worktime .elapsed-seconds,.tool-worktime .metrics strong { color:var(--text); }
 @media(max-width:900px) {
   .site-page .catalog-shell { grid-template-columns:1fr; }
   .site-page .catalog-nav { display:block; padding:18px 24px; }
