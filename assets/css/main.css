@@ -315,7 +315,7 @@ img, svg { max-width: 100%; }
 .post-card:hover { border-color: var(--line-strong); transform: translateY(-3px); }
 .post-card-visual { display: block; min-height: 126px; background-position: center; background-size: cover; }
 .post-card-1 .post-card-visual { background-image: url("/assets/images/design/home-hero-dark.webp"); }
-.post-card-2 .post-card-visual { background-image: url("/assets/physics/haldane3d.jpg"); }
+.post-card-2 .post-card-visual { background-image: linear-gradient(135deg, #192820, #0b0f12); }
 .post-card-3 .post-card-visual { background-image: url("/assets/images/design/home-hero-light.webp"); }
 .post-card-body { padding: 12px 15px 13px; }
 .post-card-kicker { color: var(--muted); font-size: 0.59rem; }

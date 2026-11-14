@@ -67,7 +67,7 @@ layout: default
           <span class="archive-arrow" aria-hidden="true">→</span>
         </a>
       {% endfor %}
-      <p class="empty-state" hidden>没有找到匹配内容。</p>
+      <p class="empty-state"{% if items.size > 0 %} hidden{% endif %}>{% if items.size > 0 %}没有找到匹配内容。{% else %}暂无文章。{% endif %}</p>
     </div>
   </div>
 </section>
